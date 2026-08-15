@@ -1,13 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
 import { ArrowRightIcon } from "@/components/ui/icons";
 import { majorPreviews } from "@/data/majors";
 
 export function MajorExplorer() {
   const [activeSlug, setActiveSlug] = useState(majorPreviews[0].slug);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const activeMajor = majorPreviews.find((major) => major.slug === activeSlug) ?? majorPreviews[0];
+
+  const moveToTab = (index: number) => {
+    const nextIndex = (index + majorPreviews.length) % majorPreviews.length;
+    setActiveSlug(majorPreviews[nextIndex].slug);
+    tabRefs.current[nextIndex]?.focus();
+  };
+
+  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      event.preventDefault();
+      moveToTab(index + 1);
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      event.preventDefault();
+      moveToTab(index - 1);
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      moveToTab(0);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      moveToTab(majorPreviews.length - 1);
+    }
+  };
 
   return (
     <div className="mt-10 overflow-hidden rounded-[1.75rem] border border-ink/10 bg-white shadow-soft lg:grid lg:min-h-[29rem] lg:grid-cols-[0.8fr_1.2fr]">
@@ -19,15 +42,18 @@ export function MajorExplorer() {
               <button
                 key={major.slug}
                 id={`major-tab-${major.slug}`}
+                ref={(element) => { tabRefs.current[index] = element; }}
                 type="button"
                 role="tab"
                 aria-selected={selected}
                 aria-controls="major-panel"
+                tabIndex={selected ? 0 : -1}
                 onClick={() => setActiveSlug(major.slug)}
+                onKeyDown={(event) => handleTabKeyDown(event, index)}
                 className={`group flex min-h-24 w-full flex-col items-start justify-between rounded-2xl p-4 text-left transition-colors lg:min-h-0 lg:flex-row lg:items-center lg:px-5 lg:py-4 ${selected ? "bg-ink-strong text-white" : "hover:bg-secondary/25"}`}
               >
                 <span>
-                  <span className={`block text-[0.65rem] font-extrabold uppercase tracking-[0.18em] ${selected ? "text-secondary" : "text-primary"}`}>0{index + 1}</span>
+                  <span className={`block text-[0.65rem] font-extrabold uppercase tracking-[0.18em] ${selected ? "text-secondary" : "text-primary-strong"}`}>0{index + 1}</span>
                   <span className="mt-1.5 block text-sm font-extrabold leading-snug tracking-[-0.02em] sm:text-base">{major.name}</span>
                 </span>
                 <span className={`mt-2 text-xs font-black ${selected ? "text-accent-strong" : "text-ink-muted"}`}>{major.code}</span>

@@ -10,7 +10,7 @@ function TickerItems({ hidden = false }: { hidden?: boolean }) {
             <span className="rounded-full bg-accent-soft px-3 py-1 text-[0.65rem] font-extrabold uppercase tracking-[0.16em] text-ink-strong">{achievement.level}</span>
             <span className="text-sm font-bold tracking-[-0.01em] sm:text-base">{achievement.title}</span>
             <span className="text-xs font-extrabold text-ink-muted">{achievement.year}</span>
-            <ArrowUpRightIcon className="size-4 text-primary transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRightIcon className="size-4 text-primary-strong transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </li>
       ))}

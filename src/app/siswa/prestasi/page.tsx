@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { withPageTwitter } from "@/lib/metadata";
 import { AchievementGallery } from "@/components/students/achievement-gallery";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { StudentBreadcrumb } from "@/components/students/student-breadcrumb";
 import { StudentNavigation } from "@/components/students/student-navigation";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageTwitter({
   title: "Prestasi Siswa",
   description: "Galeri prestasi akademik dan nonakademik siswa SMK Negeri 2 Surabaya.",
   alternates: { canonical: "/siswa/prestasi" },
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
     description: "Capaian siswa di bidang teknologi, desain, seni, dan olahraga.",
     url: "/siswa/prestasi",
   },
-};
+});
 
 export default function StudentAchievementsPage() {
   return (
@@ -27,7 +28,7 @@ export default function StudentAchievementsPage() {
           <div className="mt-12 grid items-end gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20">
             <div>
               <p className="eyebrow">Galeri prestasi</p>
-              <h1 className="mt-5 max-w-5xl text-[clamp(3.8rem,8vw,8rem)] font-black leading-[0.84] tracking-[-0.075em] text-ink-strong">Proses yang naik <span className="block text-primary">ke podium.</span></h1>
+              <h1 className="mt-5 max-w-5xl text-[clamp(3.8rem,8vw,8rem)] font-black leading-[0.84] tracking-[-0.075em] text-ink-strong">Proses yang naik <span className="block text-primary-strong">ke podium.</span></h1>
             </div>
             <p className="max-w-xl text-lg font-medium leading-8 text-ink-muted sm:text-xl sm:leading-9">Catatan capaian siswa dari sumber publik sekolah, disusun agar mudah dijelajahi berdasarkan tingkat dan bidang.</p>
           </div>

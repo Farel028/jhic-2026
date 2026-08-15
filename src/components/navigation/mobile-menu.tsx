@@ -48,7 +48,7 @@ export function MobileMenu() {
               {primaryNavigation.map((item, index) => (
                 <li key={item.href}>
                   <Link href={item.href} onClick={closeMenu} className="group flex items-center gap-4 rounded-2xl px-3 py-3.5 text-2xl font-bold tracking-[-0.04em] transition-colors hover:bg-secondary/35">
-                    <span className="w-6 text-xs font-bold text-primary">0{index + 1}</span>
+                    <span className="w-6 text-xs font-bold text-primary-strong">0{index + 1}</span>
                     {item.label}
                   </Link>
                 </li>

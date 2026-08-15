@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { AboutBreadcrumb } from "@/components/about/about-breadcrumb";
 import { AboutNavigation } from "@/components/about/about-navigation";
@@ -6,7 +7,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
 import { aboutSource, historyTimeline } from "@/data/about";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageTwitter({
   title: "Sejarah Sekolah",
   description:
     "Perjalanan sejarah SMK Negeri 2 Surabaya dari sekolah teknik era awal abad ke-20 hingga menjadi sekolah menengah kejuruan.",
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     description: "Menelusuri jejak panjang pendidikan teknik SMK Negeri 2 Surabaya.",
     url: "/tentang/sejarah",
   },
-};
+});
 
 export default function HistoryPage() {
   return (
@@ -31,7 +32,7 @@ export default function HistoryPage() {
       <section className="relative overflow-hidden bg-ink-strong px-5 py-14 text-white sm:px-8 sm:py-20 lg:px-10 lg:py-28">
         <span aria-hidden="true" className="absolute -right-12 top-10 text-[13rem] font-black leading-none tracking-[-0.1em] text-white/[0.04] sm:text-[23rem]">1912</span>
         <div className="relative mx-auto w-full max-w-site">
-          <AboutBreadcrumb current="Sejarah" />
+          <AboutBreadcrumb current="Sejarah" inverse />
           <div className="mt-16 max-w-6xl">
             <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-secondary">Jejak waktu</p>
             <h1 className="mt-5 text-[clamp(3.7rem,9vw,8.8rem)] font-black leading-[0.84] tracking-[-0.075em]">Lebih dari satu abad bertumbuh.</h1>
@@ -53,7 +54,7 @@ export default function HistoryPage() {
             {historyTimeline.map((event, index) => (
               <li key={event.title} className="relative border-b border-ink/15 py-8 first:pt-0 sm:py-10">
                 <span aria-hidden="true" className={`absolute -left-[2.15rem] top-10 size-3 rounded-full ring-8 ring-background sm:-left-[2.85rem] ${index % 2 === 0 ? "bg-primary" : "bg-accent-strong"}`} />
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-primary">{event.period}</p>
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-primary-strong">{event.period}</p>
                 <h3 className="mt-4 text-2xl font-black leading-tight tracking-[-0.04em] text-ink-strong sm:text-4xl">{event.title}</h3>
                 <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-ink-muted sm:text-lg sm:leading-8">{event.description}</p>
               </li>

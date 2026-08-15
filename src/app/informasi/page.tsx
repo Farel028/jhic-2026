@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { InformationBreadcrumb } from "@/components/information/information-breadcrumb";
 import { InformationNavigation } from "@/components/information/information-navigation";
@@ -6,7 +7,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ArrowRightIcon, ArrowUpRightIcon, MailIcon, MapPinIcon, PhoneIcon } from "@/components/ui/icons";
 import { school, schoolMapUrl } from "@/config/school";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageTwitter({
   title: "Pusat Informasi",
   description: "FAQ, informasi SPMB, kontak, dan kanal layanan resmi SMK Negeri 2 Surabaya.",
   alternates: { canonical: "/informasi" },
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     description: "Temukan jawaban umum, informasi penerimaan murid baru, dan kanal layanan resmi sekolah.",
     url: "/informasi",
   },
-};
+});
 
 const informationCards = [
   {
@@ -63,7 +64,7 @@ export default function InformationPage() {
             <div>
               <p className="eyebrow">Pusat informasi</p>
               <h1 className="mt-5 max-w-5xl text-[clamp(3.8rem,8vw,8rem)] font-black leading-[0.84] tracking-[-0.075em] text-ink-strong">
-                Jawaban jelas. <span className="block text-primary">Kanal yang tepat.</span>
+                Jawaban jelas. <span className="block text-primary-strong">Kanal yang tepat.</span>
               </h1>
             </div>
             <div className="max-w-xl lg:pb-3">
@@ -88,7 +89,7 @@ export default function InformationPage() {
                   <span className="mt-16 block">
                     <span className="block text-2xl font-black tracking-[-0.04em] text-ink-strong">{card.title}</span>
                     <span className="mt-3 block text-sm font-medium leading-6 text-ink-muted">{card.description}</span>
-                    {"href" in card ? <span className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong">{card.action} {"external" in card ? <ArrowUpRightIcon className="size-4" /> : <ArrowRightIcon className="size-4" />}</span> : <span className="mt-6 block text-xs font-extrabold uppercase tracking-[0.12em] text-primary">Menunggu materi terverifikasi</span>}
+                    {"href" in card ? <span className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong">{card.action} {"external" in card ? <ArrowUpRightIcon className="size-4" /> : <ArrowRightIcon className="size-4" />}</span> : <span className="mt-6 block text-xs font-extrabold uppercase tracking-[0.12em] text-primary-strong">Menunggu materi terverifikasi</span>}
                   </span>
                 </>
               );
@@ -109,12 +110,12 @@ export default function InformationPage() {
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <a href={`tel:${school.contact.phoneHref}`} className="rounded-[1.5rem] border border-ink/10 bg-white p-6 shadow-sm transition-transform hover:-translate-y-1">
-              <PhoneIcon className="size-6 text-primary" />
+              <PhoneIcon className="size-6 text-primary-strong" />
               <p className="mt-8 text-xs font-extrabold uppercase tracking-[0.14em] text-ink-muted">Telepon</p>
               <p className="mt-2 text-xl font-black text-ink-strong">{school.contact.phone}</p>
             </a>
             <a href={`mailto:${school.contact.email}`} className="rounded-[1.5rem] border border-ink/10 bg-white p-6 shadow-sm transition-transform hover:-translate-y-1">
-              <MailIcon className="size-6 text-primary" />
+              <MailIcon className="size-6 text-primary-strong" />
               <p className="mt-8 text-xs font-extrabold uppercase tracking-[0.14em] text-ink-muted">Email</p>
               <p className="mt-2 break-all text-xl font-black text-ink-strong">{school.contact.email}</p>
             </a>

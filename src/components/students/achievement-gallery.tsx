@@ -54,11 +54,11 @@ export function AchievementGallery() {
             <div className="p-6 sm:p-7">
               <div className="flex flex-wrap gap-2 text-[0.65rem] font-black uppercase tracking-[0.13em]">
                 <span className="rounded-full bg-accent-soft px-3 py-1.5 text-ink-strong">{achievement.level}</span>
-                <span className="rounded-full bg-secondary/30 px-3 py-1.5 text-primary">{achievement.field}</span>
+                <span className="rounded-full bg-secondary/30 px-3 py-1.5 text-primary-strong">{achievement.field}</span>
                 <span className="px-1 py-1.5 text-ink-muted">{achievement.year}</span>
               </div>
               <h2 className="mt-5 text-2xl font-black leading-tight tracking-[-0.04em] text-ink-strong">{achievement.title}</h2>
-              <p className="mt-3 text-sm font-extrabold text-primary">{achievement.people}</p>
+              <p className="mt-3 text-sm font-extrabold text-primary-strong">{achievement.people}</p>
               <p className="mt-4 text-sm leading-6 text-ink-muted">{achievement.description}</p>
               <a href={achievement.sourceUrl} rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong underline decoration-primary decoration-2 underline-offset-8">
                 Baca sumber <ArrowUpRightIcon className="size-4" />

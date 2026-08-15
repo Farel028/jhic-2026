@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { AboutBreadcrumb } from "@/components/about/about-breadcrumb";
 import { AboutNavigation } from "@/components/about/about-navigation";
@@ -8,7 +9,7 @@ import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
 import { aboutImages, aboutSource, directionThemes } from "@/data/about";
 import { school } from "@/config/school";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageTwitter({
   title: "Visi dan Misi",
   description:
     "Arah pendidikan SMK Negeri 2 Surabaya yang tercermin melalui kompetensi, karakter, keterhubungan industri, dan kesiapan masa depan.",
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     description: "Nilai dan arah pendidikan yang menggerakkan kehidupan sekolah.",
     url: "/tentang/visi-misi",
   },
-};
+});
 
 export default function VisionMissionPage() {
   return (
@@ -56,7 +57,7 @@ export default function VisionMissionPage() {
               {directionThemes.map((theme, index) => (
                 <li key={theme.code} className={`min-h-72 rounded-[1.75rem] border border-ink/10 p-6 shadow-sm sm:p-7 ${index === 0 || index === 3 ? "bg-secondary" : "bg-[#eef7fd]"}`}>
                   <span className="text-xs font-black text-ink-muted">0{index + 1}</span>
-                  <p className="mt-14 text-xs font-black tracking-[0.15em] text-primary">{theme.code}</p>
+                  <p className="mt-14 text-xs font-black tracking-[0.15em] text-primary-strong">{theme.code}</p>
                   <h3 className="mt-3 text-2xl font-black leading-tight tracking-[-0.04em] text-ink-strong">{theme.title}</h3>
                   <p className="mt-4 text-sm font-medium leading-6 text-ink-muted">{theme.description}</p>
                 </li>

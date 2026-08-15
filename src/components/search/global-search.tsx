@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRightIcon, CloseIcon, SearchIcon } from "@/components/ui/icons";
-import { searchEntries, type SearchEntry } from "@/data/search";
+import type { SearchEntry } from "@/data/search";
 
 function normalize(value: string) {
   return value
@@ -51,15 +51,23 @@ function isTypingTarget(target: EventTarget | null) {
 export function GlobalSearch() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const searchIndexPromiseRef = useRef<Promise<readonly SearchEntry[]> | null>(null);
   const [query, setQuery] = useState("");
+  const [entries, setEntries] = useState<readonly SearchEntry[] | null>(null);
 
-  const openSearch = () => {
+  const loadSearchIndex = useCallback(() => {
+    searchIndexPromiseRef.current ??= import("@/data/search").then(({ searchEntries }) => searchEntries);
+    void searchIndexPromiseRef.current.then(setEntries);
+  }, []);
+
+  const openSearch = useCallback(() => {
     const dialog = dialogRef.current;
     if (!dialog || dialog.open) return;
     dialog.showModal();
     document.documentElement.classList.add("search-open");
+    loadSearchIndex();
     requestAnimationFrame(() => inputRef.current?.focus());
-  };
+  }, [loadSearchIndex]);
 
   const closeSearch = () => dialogRef.current?.close();
 
@@ -86,24 +94,28 @@ export function GlobalSearch() {
       window.removeEventListener("keydown", handleShortcut);
       document.documentElement.classList.remove("search-open");
     };
-  }, []);
+  }, [openSearch]);
 
   const results = useMemo(() => {
+    if (!entries) return [];
+
     if (!query.trim()) {
-      return searchEntries
+      return entries
         .filter((entry) => entry.featured)
         .sort((a, b) => (a.featured ?? 99) - (b.featured ?? 99));
     }
 
-    return searchEntries
+    return entries
       .map((entry) => ({ entry, score: rankEntry(entry, query) }))
       .filter((result) => result.score >= 0)
       .sort((a, b) => b.score - a.score || a.entry.title.localeCompare(b.entry.title, "id-ID"))
       .slice(0, 12)
       .map((result) => result.entry);
-  }, [query]);
+  }, [entries, query]);
 
-  const resultLabel = query.trim()
+  const resultLabel = !entries
+    ? "Menyiapkan indeks pencarian…"
+    : query.trim()
     ? `${results.length} hasil ditemukan untuk ${query.trim()}`
     : "Tautan yang sering dicari";
 
@@ -129,8 +141,9 @@ export function GlobalSearch() {
         }}
       >
         <div className="flex max-h-[min(48rem,calc(100dvh-2rem))] flex-col">
+          <h2 id="global-search-title" className="sr-only">Pencarian website</h2>
           <div className="flex items-center gap-3 border-b border-ink/10 bg-white p-4 sm:p-5">
-            <SearchIcon className="size-5 shrink-0 text-primary" />
+            <SearchIcon className="size-5 shrink-0 text-primary-strong" />
             <label htmlFor="global-search-input" className="sr-only">Cari di seluruh website</label>
             <input
               ref={inputRef}
@@ -149,17 +162,22 @@ export function GlobalSearch() {
 
           <div className="overflow-y-auto px-4 pb-5 pt-4 sm:px-6 sm:pb-7">
             <div className="flex items-center justify-between gap-4">
-              <p id="global-search-title" className="text-xs font-black uppercase tracking-[0.14em] text-ink-muted" aria-live="polite">{resultLabel}</p>
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-ink-muted" aria-live="polite">{resultLabel}</p>
               <span className="hidden rounded-full border border-ink/10 bg-white px-3 py-1.5 text-[0.65rem] font-black text-ink-muted sm:inline">ESC untuk tutup</span>
             </div>
 
-            {results.length > 0 ? (
+            {!entries ? (
+              <div className="mt-5 rounded-[1.5rem] border border-ink/10 bg-white p-8 text-center" role="status">
+                <span aria-hidden="true" className="mx-auto block size-8 animate-pulse rounded-full bg-secondary" />
+                <p className="mt-4 text-sm font-bold text-ink-muted">Menyiapkan konten pencarian…</p>
+              </div>
+            ) : results.length > 0 ? (
               <ul className="mt-4 space-y-2" aria-label="Hasil pencarian">
                 {results.map((entry) => (
                   <li key={entry.id}>
                     <Link href={entry.href} onClick={closeSearch} className="group flex min-h-20 items-center gap-4 rounded-2xl border border-transparent bg-white p-4 transition-colors hover:border-secondary hover:bg-secondary/10 sm:px-5">
                       <span className="min-w-0 flex-1">
-                        <span className="text-[0.65rem] font-black uppercase tracking-[0.13em] text-primary">{entry.category}</span>
+                        <span className="text-[0.65rem] font-black uppercase tracking-[0.13em] text-primary-strong">{entry.category}</span>
                         <span className="mt-1 block text-base font-black leading-tight tracking-[-0.025em] text-ink-strong sm:text-lg">{entry.title}</span>
                         <span className="mt-1 line-clamp-2 block text-sm font-medium leading-5 text-ink-muted">{entry.description}</span>
                       </span>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withPageTwitter } from "@/lib/metadata";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { StudentBreadcrumb } from "@/components/students/student-breadcrumb";
 import { StudentMedia } from "@/components/students/student-media";
@@ -7,7 +8,7 @@ import { ArrowUpRightIcon } from "@/components/ui/icons";
 import { school } from "@/config/school";
 import { studentWorks } from "@/data/students";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageTwitter({
   title: "Karya Siswa",
   description: "Showcase karya siswa dari berbagai program keahlian SMK Negeri 2 Surabaya.",
   alternates: { canonical: "/siswa/karya" },
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     description: "Proyek nyata, proses belajar, dan karya siswa SMK Negeri 2 Surabaya.",
     url: "/siswa/karya",
   },
-};
+});
 
 export default function StudentWorksPage() {
   return (
@@ -29,7 +30,7 @@ export default function StudentWorksPage() {
           <StudentBreadcrumb current="Karya siswa" />
           <p className="eyebrow mt-12">Made at {school.identity}</p>
           <h1 className="mt-5 max-w-6xl text-[clamp(3.8rem,8vw,8rem)] font-black leading-[0.84] tracking-[-0.075em] text-ink-strong">
-            Ide diuji. <span className="block text-primary">Karya diwujudkan.</span>
+            Ide diuji. <span className="block text-primary-strong">Karya diwujudkan.</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg font-medium leading-8 text-ink-muted sm:text-xl sm:leading-9">Showcase awal karya yang sudah memiliki sumber publik. Portofolio akan berkembang seiring dokumentasi dari setiap program keahlian tersedia.</p>
         </div>
@@ -43,7 +44,7 @@ export default function StudentWorksPage() {
                 <StudentMedia image={work.image} label={work.title} index={index} className="aspect-[16/11] rounded-[2rem] shadow-soft" />
               </div>
               <div className={index % 2 ? "lg:order-1" : ""}>
-                <p className="text-xs font-black uppercase tracking-[0.15em] text-primary">{String(index + 1).padStart(2, "0")} · {work.program}</p>
+                <p className="text-xs font-black uppercase tracking-[0.15em] text-primary-strong">{String(index + 1).padStart(2, "0")} · {work.program}</p>
                 <h2 className="mt-5 text-4xl font-black leading-[0.95] tracking-[-0.055em] text-ink-strong sm:text-5xl">{work.title}</h2>
                 <p className="mt-5 text-sm font-extrabold text-ink-muted">{work.creator} · {work.year}</p>
                 <p className="mt-6 max-w-xl text-base font-medium leading-7 text-ink-muted">{work.description}</p>

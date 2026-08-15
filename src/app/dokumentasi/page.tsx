@@ -1,11 +1,12 @@
 import Image from "next/image";
 import type { Metadata } from "next";
+import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
 import { photoGallery, newsroomItems, schoolVideos, socialChannels } from "@/data/documentation";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageTwitter({
   title: "Dokumentasi",
   description: "Galeri foto, video, berita, dan kanal sosial resmi SMK Negeri 2 Surabaya.",
   alternates: { canonical: "/dokumentasi" },
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
     description: "Lihat kegiatan sekolah melalui foto, video, dan publikasi yang terverifikasi.",
     url: "/dokumentasi",
   },
-};
+});
 
 export default function DocumentationPage() {
   return (
@@ -23,11 +24,11 @@ export default function DocumentationPage() {
 
       <section className="hero-grid overflow-hidden border-b border-ink/10 px-5 py-14 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-site">
-          <nav aria-label="Breadcrumb"><ol className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-ink-muted"><li><Link href="/" className="hover:text-primary">Beranda</Link></li><li aria-hidden="true">/</li><li aria-current="page" className="text-ink-strong">Dokumentasi</li></ol></nav>
+          <nav aria-label="Breadcrumb"><ol className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-ink-muted"><li><Link href="/" className="hover:text-primary-strong">Beranda</Link></li><li aria-hidden="true">/</li><li aria-current="page" className="text-ink-strong">Dokumentasi</li></ol></nav>
           <div className="mt-12 grid items-end gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
             <div>
               <p className="eyebrow">Dokumentasi sekolah</p>
-              <h1 className="mt-5 max-w-5xl text-[clamp(3.8rem,8vw,8rem)] font-black leading-[0.84] tracking-[-0.075em] text-ink-strong">Momen nyata. <span className="block text-primary">Cerita yang tersimpan.</span></h1>
+              <h1 className="mt-5 max-w-5xl text-[clamp(3.8rem,8vw,8rem)] font-black leading-[0.84] tracking-[-0.075em] text-ink-strong">Momen nyata. <span className="block text-primary-strong">Cerita yang tersimpan.</span></h1>
             </div>
             <div className="max-w-xl lg:pb-3">
               <p className="text-lg font-medium leading-8 text-ink-muted sm:text-xl sm:leading-9">Kumpulan foto, video, dan liputan yang telah diterbitkan melalui kanal resmi sekolah. Tidak ada visual sintetis dalam galeri ini.</p>
@@ -91,7 +92,7 @@ export default function DocumentationPage() {
             <div className="grid gap-4 sm:grid-cols-3">
               {socialChannels.map((channel) => {
                 const className = `min-h-72 rounded-[1.75rem] border border-ink/10 p-6 shadow-sm ${channel.tone}`;
-                return <a key={channel.platform} href={channel.href} rel="noreferrer" className={`${className} transition-transform hover:-translate-y-1`}><span className="text-xs font-black uppercase tracking-[0.14em] text-ink-muted">{channel.platform}</span><span className="mt-12 block text-xl font-black tracking-[-0.035em] text-ink-strong">{channel.handle}</span><span className="mt-3 block text-sm leading-6 text-ink-muted">{channel.description}</span><span className="mt-6 block text-xs font-extrabold text-primary">{channel.status}</span><span className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong">Buka kanal <ArrowUpRightIcon className="size-4" /></span></a>;
+                return <a key={channel.platform} href={channel.href} rel="noreferrer" className={`${className} transition-transform hover:-translate-y-1`}><span className="text-xs font-black uppercase tracking-[0.14em] text-ink-muted">{channel.platform}</span><span className="mt-12 block text-xl font-black tracking-[-0.035em] text-ink-strong">{channel.handle}</span><span className="mt-3 block text-sm leading-6 text-ink-muted">{channel.description}</span><span className="mt-6 block text-xs font-extrabold text-primary-strong">{channel.status}</span><span className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong">Buka kanal <ArrowUpRightIcon className="size-4" /></span></a>;
               })}
             </div>
           </div>
@@ -105,7 +106,7 @@ export default function DocumentationPage() {
             {newsroomItems.slice(0, 3).map((item, index) => (
               <a key={item.href} href={item.href} rel="noreferrer" className={`group flex min-h-80 flex-col justify-between rounded-[1.75rem] border border-ink/10 p-6 shadow-sm transition-transform hover:-translate-y-1 ${index === 1 ? "bg-accent-soft" : index === 2 ? "bg-secondary" : "bg-white"}`}>
                 <span className="flex items-center justify-between gap-4 text-xs font-black uppercase tracking-[0.12em] text-ink-muted"><span>{item.categoryLabel}</span><ArrowUpRightIcon className="size-4" /></span>
-                <span><time className="text-xs font-bold text-primary">{item.date}</time><span className="mt-4 block text-2xl font-black leading-tight tracking-[-0.04em] text-ink-strong">{item.title}</span><span className="mt-4 block text-sm leading-6 text-ink-muted">{item.excerpt}</span></span>
+                <span><time className="text-xs font-bold text-primary-strong">{item.date}</time><span className="mt-4 block text-2xl font-black leading-tight tracking-[-0.04em] text-ink-strong">{item.title}</span><span className="mt-4 block text-sm leading-6 text-ink-muted">{item.excerpt}</span></span>
               </a>
             ))}
           </div>

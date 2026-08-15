@@ -33,7 +33,7 @@ export default function Home() {
 
             <h1 className="mt-8 max-w-3xl text-[clamp(3.25rem,8vw,7.3rem)] font-black leading-[0.88] tracking-[-0.075em] text-ink-strong">
               Belajar nyata.
-              <span className="block text-primary">Berkarya nyata.</span>
+              <span className="block text-primary-strong">Berkarya nyata.</span>
             </h1>
             <p className="mt-8 max-w-2xl text-lg font-medium leading-8 text-ink-muted sm:text-xl sm:leading-9">
               Kenali program keahlian, karya, prestasi, dan perjalanan murid {school.name} menuju dunia kerja dan pendidikan lanjutan.
@@ -56,9 +56,9 @@ export default function Home() {
             <div className="relative flex h-[72%] w-[75%] flex-col items-center justify-center rounded-[2.25rem] border border-ink/10 bg-white px-8 text-center shadow-card">
               <span aria-hidden="true" className="absolute -right-7 top-8 text-[6.5rem] font-black leading-none tracking-[-0.08em] text-secondary/55 sm:text-[8rem]">02</span>
               <div className="relative size-36 overflow-hidden sm:size-44">
-                <Image src={school.logo.src} alt={school.logo.alt} fill sizes="176px" className="object-contain p-2" priority />
+                <Image src={school.logo.src} alt={school.logo.alt} fill sizes="176px" className="object-contain p-2" loading="eager" fetchPriority="high" />
               </div>
-              <p className="relative mt-7 text-xs font-extrabold uppercase tracking-[0.22em] text-primary">{school.identity}</p>
+              <p className="relative mt-7 text-xs font-extrabold uppercase tracking-[0.22em] text-primary-strong">{school.identity}</p>
               <p className="relative mt-2 max-w-xs text-lg font-black leading-tight tracking-[-0.03em] text-ink-strong sm:text-xl">Smart, terampil, dan berkarakter.</p>
             </div>
             <span className="absolute bottom-[2%] left-[2%] -rotate-3 rounded-full border-2 border-ink-strong bg-accent-strong px-5 py-3 text-xs font-black uppercase tracking-[0.14em] text-ink-strong">Surabaya · Jawa Timur</span>

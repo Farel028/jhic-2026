@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { StudentBreadcrumb } from "@/components/students/student-breadcrumb";
@@ -7,7 +8,7 @@ import { StudentNavigation } from "@/components/students/student-navigation";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
 import { studentActivities, studentWorks } from "@/data/students";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageTwitter({
   title: "Siswa",
   description: "Karya, prestasi, dan kehidupan siswa SMK Negeri 2 Surabaya.",
   alternates: { canonical: "/siswa" },
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     description: "Lihat karya, prestasi, dan pengalaman siswa di dalam serta di luar ruang kelas.",
     url: "/siswa",
   },
-};
+});
 
 const studentAreas = [
   { number: "01", title: "Karya", description: "Proyek dan hasil belajar dari beragam bidang keahlian.", href: "/siswa/karya", tone: "bg-secondary" },
@@ -37,7 +38,7 @@ export default function StudentsPage() {
             <div>
               <p className="eyebrow">Ruang siswa</p>
               <h1 className="mt-5 max-w-5xl text-[clamp(3.8rem,8vw,8rem)] font-black leading-[0.84] tracking-[-0.075em] text-ink-strong">
-                Belajar. Mencoba. <span className="block text-primary">Menjadi.</span>
+                Belajar. Mencoba. <span className="block text-primary-strong">Menjadi.</span>
               </h1>
             </div>
             <div className="relative lg:pb-4">
@@ -62,7 +63,7 @@ export default function StudentsPage() {
                   <span className="mt-16 block">
                     <span className="block text-2xl font-black tracking-[-0.04em] text-ink-strong">{area.title}</span>
                     <span className="mt-3 block text-sm font-medium leading-6 text-ink-muted">{area.description}</span>
-                    {"href" in area ? <span className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong">Jelajahi <ArrowRightIcon className="size-4" /></span> : <span className="mt-6 block text-xs font-extrabold uppercase tracking-[0.12em] text-primary">Segera dilengkapi</span>}
+                    {"href" in area ? <span className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong">Jelajahi <ArrowRightIcon className="size-4" /></span> : <span className="mt-6 block text-xs font-extrabold uppercase tracking-[0.12em] text-primary-strong">Segera dilengkapi</span>}
                   </span>
                 </>
               );
@@ -87,7 +88,7 @@ export default function StudentsPage() {
               <article key={work.title} className="overflow-hidden rounded-[1.75rem] border border-ink/10 bg-white shadow-sm">
                 <StudentMedia image={work.image} label={work.title} index={index} />
                 <div className="p-6">
-                  <p className="text-xs font-black uppercase tracking-[0.12em] text-primary">{work.program} · {work.year}</p>
+                  <p className="text-xs font-black uppercase tracking-[0.12em] text-primary-strong">{work.program} · {work.year}</p>
                   <h3 className="mt-4 text-2xl font-black leading-tight tracking-[-0.04em] text-ink-strong">{work.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-ink-muted">{work.creator}</p>
                 </div>

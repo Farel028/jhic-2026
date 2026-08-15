@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { AboutBreadcrumb } from "@/components/about/about-breadcrumb";
 import { AboutNavigation } from "@/components/about/about-navigation";
@@ -12,7 +13,7 @@ import {
   learningModes,
 } from "@/data/about";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageTwitter({
   title: "Kurikulum dan Pengalaman Belajar",
   description:
     "Gambaran pengalaman belajar vokasi SMK Negeri 2 Surabaya dari fondasi, pengembangan keterampilan, proyek, PKL, uji kompetensi, hingga langkah setelah lulus.",
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
       "Melihat bagaimana pembelajaran bergerak dari pengetahuan dasar menuju praktik dan pilihan masa depan.",
     url: "/tentang/kurikulum",
   },
-};
+});
 
 const evidenceCards = [
   {
@@ -71,7 +72,7 @@ export default function CurriculumPage() {
             <div>
               <p className="eyebrow">Kurikulum & pengalaman belajar</p>
               <h1 className="mt-5 max-w-5xl text-[clamp(3.5rem,7.5vw,7.7rem)] font-black leading-[0.85] tracking-[-0.075em] text-ink-strong">
-                Belajar. Mencoba. <span className="text-primary">Menjadi mampu.</span>
+                Belajar. Mencoba. <span className="text-primary-strong">Menjadi mampu.</span>
               </h1>
               <p className="mt-8 max-w-2xl text-lg font-medium leading-8 text-ink-muted sm:text-xl sm:leading-9">
                 Pembelajaran vokasi bergerak dari memahami dasar menuju menerapkan keterampilan dalam proyek, lingkungan kerja, dan pilihan nyata setelah lulus.
@@ -150,7 +151,7 @@ export default function CurriculumPage() {
             <ol className="grid gap-3 sm:grid-cols-2">
               {learningModes.map((mode) => (
                 <li key={mode.number} className="flex min-h-56 flex-col justify-between rounded-3xl border border-ink/10 bg-[#eef7fd] p-6 shadow-sm">
-                  <span className="text-xs font-black text-primary">{mode.number}</span>
+                  <span className="text-xs font-black text-primary-strong">{mode.number}</span>
                   <span className="mt-12">
                     <span className="block text-2xl font-black tracking-[-0.04em] text-ink-strong">{mode.title}</span>
                     <span className="mt-3 block text-sm font-medium leading-6 text-ink-muted">{mode.description}</span>
@@ -172,13 +173,13 @@ export default function CurriculumPage() {
             <div className="border-t border-ink/15">
               {evidenceCards.map((item) => (
                 <a key={item.number} href={item.href} rel="noreferrer" className="group grid grid-cols-[auto_1fr_auto] gap-4 border-b border-ink/15 py-6 sm:gap-7 sm:py-8">
-                  <span className="pt-1 text-xs font-black text-primary">{item.number}</span>
+                  <span className="pt-1 text-xs font-black text-primary-strong">{item.number}</span>
                   <span>
                     <span className="text-xs font-extrabold uppercase tracking-[0.14em] text-ink-muted">{item.label}</span>
                     <span className="mt-3 block text-xl font-black leading-snug tracking-[-0.03em] text-ink-strong sm:text-2xl">{item.title}</span>
                     <span className="mt-3 block max-w-2xl text-sm leading-6 text-ink-muted">{item.description}</span>
                   </span>
-                  <ArrowUpRightIcon className="mt-1 size-5 text-ink-muted transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-primary" />
+                  <ArrowUpRightIcon className="mt-1 size-5 text-ink-muted transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-primary-strong" />
                 </a>
               ))}
             </div>

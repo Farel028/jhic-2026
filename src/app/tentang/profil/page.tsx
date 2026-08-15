@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { AboutBreadcrumb } from "@/components/about/about-breadcrumb";
 import { AboutNavigation } from "@/components/about/about-navigation";
@@ -8,7 +9,7 @@ import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
 import { aboutImages, aboutSource, learningApproach, schoolIdentity } from "@/data/about";
 import { school } from "@/config/school";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageTwitter({
   title: "Profil Sekolah",
   description:
     "Profil SMK Negeri 2 Surabaya: identitas, pendekatan pendidikan vokasi, dan hubungan pembelajaran dengan dunia nyata.",
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     description: "Kenali identitas dan pendekatan belajar SMK Negeri 2 Surabaya.",
     url: "/tentang/profil",
   },
-};
+});
 
 export default function ProfilePage() {
   return (
@@ -73,7 +74,7 @@ export default function ProfilePage() {
             <ol className="border-t border-ink/15">
               {learningApproach.map((step) => (
                 <li key={step.number} className="grid grid-cols-[auto_1fr] gap-5 border-b border-ink/15 py-6 sm:gap-8 sm:py-7">
-                  <span className="text-xs font-black text-primary">{step.number}</span>
+                  <span className="text-xs font-black text-primary-strong">{step.number}</span>
                   <span>
                     <span className="block text-xl font-black tracking-[-0.03em] text-ink-strong">{step.title}</span>
                     <span className="mt-2 block text-sm leading-6 text-ink-muted">{step.description}</span>

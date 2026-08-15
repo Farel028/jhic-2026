@@ -45,7 +45,7 @@ export function NewsroomFilter() {
             {item.image ? <div className="relative aspect-[16/10] overflow-hidden bg-secondary/20"><Image src={item.image.src} alt={item.image.alt} fill sizes="(max-width: 768px) 92vw, (max-width: 1200px) 46vw, 30vw" className="object-cover transition-transform duration-500 hover:scale-[1.02]" /></div> : <MediaPlaceholder title={item.title} index={index} />}
             <div className="p-6">
               <div className="flex flex-wrap items-center gap-2 text-[0.65rem] font-black uppercase tracking-[0.12em]">
-                <span className="rounded-full bg-secondary/25 px-3 py-1.5 text-primary">{item.categoryLabel}</span>
+                <span className="rounded-full bg-secondary/25 px-3 py-1.5 text-primary-strong">{item.categoryLabel}</span>
                 <time className="text-ink-muted">{item.date}</time>
               </div>
               <h2 className="mt-5 text-2xl font-black leading-tight tracking-[-0.04em] text-ink-strong">{item.title}</h2>

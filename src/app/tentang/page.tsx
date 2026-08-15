@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { AboutBreadcrumb } from "@/components/about/about-breadcrumb";
 import { AboutNavigation } from "@/components/about/about-navigation";
@@ -8,7 +9,7 @@ import { ArrowRightIcon } from "@/components/ui/icons";
 import { aboutImages, directionThemes, learningApproach } from "@/data/about";
 import { school, schoolFacts } from "@/config/school";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageTwitter({
   title: "Tentang Sekolah",
   description:
     "Kenali identitas, sejarah, pendekatan belajar, dan arah pendidikan SMK Negeri 2 Surabaya.",
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
       "Sekolah vokasi dengan akar sejarah panjang, pembelajaran praktik, dan hubungan dengan dunia nyata.",
     url: "/tentang",
   },
-};
+});
 
 const aboutCards = [
   {
@@ -83,7 +84,7 @@ export default function AboutPage() {
             <div>
               <p className="eyebrow">Tentang {school.identity}</p>
               <h1 className="mt-5 max-w-5xl text-[clamp(3.6rem,8vw,8rem)] font-black leading-[0.84] tracking-[-0.075em] text-ink-strong">
-                Berakar kuat. <span className="block text-primary">Terus bergerak.</span>
+                Berakar kuat. <span className="block text-primary-strong">Terus bergerak.</span>
               </h1>
               <p className="mt-8 max-w-2xl text-lg font-medium leading-8 text-ink-muted sm:text-xl sm:leading-9">
                 {school.name} tumbuh dari tradisi pendidikan teknik dan terus membuka ruang agar murid belajar melalui praktik, karya, serta pengalaman nyata.
@@ -170,7 +171,7 @@ export default function AboutPage() {
             <div className="grid gap-3 sm:grid-cols-2">
               {directionThemes.map((theme) => (
                 <article key={theme.code} className="rounded-3xl border border-ink/10 bg-[#eef7fd] p-6">
-                  <p className="text-xs font-black tracking-[0.14em] text-primary">{theme.code}</p>
+                  <p className="text-xs font-black tracking-[0.14em] text-primary-strong">{theme.code}</p>
                   <h3 className="mt-8 text-xl font-black leading-snug tracking-[-0.03em] text-ink-strong">{theme.title}</h3>
                   <p className="mt-4 text-sm leading-6 text-ink-muted">{theme.description}</p>
                 </article>

@@ -4,18 +4,20 @@
   --background: #f9f9f9;
   --surface: #ffffff;
   --primary: #5aa9e6;
+  --primary-strong: #084f7a;
   --secondary: #7fc8f8;
   --accent-soft: #ffe45e;
   --accent-strong: #ffca0a;
   --ink: #102a43;
   --ink-strong: #0b1f33;
-  --ink-muted: #486581;
+  --ink-muted: #334e68;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
   --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
   --color-secondary: var(--secondary);
   --color-accent-soft: var(--accent-soft);
   --color-accent-strong: var(--accent-strong);
@@ -66,8 +68,9 @@ a {
 }
 
 :focus-visible {
-  outline: 3px solid var(--ink-strong);
+  outline: 3px solid var(--accent-strong);
   outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--ink-strong);
 }
 
 .skip-link {
@@ -105,7 +108,7 @@ a {
 }
 
 .eyebrow {
-  color: var(--primary);
+  color: var(--primary-strong);
   font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0.2em;

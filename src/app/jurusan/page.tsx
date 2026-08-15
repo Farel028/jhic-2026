@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
 import { majorCatalog, majorDetails } from "@/data/majors";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageTwitter({
   title: "Program Keahlian",
   description:
     "Jelajahi program keahlian SMK Negeri 2 Surabaya dari bidang digital, konstruksi, elektronika, manufaktur, hingga otomotif.",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
       "Kenali pilihan bidang belajar vokasi di SMK Negeri 2 Surabaya.",
     url: "/jurusan",
   },
-};
+});
 
 const catalogSource =
   "https://web.smkn2sby.sch.id/read/3/kompetensi-keahlian";
@@ -39,7 +40,7 @@ export default function MajorsPage() {
             <ol className="flex items-center gap-2">
               <li><Link href="/" className="transition-colors hover:text-ink-strong">Beranda</Link></li>
               <li aria-hidden="true">/</li>
-              <li aria-current="page" className="text-primary">Program keahlian</li>
+              <li aria-current="page" className="text-primary-strong">Program keahlian</li>
             </ol>
           </nav>
 
@@ -47,7 +48,7 @@ export default function MajorsPage() {
             <div>
               <p className="eyebrow">Pilih jalur belajarmu</p>
               <h1 className="mt-5 max-w-5xl text-[clamp(3.4rem,8vw,7.8rem)] font-black leading-[0.86] tracking-[-0.075em] text-ink-strong">
-                Keahlian untuk <span className="text-primary">dunia nyata.</span>
+                Keahlian untuk <span className="text-primary-strong">dunia nyata.</span>
               </h1>
             </div>
             <div className="max-w-xl lg:pb-3">

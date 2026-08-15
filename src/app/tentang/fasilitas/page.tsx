@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { AboutBreadcrumb } from "@/components/about/about-breadcrumb";
 import { AboutNavigation } from "@/components/about/about-navigation";
@@ -12,7 +13,7 @@ import {
   verifiedFacilities,
 } from "@/data/about";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageTwitter({
   title: "Fasilitas dan Jelajah Kampus",
   description:
     "Jelajahi fasilitas pembelajaran SMK Negeri 2 Surabaya yang telah terdokumentasi, termasuk ruang praktik, bengkel otomotif, dan Teaching Factory.",
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
       "Melihat ruang praktik dan fasilitas sekolah melalui dokumentasi nyata dari kegiatan pembelajaran.",
     url: "/tentang/fasilitas",
   },
-};
+});
 
 export default function FacilitiesPage() {
   return (
@@ -44,7 +45,7 @@ export default function FacilitiesPage() {
             <div>
               <p className="eyebrow">Fasilitas & jelajah kampus</p>
               <h1 className="mt-5 max-w-5xl text-[clamp(3.5rem,7.5vw,7.7rem)] font-black leading-[0.85] tracking-[-0.075em] text-ink-strong">
-                Ruang untuk <span className="text-primary">mencoba.</span>
+                Ruang untuk <span className="text-primary-strong">mencoba.</span>
               </h1>
               <p className="mt-8 max-w-2xl text-lg font-medium leading-8 text-ink-muted sm:text-xl sm:leading-9">
                 Dari ruang praktik hingga Teaching Factory, fasilitas menjadi tempat pengetahuan berubah menjadi keterampilan.
@@ -139,14 +140,14 @@ export default function FacilitiesPage() {
               {verifiedFacilities.map((facility, index) => (
                 <li key={facility.code} className="border-b border-ink/15 py-7 sm:py-8">
                   <a href={facility.href} rel="noreferrer" className="group grid grid-cols-[auto_1fr_auto] gap-4 sm:gap-7">
-                    <span className="pt-1 text-xs font-black text-primary">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="pt-1 text-xs font-black text-primary-strong">{String(index + 1).padStart(2, "0")}</span>
                     <span>
                       <span className="text-xs font-extrabold uppercase tracking-[0.14em] text-ink-muted">{facility.category} · {facility.code}</span>
                       <span className="mt-3 block text-2xl font-black leading-tight tracking-[-0.04em] text-ink-strong sm:text-3xl">{facility.title}</span>
                       <span className="mt-4 block max-w-3xl text-sm font-medium leading-6 text-ink-muted">{facility.description}</span>
-                      <span className="mt-4 block text-xs font-extrabold text-primary">{facility.status}</span>
+                      <span className="mt-4 block text-xs font-extrabold text-primary-strong">{facility.status}</span>
                     </span>
-                    <ArrowUpRightIcon className="mt-1 size-5 text-ink-muted transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-primary" />
+                    <ArrowUpRightIcon className="mt-1 size-5 text-ink-muted transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-primary-strong" />
                   </a>
                 </li>
               ))}
@@ -180,7 +181,7 @@ export default function FacilitiesPage() {
             <ol className="border-t border-ink/10 p-6 sm:p-9 lg:border-l lg:border-t-0">
               {campusOrientation.map((zone) => (
                 <li key={zone.number} className="border-b border-ink/10 py-5 first:pt-0 last:border-b-0 last:pb-0">
-                  <p className="text-xs font-black text-primary">{zone.number}</p>
+                  <p className="text-xs font-black text-primary-strong">{zone.number}</p>
                   <h3 className="mt-2 text-lg font-black tracking-[-0.025em] text-ink-strong">{zone.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-ink-muted">{zone.description}</p>
                 </li>
@@ -200,9 +201,9 @@ export default function FacilitiesPage() {
           </div>
           <div className="border-t border-ink/15 p-7 sm:p-10 lg:border-l lg:border-t-0 lg:p-12">
             <address className="not-italic">
-              <p className="flex items-start gap-3 text-sm font-bold leading-6 text-ink-strong"><MapPinIcon className="mt-0.5 size-5 shrink-0 text-primary" />{school.address.street}, {school.address.district}, {school.address.city}</p>
-              <a href={`tel:${school.contact.phoneHref}`} className="mt-5 flex items-center gap-3 text-sm font-bold text-ink-strong"><PhoneIcon className="size-5 text-primary" />{school.contact.phone}</a>
-              <a href={`mailto:${school.contact.email}`} className="mt-5 flex items-center gap-3 break-all text-sm font-bold text-ink-strong"><MailIcon className="size-5 shrink-0 text-primary" />{school.contact.email}</a>
+              <p className="flex items-start gap-3 text-sm font-bold leading-6 text-ink-strong"><MapPinIcon className="mt-0.5 size-5 shrink-0 text-primary-strong" />{school.address.street}, {school.address.district}, {school.address.city}</p>
+              <a href={`tel:${school.contact.phoneHref}`} className="mt-5 flex items-center gap-3 text-sm font-bold text-ink-strong"><PhoneIcon className="size-5 text-primary-strong" />{school.contact.phone}</a>
+              <a href={`mailto:${school.contact.email}`} className="mt-5 flex items-center gap-3 break-all text-sm font-bold text-ink-strong"><MailIcon className="size-5 shrink-0 text-primary-strong" />{school.contact.email}</a>
             </address>
             <Link href="/tentang/profil" className="mt-10 inline-flex items-center gap-3 text-sm font-extrabold text-ink-strong underline decoration-primary decoration-2 underline-offset-8">Lihat profil sekolah <ArrowRightIcon className="size-4" /></Link>
           </div>

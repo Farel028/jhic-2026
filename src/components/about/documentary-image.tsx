@@ -37,7 +37,7 @@ export function DocumentaryImage({
       </div>
       <figcaption className={`mt-3 flex items-start justify-between gap-4 text-xs leading-5 ${inverse ? "text-white/60" : "text-ink-muted"}`}>
         <span>{image.caption}</span>
-        <a href={image.href} rel="noreferrer" className={`inline-flex shrink-0 items-center gap-1 font-extrabold ${inverse ? "text-white hover:text-accent-strong" : "text-ink-strong hover:text-primary"}`}>
+        <a href={image.href} rel="noreferrer" className={`inline-flex shrink-0 items-center gap-1 font-extrabold ${inverse ? "text-white hover:text-accent-strong" : "text-ink-strong hover:text-primary-strong"}`}>
           Sumber <ArrowUpRightIcon className="size-3.5" />
         </a>
       </figcaption>

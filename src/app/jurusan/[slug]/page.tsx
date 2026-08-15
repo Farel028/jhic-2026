@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
 import { getMajorBySlug, majorDetails } from "@/data/majors";
+import { withPageTwitter } from "@/lib/metadata";
 
 type MajorPageProps = {
   params: Promise<{ slug: string }>;
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: MajorPageProps): Promise<Meta
     return {};
   }
 
-  return {
+  return withPageTwitter({
     title: major.name,
     description: `${major.description} Kenali gambaran bidang ${major.code} di SMK Negeri 2 Surabaya.`,
     alternates: {
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: MajorPageProps): Promise<Meta
       description: major.description,
       url: `/jurusan/${major.slug}`,
     },
-  };
+  });
 }
 
 export default async function MajorPage({ params }: MajorPageProps) {
@@ -90,7 +91,7 @@ export default async function MajorPage({ params }: MajorPageProps) {
           <ol className="border-t border-ink/15">
             {major.learningAreas.map((area, index) => (
               <li key={area} className="grid grid-cols-[auto_1fr] gap-5 border-b border-ink/15 py-6 sm:gap-8 sm:py-8">
-                <span className="text-xs font-black tabular-nums text-primary">{String(index + 1).padStart(2, "0")}</span>
+                <span className="text-xs font-black tabular-nums text-primary-strong">{String(index + 1).padStart(2, "0")}</span>
                 <span className="text-xl font-extrabold leading-snug tracking-[-0.025em] text-ink-strong sm:text-2xl">{area}</span>
               </li>
             ))}
@@ -129,7 +130,7 @@ export default async function MajorPage({ params }: MajorPageProps) {
             <ul className="grid gap-3 sm:grid-cols-2">
               {major.pathwayExamples.map((path, index) => (
                 <li key={path} className="flex min-h-36 flex-col justify-between rounded-3xl border border-ink/10 bg-white p-6 shadow-sm">
-                  <span className="text-xs font-black text-primary">0{index + 1}</span>
+                  <span className="text-xs font-black text-primary-strong">0{index + 1}</span>
                   <span className="mt-8 text-lg font-extrabold leading-snug tracking-[-0.025em] text-ink-strong">{path}</span>
                 </li>
               ))}

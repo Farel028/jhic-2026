@@ -57,7 +57,7 @@ export function LatestStories() {
           {latestStories.map((story, index) => (
             <a key={`${story.date}-${story.title}`} href={story.href} className={`group flex min-h-[22rem] flex-col justify-between rounded-[1.5rem] border border-ink/10 p-7 transition-transform hover:-translate-y-1 sm:p-8 ${index === 1 ? "bg-ink-strong text-white" : "bg-white text-ink-strong"}`} rel="noreferrer">
               <div className="flex items-center justify-between gap-4">
-                <span className={`text-xs font-black uppercase tracking-[0.16em] ${index === 1 ? "text-secondary" : "text-primary"}`}>{story.category}</span>
+                <span className={`text-xs font-black uppercase tracking-[0.16em] ${index === 1 ? "text-secondary" : "text-primary-strong"}`}>{story.category}</span>
                 <ArrowUpRightIcon className={`size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 ${index === 1 ? "text-accent-strong" : "text-ink-muted"}`} />
               </div>
               <div>

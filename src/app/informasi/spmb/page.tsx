@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { InformationBreadcrumb } from "@/components/information/information-breadcrumb";
 import { InformationNavigation } from "@/components/information/information-navigation";
@@ -8,7 +9,7 @@ import { school } from "@/config/school";
 import { admissionPaths, admissionRequirements, admissionTimeline, faqItems, informationSources } from "@/data/information";
 import { majorCatalog } from "@/data/majors";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageTwitter({
   title: "Informasi SPMB",
   description: "Arsip jadwal, jalur, persyaratan, dan tautan resmi SPMB Jawa Timur untuk calon siswa SMK Negeri 2 Surabaya.",
   alternates: { canonical: "/informasi/spmb" },
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     description: "Ringkasan informasi penerimaan murid baru dan akses menuju portal resmi SPMB Jawa Timur.",
     url: "/informasi/spmb",
   },
-};
+});
 
 const admissionFaq = faqItems.filter((item) => item.category === "spmb").slice(0, 4);
 
@@ -35,7 +36,7 @@ export default function AdmissionPage() {
               <div className="inline-flex items-center gap-3 rounded-full border border-ink/10 bg-white px-4 py-2.5 text-xs font-extrabold uppercase tracking-[0.12em] text-ink-muted shadow-sm">
                 <span className="size-2 rounded-full bg-ink-muted" /> Pendaftaran 2026 selesai
               </div>
-              <h1 className="mt-7 max-w-5xl text-[clamp(3.8rem,8vw,8rem)] font-black leading-[0.84] tracking-[-0.075em] text-ink-strong">Siapkan langkah. <span className="block text-primary">Ikuti sumber resmi.</span></h1>
+              <h1 className="mt-7 max-w-5xl text-[clamp(3.8rem,8vw,8rem)] font-black leading-[0.84] tracking-[-0.075em] text-ink-strong">Siapkan langkah. <span className="block text-primary-strong">Ikuti sumber resmi.</span></h1>
             </div>
             <div className="max-w-xl lg:pb-3">
               <p className="text-lg font-medium leading-8 text-ink-muted sm:text-xl sm:leading-9">Halaman ini adalah ringkasan arsip SPMB Jawa Timur 2026. Jadwal periode berikutnya hanya akan ditampilkan setelah diumumkan oleh penyelenggara resmi.</p>
@@ -58,7 +59,7 @@ export default function AdmissionPage() {
               {admissionTimeline.map((step, index) => (
                 <details key={step.title} open={index === 0} className="group border-b border-ink/15">
                   <summary className="grid min-h-24 cursor-pointer list-none grid-cols-[auto_1fr_auto] items-center gap-4 py-5 marker:content-none sm:gap-7">
-                    <span className="text-xs font-black text-primary">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="text-xs font-black text-primary-strong">{String(index + 1).padStart(2, "0")}</span>
                     <span>
                       <span className="block text-xs font-extrabold uppercase tracking-[0.12em] text-ink-muted">{step.period}</span>
                       <span className="mt-2 block text-xl font-black tracking-[-0.035em] text-ink-strong">{step.title}</span>
@@ -103,7 +104,7 @@ export default function AdmissionPage() {
             <ul className="mt-8 border-t border-ink/15">
               {admissionRequirements.map((requirement, index) => (
                 <li key={requirement} className="grid grid-cols-[auto_1fr] gap-4 border-b border-ink/15 py-5">
-                  <span className="text-xs font-black text-primary">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="text-xs font-black text-primary-strong">{String(index + 1).padStart(2, "0")}</span>
                   <span className="text-sm font-semibold leading-6 text-ink-muted">{requirement}</span>
                 </li>
               ))}
@@ -115,7 +116,7 @@ export default function AdmissionPage() {
             <div className="mt-8 grid gap-2 sm:grid-cols-2">
               {majorCatalog.map((major) => (
                 <div key={major.code} className="rounded-2xl border border-ink/10 bg-[#eef7fd] p-4">
-                  <p className="text-xs font-black text-primary">{major.code}</p>
+                  <p className="text-xs font-black text-primary-strong">{major.code}</p>
                   <p className="mt-2 text-sm font-extrabold leading-snug text-ink-strong">{major.name}</p>
                 </div>
               ))}

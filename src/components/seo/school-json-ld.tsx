@@ -23,7 +23,14 @@ export function SchoolJsonLd() {
       latitude: school.coordinates.latitude,
       longitude: school.coordinates.longitude,
     },
-    sameAs: [school.urls.smartPortal, school.urls.bkk, school.urls.x],
+    sameAs: [
+      school.urls.smartPortal,
+      school.urls.bkk,
+      school.urls.instagram,
+      school.urls.youtube,
+      school.urls.tiktok,
+      school.urls.x,
+    ],
   };
 
   return (
