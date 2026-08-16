@@ -92,6 +92,10 @@ a {
   translate: 0;
 }
 
+body:has(> [data-immersive-page]) > [data-site-chrome] {
+  display: none;
+}
+
 .hero-grid {
   background-color: var(--background);
   background-image:

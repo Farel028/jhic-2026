@@ -6,7 +6,7 @@ import { school, schoolMapUrl } from "@/config/school";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-ink-strong text-white">
+    <footer data-site-chrome className="bg-ink-strong text-white">
       <div className="mx-auto w-full max-w-site px-5 py-14 sm:px-8 sm:py-18 lg:px-10 lg:py-20">
         <div className="grid gap-12 border-b border-white/15 pb-14 lg:grid-cols-[1.35fr_0.65fr_0.65fr] lg:gap-16">
           <div className="max-w-xl">

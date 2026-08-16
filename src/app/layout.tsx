@@ -60,7 +60,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="id" className="antialiased">
       <body className="flex min-h-dvh flex-col">
-        <a href="#konten-utama" className="skip-link">Lewati ke konten utama</a>
+        <a href="#konten-utama" className="skip-link" data-site-chrome>Lewati ke konten utama</a>
         <SiteHeader />
         {children}
         <SiteFooter />
