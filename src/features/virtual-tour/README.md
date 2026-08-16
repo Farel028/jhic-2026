@@ -36,6 +36,11 @@ public/tours/home/
 
 Simpan panorama V1 sebagai JPEG equirectangular dengan rasio tepat 2:1.
 Gunakan path public yang diawali `/tours/` di dalam config.
+Untuk panorama lebih lebar dari 4096 piksel, sediakan `fallback` 4096x2048.
+Engine memilih aset berdasarkan batas tekstur WebGL, jenis pointer, dan indikasi
+memori perangkat tanpa membaca user-agent. Desktop yang mampu tetap memakai
+panorama utama, sedangkan HP memakai fallback agar decode dan upload tekstur
+tidak menghabiskan memori.
 
 ## Adding a Scene
 
@@ -54,6 +59,11 @@ Gunakan path public yang diawali `/tours/` di dalam config.
     src: "/tours/home/panoramas/living-room.jpg",
     width: 8704,
     height: 4352,
+    fallback: {
+      src: "/tours/home/panoramas/living-room-mobile.jpg",
+      width: 4096,
+      height: 2048,
+    },
   },
   initialView: { yaw: 0, pitch: 0, fov: 1.35 },
   hotspots: [],
@@ -141,7 +151,8 @@ Nilai `targetSceneId` harus sama persis dengan `id` scene tujuan. Untuk jalur
 pulang, tambahkan hotspot lain pada `scene-b` yang menargetkan `scene-a`.
 Gunakan Developer Mode untuk mengambil `yaw` dan `pitch` baru.
 
-Jika yang ingin diubah adalah file panorama, ubah `source.src`. Jika yang
+Jika yang ingin diubah adalah file panorama, ubah `source.src` dan
+`source.fallback.src` beserta ukuran masing-masing. Jika yang
 diinginkan adalah tautan ke halaman atau website, gunakan hotspot `type: "link"`
 dengan field `href`, bukan `targetSceneId`.
 

@@ -1,8 +1,12 @@
 import Marzipano from "marzipano";
+import { selectPanoramaAsset } from "@/features/virtual-tour/core/select-panorama-asset";
 import type { PanoramaEngine, PanoramaHotspotMount, SceneTransitionOptions } from "@/features/virtual-tour/engine/panorama-engine";
 import type { AutorotateConfig, HotspotCoordinates, SceneConfig, ViewState } from "@/features/virtual-tour/types/tour";
 
 const DEFAULT_VIEW: ViewState = { yaw: 0, pitch: 0, fov: 1.35 };
+const MOBILE_TEXTURE_WIDTH = 4096;
+
+type NavigatorWithDeviceMemory = Navigator & { deviceMemory?: number };
 
 function createAbortError() {
   return new DOMException("Panorama loading was cancelled.", "AbortError");
@@ -43,17 +47,40 @@ function loadImageDimensions(src: string, signal?: AbortSignal) {
   });
 }
 
+function getTextureWidthLimit() {
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
+  if (!context) throw new Error("WebGL is not available on this browser.");
+
+  const reportedLimit = Number(context.getParameter(context.MAX_TEXTURE_SIZE));
+  context.getExtension("WEBGL_lose_context")?.loseContext();
+
+  const maxTextureWidth = Number.isFinite(reportedLimit) && reportedLimit > 0
+    ? reportedLimit
+    : MOBILE_TEXTURE_WIDTH;
+  const deviceMemory = (navigator as NavigatorWithDeviceMemory).deviceMemory;
+  const usesCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+  const hasCompactScreen = Math.min(window.screen.width, window.screen.height) <= 820;
+  const hasLimitedMemory = deviceMemory !== undefined && deviceMemory <= 4;
+
+  return usesCoarsePointer || hasCompactScreen || hasLimitedMemory
+    ? Math.min(maxTextureWidth, MOBILE_TEXTURE_WIDTH)
+    : maxTextureWidth;
+}
+
 export class MarzipanoAdapter implements PanoramaEngine {
   private container: HTMLElement | null = null;
   private viewer: Marzipano.Viewer | null = null;
   private readonly scenes = new Map<string, Marzipano.Scene>();
   private currentSceneId: string | null = null;
+  private textureWidthLimit = MOBILE_TEXTURE_WIDTH;
   private destroyed = false;
 
   initialize(container: HTMLElement) {
     if (this.viewer) throw new Error("MarzipanoAdapter has already been initialized.");
     this.container = container;
     this.destroyed = false;
+    this.textureWidthLimit = getTextureWidthLimit();
     this.viewer = new Marzipano.Viewer(container, { controls: { mouseViewMode: "drag" } });
   }
 
@@ -61,13 +88,23 @@ export class MarzipanoAdapter implements PanoramaEngine {
     const viewer = this.requireViewer();
     if (this.scenes.has(config.id)) throw new Error(`Scene "${config.id}" has already been created.`);
 
-    const dimensions = await loadImageDimensions(config.source.src, signal);
+    const asset = selectPanoramaAsset(config.source, this.textureWidthLimit);
+    const dimensions = await loadImageDimensions(asset.src, signal);
     if (this.destroyed || signal?.aborted) throw createAbortError();
     if (dimensions.width !== dimensions.height * 2) {
       throw new Error(`Panorama "${config.id}" must use a 2:1 equirectangular aspect ratio.`);
     }
+    if (dimensions.width > this.textureWidthLimit) {
+      throw new Error(`Panorama "${config.id}" exceeds this device's ${this.textureWidthLimit}px texture limit.`);
+    }
+    if (asset.width !== undefined && asset.width !== dimensions.width) {
+      throw new Error(`Panorama "${config.id}" width does not match its configured dimensions.`);
+    }
+    if (asset.height !== undefined && asset.height !== dimensions.height) {
+      throw new Error(`Panorama "${config.id}" height does not match its configured dimensions.`);
+    }
 
-    const source = Marzipano.ImageUrlSource.fromString(config.source.src);
+    const source = Marzipano.ImageUrlSource.fromString(asset.src);
     const geometry = new Marzipano.EquirectGeometry([{ width: dimensions.width }]);
     const initialView = config.initialView ?? DEFAULT_VIEW;
     const faceResolution = Math.max(512, Math.round(dimensions.width / 4));

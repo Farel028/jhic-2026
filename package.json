@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:virtual-tour": "node --test --test-isolation=none tests/virtual-tour/validate-tour-config.test.mjs tests/virtual-tour/scene-manager.test.mjs"
+    "test:virtual-tour": "node --test --test-isolation=none tests/virtual-tour/validate-tour-config.test.mjs tests/virtual-tour/select-panorama-asset.test.mjs tests/virtual-tour/scene-manager.test.mjs"
   },
   "dependencies": {
     "marzipano": "0.10.2",

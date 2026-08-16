@@ -6,11 +6,15 @@ export type ViewState = {
 
 export type HotspotCoordinates = Pick<ViewState, "yaw" | "pitch">;
 
-export type EquirectangularSource = {
-  type: "equirectangular";
+export type EquirectangularAsset = {
   src: string;
   width?: number;
   height?: number;
+};
+
+export type EquirectangularSource = EquirectangularAsset & {
+  type: "equirectangular";
+  fallback?: EquirectangularAsset;
 };
 
 export type SceneSource = EquirectangularSource;

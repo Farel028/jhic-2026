@@ -21,6 +21,11 @@ export const homeTour = {
         src: "/tours/home/panoramas/kitchen.jpg",
         width: 8704,
         height: 4352,
+        fallback: {
+          src: "/tours/home/panoramas/kitchen-mobile.jpg",
+          width: 4096,
+          height: 2048,
+        },
       },
       initialView: { yaw: 0, pitch: 0, fov: 1.35 },
       hotspots: [
@@ -48,7 +53,7 @@ export const homeTour = {
           pitch: 0.03,
           label: "Buka contoh gambar",
           image: {
-            src: "/tours/home/panoramas/kitchen.jpg",
+            src: "/tours/home/panoramas/kitchen-mobile.jpg",
             alt: "Panorama dapur pada fixture pengembangan virtual tour",
             caption: "Contoh image hotspot menggunakan aset rumah yang benar-benar tersedia.",
           },
@@ -64,6 +69,11 @@ export const homeTour = {
         src: "/tours/home/panoramas/bedroom.jpg",
         width: 8704,
         height: 4352,
+        fallback: {
+          src: "/tours/home/panoramas/bedroom-mobile.jpg",
+          width: 4096,
+          height: 2048,
+        },
       },
       initialView: { yaw: 0, pitch: 0, fov: 1.35 },
       hotspots: [

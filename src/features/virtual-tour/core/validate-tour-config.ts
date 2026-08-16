@@ -1,4 +1,4 @@
-import type { Hotspot, SceneConfig, TourConfig, TourImage, ViewState } from "@/features/virtual-tour/types/tour";
+import type { EquirectangularAsset, Hotspot, SceneConfig, TourConfig, TourImage, ViewState } from "@/features/virtual-tour/types/tour";
 
 export type TourConfigIssue = {
   path: string;
@@ -49,6 +49,22 @@ function validateView(view: ViewState, path: string, issues: TourConfigIssue[]) 
   }
 }
 
+function validatePanoramaAsset(asset: EquirectangularAsset, path: string, issues: TourConfigIssue[], dimensionsRequired = false) {
+  if (!isPublicAssetPath(asset.src)) issues.push({ path: `${path}.src`, message: "must be an absolute public asset path" });
+  if (asset.width !== undefined && (!Number.isInteger(asset.width) || asset.width <= 0)) {
+    issues.push({ path: `${path}.width`, message: "must be a positive integer" });
+  }
+  if (asset.height !== undefined && (!Number.isInteger(asset.height) || asset.height <= 0)) {
+    issues.push({ path: `${path}.height`, message: "must be a positive integer" });
+  }
+  if (dimensionsRequired && (asset.width === undefined || asset.height === undefined)) {
+    issues.push({ path, message: "must provide width and height" });
+  }
+  if (asset.width && asset.height && asset.width !== asset.height * 2) {
+    issues.push({ path, message: "equirectangular panoramas must use a 2:1 aspect ratio" });
+  }
+}
+
 function validateHotspot(hotspot: Hotspot, path: string, sceneIds: ReadonlySet<string>, issues: TourConfigIssue[]) {
   if (!hasText(hotspot.id)) issues.push({ path: `${path}.id`, message: "must not be empty" });
   if (!hasText(hotspot.label)) issues.push({ path: `${path}.label`, message: "must provide an accessible label" });
@@ -95,15 +111,12 @@ function validateScene(scene: SceneConfig, index: number, sceneIds: ReadonlySet<
   const path = `scenes[${index}]`;
   if (!hasText(scene.id)) issues.push({ path: `${path}.id`, message: "must not be empty" });
   if (!hasText(scene.title)) issues.push({ path: `${path}.title`, message: "must not be empty" });
-  if (!isPublicAssetPath(scene.source.src)) issues.push({ path: `${path}.source.src`, message: "must be an absolute public asset path" });
-  if (scene.source.width !== undefined && (!Number.isInteger(scene.source.width) || scene.source.width <= 0)) {
-    issues.push({ path: `${path}.source.width`, message: "must be a positive integer" });
-  }
-  if (scene.source.height !== undefined && (!Number.isInteger(scene.source.height) || scene.source.height <= 0)) {
-    issues.push({ path: `${path}.source.height`, message: "must be a positive integer" });
-  }
-  if (scene.source.width && scene.source.height && scene.source.width !== scene.source.height * 2) {
-    issues.push({ path: `${path}.source`, message: "equirectangular panoramas must use a 2:1 aspect ratio" });
+  validatePanoramaAsset(scene.source, `${path}.source`, issues);
+  if (scene.source.fallback) {
+    validatePanoramaAsset(scene.source.fallback, `${path}.source.fallback`, issues, true);
+    if (scene.source.width !== undefined && scene.source.fallback.width !== undefined && scene.source.fallback.width >= scene.source.width) {
+      issues.push({ path: `${path}.source.fallback.width`, message: "must be smaller than the primary panorama width" });
+    }
   }
   if (scene.initialView) validateView(scene.initialView, `${path}.initialView`, issues);
   if (scene.thumbnail) validateImage(scene.thumbnail, `${path}.thumbnail`, issues);
