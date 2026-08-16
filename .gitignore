@@ -45,3 +45,5 @@ next-env.d.ts
 *prompt.md
 prompt*.md
 .vercel
+
+tests*/

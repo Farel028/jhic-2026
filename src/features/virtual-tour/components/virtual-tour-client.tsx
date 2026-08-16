@@ -7,6 +7,7 @@ import { SceneMenu } from "@/features/virtual-tour/components/scene-menu";
 import { TourControls } from "@/features/virtual-tour/components/tour-controls";
 import { SceneManager } from "@/features/virtual-tour/core/scene-manager";
 import { createSceneRegistry } from "@/features/virtual-tour/core/scene-registry";
+import { MAX_PANORAMA_FOV, MIN_PANORAMA_FOV } from "@/features/virtual-tour/core/limit-panorama-view";
 import type { PanoramaEngine } from "@/features/virtual-tour/engine/panorama-engine";
 import type { HotspotInspectorProps } from "@/features/virtual-tour/devtools/hotspot-inspector";
 import { HotspotLayer, type DialogHotspot, type MountedHotspot } from "@/features/virtual-tour/hotspots/hotspot-layer";
@@ -15,8 +16,6 @@ import type { HotspotCoordinates, SceneConfig, TourConfig } from "@/features/vir
 type ViewerStatus = "loading" | "ready" | "error";
 
 const DEFAULT_VIEW = { yaw: 0, pitch: 0, fov: 1.35 };
-const MIN_FOV = 0.45;
-const MAX_FOV = 2.05;
 
 function isAbortError(error: unknown) {
   return error instanceof DOMException && error.name === "AbortError";
@@ -38,7 +37,6 @@ export function VirtualTourClient({ config }: { config: TourConfig }) {
   const hotspotMountsRef = useRef(new Map<string, MountedHotspot[]>());
   const lifecycleSignalRef = useRef<AbortSignal | null>(null);
   const switchingSceneRef = useRef(false);
-  const cameraTransitionRef = useRef(false);
   const pointerStartRef = useRef<{ x: number; y: number } | null>(null);
   const autorotateIdleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [status, setStatus] = useState<ViewerStatus>("loading");
@@ -155,7 +153,6 @@ export function VirtualTourClient({ config }: { config: TourConfig }) {
       disposed = true;
       abortController.abort();
       switchingSceneRef.current = false;
-      cameraTransitionRef.current = false;
       lifecycleSignalRef.current = null;
       if (sceneManagerRef.current === manager) sceneManagerRef.current = null;
       if (engineRef.current === engine) engineRef.current = null;
@@ -207,7 +204,7 @@ export function VirtualTourClient({ config }: { config: TourConfig }) {
       && !isMenuOpen;
 
     if (shouldRotate) engine.startAutorotate(config.autorotate);
-    else if (!cameraTransitionRef.current) engine.stopAutorotate();
+    else engine.stopAutorotate();
   }, [activeHotspot, autorotateEnabled, autorotatePaused, config.autorotate, isMenuOpen, pendingSceneId, prefersReducedMotion, status]);
 
   useEffect(() => () => clearAutorotateIdleTimer(), [clearAutorotateIdleTimer]);
@@ -230,9 +227,7 @@ export function VirtualTourClient({ config }: { config: TourConfig }) {
       return;
     }
 
-    const shouldAnimateDeparture = Boolean(departure && !prefersReducedMotion);
     switchingSceneRef.current = true;
-    cameraTransitionRef.current = shouldAnimateDeparture;
     pauseAutorotateForInteraction();
     setActiveHotspot(null);
     if (isMenuOpen) closeSceneMenu();
@@ -240,19 +235,6 @@ export function VirtualTourClient({ config }: { config: TourConfig }) {
     setSceneError(null);
 
     try {
-      if (departure && shouldAnimateDeparture) {
-        const currentView = engine.getCurrentView();
-        const targetView = {
-          yaw: departure.yaw,
-          pitch: departure.pitch,
-          fov: Math.max(MIN_FOV, Math.min(0.68, (currentView?.fov ?? DEFAULT_VIEW.fov) * 0.48)),
-        };
-        await Promise.all([
-          manager.prepare(sceneId, signal),
-          engine.animateView(targetView, signal, { durationMs: 520 }),
-        ]);
-      }
-
       const scene = await manager.switchTo(sceneId, signal, { durationMs: prefersReducedMotion ? 0 : departure ? 360 : 350 });
       if (sceneManagerRef.current !== manager || signal.aborted) return;
       mountSceneHotspots(engine, scene);
@@ -265,7 +247,6 @@ export function VirtualTourClient({ config }: { config: TourConfig }) {
       setSceneError({ sceneId, message: `Scene ${registry.get(sceneId).title} tidak dapat dimuat.` });
     } finally {
       if (sceneManagerRef.current === manager) {
-        cameraTransitionRef.current = false;
         switchingSceneRef.current = false;
         setPendingSceneId(null);
       }
@@ -277,7 +258,7 @@ export function VirtualTourClient({ config }: { config: TourConfig }) {
     const view = engine?.getCurrentView();
     if (!engine || !view) return;
     pauseAutorotateForInteraction();
-    engine.setView({ ...view, fov: Math.min(MAX_FOV, Math.max(MIN_FOV, view.fov + delta)) });
+    engine.setView({ ...view, fov: Math.min(MAX_PANORAMA_FOV, Math.max(MIN_PANORAMA_FOV, view.fov + delta)) });
   }
 
   function recenterView() {

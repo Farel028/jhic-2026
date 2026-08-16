@@ -1,4 +1,5 @@
 import Marzipano from "marzipano";
+import { limitPanoramaView } from "@/features/virtual-tour/core/limit-panorama-view";
 import { selectPanoramaAsset } from "@/features/virtual-tour/core/select-panorama-asset";
 import type { PanoramaEngine, PanoramaHotspotMount, SceneTransitionOptions } from "@/features/virtual-tour/engine/panorama-engine";
 import type { AutorotateConfig, HotspotCoordinates, SceneConfig, ViewState } from "@/features/virtual-tour/types/tour";
@@ -107,9 +108,7 @@ export class MarzipanoAdapter implements PanoramaEngine {
     const source = Marzipano.ImageUrlSource.fromString(asset.src);
     const geometry = new Marzipano.EquirectGeometry([{ width: dimensions.width }]);
     const initialView = config.initialView ?? DEFAULT_VIEW;
-    const faceResolution = Math.max(512, Math.round(dimensions.width / 4));
-    const limiter = Marzipano.RectilinearView.limit.traditional(faceResolution, (120 * Math.PI) / 180);
-    const view = new Marzipano.RectilinearView(initialView, limiter);
+    const view = new Marzipano.RectilinearView(initialView, limitPanoramaView);
     const scene = viewer.createScene({ source, geometry, view, pinFirstLevel: true });
 
     this.scenes.set(config.id, scene);

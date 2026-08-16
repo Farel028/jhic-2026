@@ -42,6 +42,10 @@ memori perangkat tanpa membaca user-agent. Desktop yang mampu tetap memakai
 panorama utama, sedangkan HP memakai fallback agar decode dan upload tekstur
 tidak menghabiskan memori.
 
+Zoom memakai batas FOV eksplisit `0.45-2.05` radian dan tidak dibatasi oleh
+resolusi panorama. Karena itu wheel, pinch, dan keyboard tetap memiliki rentang
+zoom yang sama saat engine memilih panorama utama maupun fallback.
+
 ## Adding a Scene
 
 1. Tambahkan panorama ke `public/tours/<tour-id>/panoramas/`.
@@ -106,8 +110,8 @@ Validator akan menolak ID scene duplikat, initial scene yang tidak ada,
 target scene yang tidak dikenal, path asset tidak aman, serta data view dan
 hotspot yang tidak valid.
 
-Hotspot `scene` dirender sebagai panah lantai. Saat dipilih, kamera mengarah ke
-koordinat hotspot dan zoom masuk sebelum scene berganti dengan crossfade.
+Hotspot `scene` dirender sebagai panah lantai. Saat dipilih, viewer berpindah
+ke scene tujuan menggunakan crossfade tanpa animasi zoom-in pada kamera.
 Target panorama yang tertaut langsung sudah mulai dipersiapkan ketika scene
 aktif tampil. Menu scene tetap memakai perpindahan langsung.
 
