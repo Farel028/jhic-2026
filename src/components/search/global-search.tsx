@@ -124,7 +124,7 @@ export function GlobalSearch() {
       <button
         type="button"
         onClick={openSearch}
-        className="grid size-11 shrink-0 place-items-center rounded-full border border-ink/15 bg-white text-ink-muted transition-colors hover:border-primary hover:text-ink-strong"
+        className="grid size-11 shrink-0 place-items-center rounded-xl border border-ink/15 bg-white text-ink-muted transition-colors hover:border-primary hover:bg-secondary/15 hover:text-ink-strong"
         aria-label="Buka pencarian website"
         aria-keyshortcuts="Control+K Meta+K /"
         title="Cari (Ctrl/⌘ + K)"

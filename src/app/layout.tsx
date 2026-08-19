@@ -1,9 +1,16 @@
 import type { Metadata, Viewport } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { school } from "@/config/school";
 import "./globals.css";
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? school.urls.canonical),
@@ -58,7 +65,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="id" className="antialiased">
+    <html lang="id" className={`${plusJakartaSans.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">
         <a href="#konten-utama" className="skip-link" data-site-chrome>Lewati ke konten utama</a>
         <SiteHeader />

@@ -30,7 +30,7 @@ export function MobileMenu() {
 
   return (
     <>
-      <button type="button" onClick={openMenu} className="grid size-11 place-items-center rounded-full border border-ink/15 bg-white text-ink-strong lg:hidden" aria-label="Buka menu navigasi">
+      <button type="button" onClick={openMenu} className="grid size-11 place-items-center rounded-xl border border-ink/15 bg-accent-strong text-ink-strong lg:hidden" aria-label="Buka menu navigasi">
         <MenuIcon className="size-5" />
       </button>
 
