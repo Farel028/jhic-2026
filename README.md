@@ -45,3 +45,5 @@ NEXT_PUBLIC_SITE_URL=https://web.smkn2sby.sch.id
 - Kanal sosial: Instagram dan YouTube diverifikasi dari tautan website/e-learning sekolah. TikTok `@smknegeri2surabaya` ditambahkan berdasarkan konfirmasi identitas kanal dari pengguna project.
 
 Foto sekolah yang tidak dapat diverifikasi belum digunakan. Jangan menambahkan data statistik, prestasi, atau identitas personal tanpa sumber dan persetujuan publikasi yang jelas.
+
+pipeline stucked because collaborators
