@@ -1,9 +1,3 @@
-export const studentNavigation = [
-  { label: "Ringkasan", href: "/siswa" },
-  { label: "Karya siswa", href: "/siswa/karya" },
-  { label: "Prestasi", href: "/siswa/prestasi" },
-] as const;
-
 export type StudentImage = {
   src: string;
   alt: string;

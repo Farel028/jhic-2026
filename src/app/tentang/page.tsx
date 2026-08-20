@@ -5,7 +5,7 @@ import { AboutBreadcrumb } from "@/components/about/about-breadcrumb";
 import { AboutNavigation } from "@/components/about/about-navigation";
 import { DocumentaryImage } from "@/components/about/documentary-image";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
-import { ArrowRightIcon } from "@/components/ui/icons";
+import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
 import { aboutImages, directionThemes, learningApproach } from "@/data/about";
 import { school, schoolFacts } from "@/config/school";
 
@@ -107,26 +107,37 @@ export default function AboutPage() {
 
       <AboutNavigation activeHref="/tentang" />
 
-      <section className="px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-32">
+<section className="px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-28">
         <div className="mx-auto w-full max-w-site">
-          <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
-            <div>
-              <p className="eyebrow">Kenali sekolah</p>
-              <h2 className="mt-5 text-4xl font-black leading-[0.95] tracking-[-0.055em] text-ink-strong sm:text-5xl">Satu sekolah, banyak cerita.</h2>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
+          <div className="max-w-3xl">
+            <p className="eyebrow">Kenali sekolah</p>
+            <h2 className="mt-5 text-4xl font-black leading-[0.95] tracking-[-0.055em] text-ink-strong sm:text-5xl">Satu sekolah, banyak cerita.</h2>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3">
               {aboutCards.map((card) => (
-                <Link key={card.href} href={card.href} className={`group flex min-h-64 flex-col justify-between rounded-[1.75rem] border border-ink/10 p-6 shadow-sm transition-transform hover:-translate-y-1 sm:p-7 ${card.tone}`}>
-                  <span className="text-xs font-black text-ink-muted">{card.number}</span>
-                  <span className="mt-16">
-                    <span className="block text-2xl font-black tracking-[-0.04em] text-ink-strong">{card.title}</span>
+                <Link key={card.href} href={card.href} className={`group relative flex min-h-64 flex-col justify-between overflow-hidden rounded-[1.75rem] border border-ink/10 p-6 shadow-sm transition-transform hover:-translate-y-1 sm:p-7 ${card.tone}`}>
+                  <span aria-hidden="true" className="absolute -right-3 -top-9 text-[8rem] font-black leading-none tracking-[-0.1em] text-ink-strong/10 transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-[1.05] sm:text-[9.5rem]">
+                    {card.number}
+                  </span>
+
+                  <div className="relative flex items-start justify-between gap-4">
+                    <span className="text-xs font-black text-ink-muted">{card.number}</span>
+                    <span className="grid size-9 shrink-0 place-items-center rounded-full border border-ink/15 bg-white/70 text-ink-muted transition-colors group-hover:border-ink-strong/30 group-hover:bg-ink-strong group-hover:text-white">
+                      <ArrowUpRightIcon className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    </span>
+                  </div>
+
+                  <span className="relative mt-10 block">
+                    <span className="block text-2xl font-black leading-tight tracking-[-0.04em] text-ink-strong">{card.title}</span>
                     <span className="mt-3 block text-sm font-medium leading-6 text-ink-muted">{card.description}</span>
-                    <span className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong">Jelajahi <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-1" /></span>
+                  </span>
+
+                  <span className="relative mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong">
+                    Jelajahi <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </Link>
               ))}
             </div>
-          </div>
 
           <dl className="mt-20 grid border-y border-ink/15 sm:grid-cols-2 lg:grid-cols-4">
             {schoolFacts.map((fact) => (
