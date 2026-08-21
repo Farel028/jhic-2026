@@ -64,7 +64,7 @@ function buildHotspotSnippet({
   }
   if (type === "image") {
     lines.push("  image: {");
-    lines.push(`    src: ${quote(assetPath, "/tours/home/images/example.jpg")},`);
+    lines.push(`    src: ${quote(assetPath, "/tours/smkn2/images/example.jpg")},`);
     lines.push(`    alt: ${quote(alt, "Deskripsi gambar")},`);
     lines.push("  },");
   }
@@ -72,7 +72,7 @@ function buildHotspotSnippet({
     lines.push(`  title: ${quote(title, "Judul video")},`);
     lines.push("  video: {");
     lines.push('    provider: "file",');
-    lines.push(`    src: ${quote(assetPath, "/tours/home/videos/example.mp4")},`);
+    lines.push(`    src: ${quote(assetPath, "/tours/smkn2/videos/example.mp4")},`);
     lines.push('    mimeType: "video/mp4",');
     lines.push("  },");
   }
@@ -98,7 +98,7 @@ export function HotspotInspector({ currentSceneId, scenes, pickedCoordinates, ge
   const [targetSceneId, setTargetSceneId] = useState(() => scenes.find((scene) => scene.id !== currentSceneId)?.id ?? currentSceneId);
   const [title, setTitle] = useState("Judul hotspot");
   const [description, setDescription] = useState("Deskripsi hotspot");
-  const [assetPath, setAssetPath] = useState("/tours/home/images/example.jpg");
+  const [assetPath, setAssetPath] = useState("/tours/smkn2/images/example.jpg");
   const [alt, setAlt] = useState("Deskripsi gambar");
   const [href, setHref] = useState("/");
   const [newTab, setNewTab] = useState(false);
@@ -111,8 +111,8 @@ export function HotspotInspector({ currentSceneId, scenes, pickedCoordinates, ge
 
   function handleHotspotTypeChange(type: HotspotType) {
     setHotspotType(type);
-    if (type === "image") setAssetPath("/tours/home/images/example.jpg");
-    if (type === "video") setAssetPath("/tours/home/videos/example.mp4");
+    if (type === "image") setAssetPath("/tours/smkn2/images/example.jpg");
+    if (type === "video") setAssetPath("/tours/smkn2/videos/example.mp4");
   }
 
   const snippet = useMemo(() => pickedCoordinates ? buildHotspotSnippet({

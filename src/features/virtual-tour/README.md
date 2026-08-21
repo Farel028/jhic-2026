@@ -27,7 +27,7 @@ TourConfig
 ## Asset Directory
 
 ```text
-public/tours/home/
+public/tours/smkn2/
   panoramas/
   thumbnails/
   images/
@@ -60,11 +60,11 @@ zoom yang sama saat engine memilih panorama utama maupun fallback.
   title: "Ruang Tamu",
   source: {
     type: "equirectangular",
-    src: "/tours/home/panoramas/living-room.jpg",
+    src: "/tours/smkn2/panoramas/living-room.jpg",
     width: 8704,
     height: 4352,
     fallback: {
-      src: "/tours/home/panoramas/living-room-mobile.jpg",
+      src: "/tours/smkn2/panoramas/living-room-mobile.jpg",
       width: 4096,
       height: 2048,
     },
@@ -102,9 +102,9 @@ dalam adapter engine.
 - `link` menerima internal path atau HTTP(S). Gunakan `newTab: true` bila perlu;
   renderer otomatis menambahkan `noopener noreferrer`.
 
-Fixture video saat ini menunjuk
-`/tours/home/videos/tour-sample.mp4`. File tersebut sengaja tidak dibuat;
-dialog menampilkan fallback sampai video asli ditambahkan ke path itu.
+Untuk hotspot video lokal, gunakan path seperti
+`/tours/smkn2/videos/tour-sample.mp4`. Dialog menampilkan fallback bila file
+belum tersedia pada path yang dikonfigurasi.
 
 Validator akan menolak ID scene duplikat, initial scene yang tidak ada,
 target scene yang tidak dikenal, path asset tidak aman, serta data view dan
@@ -118,9 +118,8 @@ aktif tampil. Menu scene tetap memakai perpindahan langsung.
 ## Mengubah Link Antar-scene
 
 Hubungan antar-scene tidak memakai URL halaman. Setiap panah membaca
-`targetSceneId` dari hotspot `scene` di file config tour. Fixture saat ini ada
-di `config/home-tour.ts`; tour sekolah nantinya menggunakan
-`config/smkn2-tour.ts`.
+`targetSceneId` dari hotspot `scene` di file config tour. Tour sekolah berada
+di `config/smkn2-tour.ts`.
 
 Contoh scene tujuan:
 
@@ -160,20 +159,18 @@ Jika yang ingin diubah adalah file panorama, ubah `source.src` dan
 diinginkan adalah tautan ke halaman atau website, gunakan hotspot `type: "link"`
 dengan field `href`, bukan `targetSceneId`.
 
-## Switching Tour Config
+## Tour Config
 
-Berikan config lain ke boundary client yang sama:
+Route publik memberikan config sekolah ke boundary client yang sama:
 
 ```tsx
 <VirtualTourClient config={smkn2Tour} />
 ```
 
-Tour sekolah nantinya sebaiknya berada di config terpisah. Jangan mengganti
-core viewer saat aset sekolah tersedia.
-
-Ikuti [panduan migrasi SMKN 2](./docs/smkn2-migration.md) untuk struktur aset,
-urutan penggantian config, dan checklist sebelum publikasi. Status acceptance
-framework dicatat di [acceptance checklist](./docs/acceptance-checklist.md).
+Tour sekolah berada di `config/smkn2-tour.ts`. Tambahkan scene baru di config
+tersebut tanpa mengganti core viewer. Ikuti
+[panduan panorama SMKN 2](./PANORAMA-IMPLEMENTATION-GUIDE.md) untuk struktur
+aset, penambahan scene, QA desktop/mobile, dan checklist publikasi.
 
 ## Developer Mode
 
@@ -233,7 +230,7 @@ Video menggunakan native accessible controls, `playsInline`, dan
 
 ```ts
 captions: {
-  src: "/tours/home/videos/captions-id.vtt",
+  src: "/tours/smkn2/videos/captions-id.vtt",
   srcLang: "id",
   label: "Bahasa Indonesia",
 }
