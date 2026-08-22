@@ -17,10 +17,9 @@ export const primaryNavigation: readonly NavigationItem[] = [
     label: "Tentang Kami",
     children: [
       { label: "Profil", href: "/tentang/profil" },
-      { label: "Kurikulum", href: "/tentang/kurikulum" },
-      { label: "Fasilitas", href: "/tentang/fasilitas" },
       { label: "Sejarah", href: "/tentang/sejarah" },
-      { label: "Visi & Misi", href: "/tentang/visi-misi" },
+      { label: "Kurikulum & Pembelajaran", href: "/tentang/kurikulum" },
+      { label: "Fasilitas", href: "/tentang/fasilitas" },
     ],
   },
   {
@@ -37,10 +36,11 @@ export const primaryNavigation: readonly NavigationItem[] = [
     children: [
       { label: "Prestasi", href: "/siswa/prestasi" },
       { label: "Karya Siswa", href: "/siswa/karya" },
+      { label: "Alumni", href: "/siswa/alumni" },
     ],
   },
-  { label: "Informasi", href: "/informasi" },
-  { label: "Dokumentasi", href: "/dokumentasi" },
+  { label: "Berita", href: "/berita" },
+  { label: "Virtual Tour", href: "/virtual-tour" },
 ] as const;
 
 export const footerNavigation = {
@@ -48,12 +48,10 @@ export const footerNavigation = {
     { label: "Program keahlian", href: "/#jurusan" },
     { label: "Karya siswa", href: "/siswa/karya" },
     { label: "Prestasi", href: "/siswa/prestasi" },
-    { label: "Dokumentasi", href: "/dokumentasi" },
+    { label: "Alumni", href: "/siswa/alumni" },
     { label: "Berita sekolah", href: "/berita" },
   ],
   informasi: [
-    { label: "Pusat informasi", href: "/informasi" },
-    { label: "Pertanyaan umum", href: "/informasi/faq" },
     { label: "Info SPMB", href: "/informasi/spmb" },
     { label: "Profil sekolah", href: "/tentang/profil" },
     { label: "Fasilitas", href: "/tentang/fasilitas" },

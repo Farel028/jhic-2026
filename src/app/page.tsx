@@ -4,6 +4,7 @@ import { AchievementTicker } from "@/components/home/achievement-ticker";
 import { InstagramSection } from "@/components/home/instagram-section";
 import { MajorExplorer } from "@/components/home/major-explorer";
 import { AdmissionCta, AlumniOutcome } from "@/components/home/outcomes-stories";
+import { PartnerTicker } from "@/components/home/partner-ticker";
 import { PracticeShowcase } from "@/components/home/practice-showcase";
 import { SchoolIntroduction } from "@/components/home/school-introduction";
 import { VirtualTourCta } from "@/components/home/virtual-tour-cta";
@@ -73,18 +74,18 @@ export default function Home() {
         <div className="mx-auto w-full max-w-site">
           <div className="grid items-end gap-7 lg:grid-cols-[1.2fr_0.8fr]">
             <div>
-              <p className="eyebrow">Program Keahlian</p>
-              <h2 className="mt-5 max-w-4xl text-[clamp(2rem,3.8vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-ink-strong">Pilih dari 11 jurusan.</h2>
+              <h2 className="max-w-4xl text-[clamp(2rem,3.8vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-ink-strong">11 Program Keahlian</h2>
             </div>
-            <p className="max-w-xl text-base font-medium leading-7 text-ink-muted lg:justify-self-end lg:text-lg">Temukan bidang teknologi, konstruksi, elektronika, dan otomotif yang sesuai dengan minatmu.</p>
+            <p className="max-w-xl text-base font-medium leading-7 text-ink-muted lg:justify-self-end lg:text-lg">Pilih bidang yang ingin kamu pelajari lebih jauh.</p>
           </div>
           <MajorExplorer />
         </div>
       </section>
 
       <PracticeShowcase />
-      <VirtualTourCta />
       <AlumniOutcome />
+      <PartnerTicker />
+      <VirtualTourCta />
       <InstagramSection />
       <AdmissionCta />
     </main>

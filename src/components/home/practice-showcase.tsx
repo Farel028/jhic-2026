@@ -1,79 +1,70 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRightIcon } from "@/components/ui/icons";
-import { practiceStories } from "@/data/practice-stories";
+import { newsroomItems } from "@/data/documentation";
+
+const latestNews = newsroomItems.slice(0, 4);
 
 export function PracticeShowcase() {
-  const [featuredStory, ...supportingStories] = practiceStories;
-
   return (
-    <section className="bg-ink-strong px-5 py-20 text-white sm:px-8 sm:py-24 lg:px-10 lg:py-28">
+    <section
+      aria-labelledby="berita-terbaru"
+      className="border-y border-ink/10 bg-[#f1f0ea] px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28"
+    >
       <div className="mx-auto w-full max-w-site">
-        <div className="grid gap-7 border-b border-white/15 pb-10 lg:grid-cols-[1fr_0.7fr] lg:items-end">
-          <div>
-            <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-secondary">Belajar lewat praktik</p>
-            <h2 className="mt-4 max-w-4xl text-[clamp(2rem,3.8vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em]">
-              Dari ruang praktik ke dunia industri.
-            </h2>
-          </div>
-          <p className="max-w-xl text-base font-medium leading-7 text-white/65 lg:justify-self-end lg:text-lg">
-            Dokumentasi kegiatan belajar dan kolaborasi siswa sepanjang 2025.
-          </p>
+        <div className="border-b border-ink/15 pb-7">
+          <h2
+            id="berita-terbaru"
+            className="text-[clamp(2rem,3.8vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-ink-strong"
+          >
+            Berita terbaru
+          </h2>
         </div>
 
-        <div className="mt-10 grid gap-12 lg:grid-cols-[1.18fr_0.82fr] lg:gap-14">
-          <article>
-            <Link href={`/berita/${featuredStory.slug}`} className="group block">
-              <div className="relative aspect-[16/10] overflow-hidden bg-white/5">
-                <Image
-                  src={featuredStory.image.src}
-                  alt={featuredStory.image.alt}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 58vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                />
-              </div>
-              <div className="mt-6">
-                <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-secondary">{featuredStory.category} · {featuredStory.year}</p>
-                <h3 className="mt-3 max-w-3xl text-2xl font-extrabold leading-tight tracking-[-0.025em] sm:text-3xl">{featuredStory.title}</h3>
-                <p className="mt-4 max-w-2xl text-sm font-medium leading-6 text-white/60 sm:text-base sm:leading-7">{featuredStory.description}</p>
-                <span className="mt-6 inline-flex items-center gap-3 text-sm font-extrabold text-white underline decoration-secondary decoration-2 underline-offset-8">
-                  Baca cerita <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </Link>
-          </article>
-
-          <div>
-            {supportingStories.map((story) => (
-              <article key={story.slug} className="border-t border-white/15 py-7 first:pt-0 lg:first:border-t-0">
-                <Link href={`/berita/${story.slug}`} className="group grid gap-5 sm:grid-cols-[0.44fr_0.56fr] sm:items-start lg:grid-cols-1 xl:grid-cols-[0.44fr_0.56fr]">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-white/5">
+        <ol className="mt-10 grid gap-y-8 sm:grid-cols-2 sm:gap-x-5 sm:gap-y-10 lg:grid-cols-4">
+          {latestNews.map((item) => (
+            <li key={item.href}>
+              <article>
+                <Link
+                  href={item.href}
+                  className="group grid grid-cols-[7.5rem_1fr] items-start gap-4 sm:block"
+                >
+                  <figure className="relative aspect-[4/3] overflow-hidden bg-[#e3e1d9]">
                     <Image
-                      src={story.image.src}
-                      alt={story.image.alt}
+                      src={item.image.src}
+                      alt={item.image.alt}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 42vw, 18vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      loading="lazy"
+                      sizes="(max-width: 639px) 7.5rem, (max-width: 1023px) calc(50vw - 2.25rem), (max-width: 1535px) calc(25vw - 2rem), 345px"
+                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025] group-focus-visible:scale-[1.025] motion-reduce:transition-none"
                     />
-                  </div>
-                  <div>
-                    <p className="text-[0.65rem] font-extrabold uppercase tracking-[0.12em] text-secondary">{story.category} · {story.year}</p>
-                    <h3 className="mt-3 text-xl font-extrabold leading-tight tracking-[-0.02em] sm:text-2xl">{story.title}</h3>
-                    <p className="mt-3 text-sm leading-6 text-white/55">{story.description}</p>
-                    <span className="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-white">
-                      Baca <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-1" />
-                    </span>
+                  </figure>
+
+                  <div className="sm:mt-4">
+                    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] font-bold leading-5 text-ink-muted">
+                      <span className="text-primary-strong">
+                        {item.categoryLabel}
+                      </span>
+                      <span aria-hidden="true">/</span>
+                      <time>{item.date}</time>
+                    </p>
+                    <h3 className="mt-2 text-base font-extrabold leading-6 tracking-[-0.02em] text-ink-strong transition-colors group-hover:text-primary-strong sm:text-lg">
+                      {item.title}
+                    </h3>
                   </div>
                 </Link>
               </article>
-            ))}
-          </div>
-        </div>
+            </li>
+          ))}
+        </ol>
 
-        <div className="mt-12 flex justify-end border-t border-white/15 pt-7">
-          <Link href="/berita" className="inline-flex min-h-11 items-center gap-3 text-sm font-extrabold text-white underline decoration-primary decoration-2 underline-offset-8">
-            Lihat semua berita <ArrowRightIcon className="size-4" />
+        <div className="mt-12 flex justify-center">
+          <Link
+            href="/berita"
+            className="inline-flex min-h-11 items-center gap-3 border-b-2 border-primary pb-1 text-sm font-extrabold text-ink-strong transition-colors hover:text-primary-strong"
+          >
+            Lihat semua berita
+            <ArrowRightIcon className="size-4" />
           </Link>
         </div>
       </div>

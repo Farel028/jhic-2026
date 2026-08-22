@@ -10,11 +10,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tentang/kurikulum",
     "/tentang/fasilitas",
     "/tentang/sejarah",
-    "/tentang/visi-misi",
   ] as const;
-  const studentRoutes = ["/siswa/karya", "/siswa/prestasi"] as const;
-  const informationRoutes = ["/informasi", "/informasi/faq", "/informasi/spmb"] as const;
-  const documentationRoutes = ["/dokumentasi", "/berita"] as const;
+  const studentRoutes = [
+    "/siswa/karya",
+    "/siswa/prestasi",
+    "/siswa/alumni",
+  ] as const;
+  const informationRoutes = ["/informasi/spmb"] as const;
+  const publicationRoutes = ["/berita"] as const;
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -42,10 +45,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...informationRoutes.map((path) => ({
       url: `${baseUrl}${path}`,
       lastModified: new Date(),
-      changeFrequency: path === "/informasi/spmb" ? "weekly" as const : "monthly" as const,
-      priority: path === "/informasi" ? 0.9 : 0.8,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
     })),
-    ...documentationRoutes.map((path) => ({
+    ...publicationRoutes.map((path) => ({
       url: `${baseUrl}${path}`,
       lastModified: new Date(),
       changeFrequency: "weekly" as const,

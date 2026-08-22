@@ -8,7 +8,7 @@ export const smkn2Tour = {
   initialSceneId: "ceremony-field",
   autorotate: {
     enabled: true,
-    yawSpeed: 0.5,
+    yawSpeed: 0.06,
     idleDelayMs: 5000,
   },
   scenes: [

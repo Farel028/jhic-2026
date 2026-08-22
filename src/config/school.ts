@@ -43,7 +43,7 @@ export const school = {
   },
   timeZone: "Asia/Jakarta",
   urls: {
-    canonical: "https://web.smkn2sby.sch.id",
+    canonical: "https://smkn2sby.sch.id",
     smartPortal: "https://smkn2sby.sch.id",
     bkk: "https://bkk.smkn2sby.sch.id",
     admissions: "https://spmbjatim.net",

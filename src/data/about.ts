@@ -34,51 +34,19 @@ export const aboutImages = {
 export const schoolIdentity = [
   { label: "Nama", value: "SMK Negeri 2 Surabaya" },
   { label: "NPSN", value: "20532203" },
-  { label: "Status", value: "Sekolah negeri" },
   { label: "Akreditasi", value: "A" },
   { label: "Alamat", value: "Jl. Tentara Genie Pelajar No. 26, Surabaya" },
-  { label: "Akar sejarah", value: "Sekitar 1912" },
 ] as const;
 
-export const learningApproach = [
-  {
-    number: "01",
-    title: "Fondasi",
-    description:
-      "Pengetahuan dasar, karakter, keselamatan kerja, dan kebiasaan belajar yang kuat.",
-  },
-  {
-    number: "02",
-    title: "Keterampilan",
-    description:
-      "Latihan terarah untuk memahami alat, proses, standar, dan teknologi sesuai bidang.",
-  },
-  {
-    number: "03",
-    title: "Proyek",
-    description:
-      "Penerapan kompetensi melalui karya, kolaborasi, dan penyelesaian masalah nyata.",
-  },
-  {
-    number: "04",
-    title: "Industri",
-    description:
-      "Paparan dunia kerja melalui kunjungan, praktik lapangan, mitra, dan budaya profesional.",
-  },
-  {
-    number: "05",
-    title: "Langkah lanjut",
-    description:
-      "Persiapan untuk bekerja, berwirausaha, atau melanjutkan pendidikan sesuai tujuan murid.",
-  },
-] as const;
+export const schoolVision =
+  "Menjadi pusat pendidikan menengah kejuruan terdepan yang menghasilkan lulusan unggul di bidang teknologi dan seni, mahir, kreatif, inovatif, dan berkarakter mulia, siap bersaing dalam industri global.";
 
 export const historyTimeline = [
   {
-    period: "Sekitar 1912–1942",
-    title: "Berawal sebagai KES",
+    period: "1912–1913",
+    title: "Koningin Emma School",
     description:
-      "Sumber sekolah mencatat awal lembaga ini dengan nama KES (Koningen Emma School) pada masa Hindia Belanda.",
+      "Sekolah teknik ditetapkan pada Januari 1912, dibuka pada 2 Juli 1912, lalu resmi diberi nama Koningin Emma School pada 1913.",
   },
   {
     period: "Sekitar 1921",
@@ -109,6 +77,93 @@ export const historyTimeline = [
     title: "SMK Negeri 2 Surabaya",
     description:
       "Identitasnya berkembang menjadi sekolah menengah kejuruan negeri dengan beragam bidang teknologi, industri, konstruksi, otomotif, dan kreatif.",
+  },
+] as const;
+
+export const schoolLeadershipHistory = [
+  { period: "1949–1952", name: "Ir. Luiyerink" },
+  { period: "1952–1957", name: "Ir. Adrianaanse" },
+  { period: "1957–1974", name: "Ir. Lie Tjwan Kwan" },
+  { period: "1974–1984", name: "Drs. J. Soewito" },
+  {
+    period: "1984–1992",
+    name: "Drs. H. Moch. Soleh Abdurrachman",
+  },
+  { period: "1992–1995", name: "H. Muh. Subhan Soebagjo" },
+  { period: "1996–2002", name: "Ir. R. Bagastyo Soetjokro" },
+  { period: "2003–2004", name: "Drs. Moedianto, HS (Plt.)" },
+  { period: "2005–2009", name: "Drs. Abdul Rofiq" },
+  { period: "2010–2014", name: "Drs. Bahrun, ST., M.M." },
+  { period: "2014–2020", name: "Drs. Djoko Pratmodjo Y.U., M.M." },
+  { period: "2020–2022", name: "Drs. Bahrun, ST., M.M." },
+  {
+    period: "2022–2025",
+    name: "Bambang Poerwowidiantoro, S.Pd., M.M.",
+  },
+  { period: "2025", name: "Endang Tribawani, M.Pd." },
+  {
+    period: "Kini",
+    name: "Dr. Dhanu Lukmantoro, S.Kom., ST., M.M.",
+  },
+] as const;
+
+export const notableAlumni = [
+  {
+    field: "Dirgantara",
+    name: "Nurtanio Pringgoadisuryo",
+    impact:
+      "Perintis industri pesawat terbang Indonesia yang namanya diabadikan pada LIPNUR, salah satu mata rantai menuju PT Dirgantara Indonesia.",
+    wikipediaUrl:
+      "https://id.wikipedia.org/wiki/Nurtanio_Pringgoadisuryo",
+  },
+  {
+    field: "TNI Angkatan Udara",
+    name: "Soewoto Sukendar",
+    impact: "Kepala Staf TNI Angkatan Udara pada 1969–1973.",
+    wikipediaUrl: "https://id.wikipedia.org/wiki/Soewoto_Sukendar",
+  },
+  {
+    field: "Kepolisian",
+    name: "Widodo Budidarmo",
+    impact: "Kepala Kepolisian Negara Republik Indonesia pada 1974–1978.",
+    wikipediaUrl: "https://id.wikipedia.org/wiki/Widodo_Budidarmo",
+  },
+  {
+    field: "TNI Angkatan Darat",
+    name: "Soemirto",
+    impact: "Jenderal TNI yang tercatat sebagai alumnus dalam arsip sekolah.",
+    wikipediaUrl: null,
+  },
+  {
+    field: "TNI Angkatan Darat",
+    name: "Widjojo Soejono",
+    impact: "Jenderal TNI dan salah satu tokoh militer Indonesia.",
+    wikipediaUrl: "https://id.wikipedia.org/wiki/Widjojo_Soejono",
+  },
+  {
+    field: "TNI Angkatan Darat",
+    name: "Bambang Triantoro",
+    impact: "Letnan Jenderal TNI yang tercatat dalam arsip alumni sekolah.",
+    wikipediaUrl: "https://id.wikipedia.org/wiki/Bambang_Triantoro",
+  },
+  {
+    field: "Pers",
+    name: "Abdul Azis",
+    impact:
+      "Pendiri harian Surabaya Post; namanya kemudian digunakan untuk perpustakaan sekolah.",
+    wikipediaUrl: null,
+  },
+  {
+    field: "Pelestarian sejarah",
+    name: "R. Soendjasworo",
+    impact: "Ketua Yayasan Eks Tentara Genie Pelajar Brigade XVII.",
+    wikipediaUrl: null,
+  },
+  {
+    field: "Pengabdian publik",
+    name: "H. G. Bagus Sasmito",
+    impact: "Tokoh MKGR dan anggota Majelis Permusyawaratan Rakyat.",
+    wikipediaUrl: null,
   },
 ] as const;
 

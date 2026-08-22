@@ -8,7 +8,7 @@ export function StudentBreadcrumb({ current }: { current?: string }) {
         <li aria-hidden="true">/</li>
         {current ? (
           <>
-            <li><Link href="/siswa" className="hover:text-primary-strong">Siswa</Link></li>
+            <li><Link href="/siswa/prestasi" className="hover:text-primary-strong">Siswa</Link></li>
             <li aria-hidden="true">/</li>
             <li aria-current="page" className="text-ink-strong">{current}</li>
           </>

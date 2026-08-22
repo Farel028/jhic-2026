@@ -58,7 +58,7 @@ export const majorDetails: readonly MajorDetail[] = [
       "Konten kreator",
     ],
     banner: {
-      src: "/images/school/animasi.jpg",
+      src: "/images/school/animasi.webp",
       alt: "Banner jurusan Animasi SMK Negeri 2 Surabaya",
     },
   },
@@ -90,7 +90,7 @@ export const majorDetails: readonly MajorDetail[] = [
       "Kontraktor atau pemborong",
     ],
     banner: {
-      src: "/images/school/dpib.jpg",
+      src: "/images/school/dpib.webp",
       alt: "Banner jurusan Desain Pemodelan dan Informasi Bangunan SMK Negeri 2 Surabaya",
     },
   },
@@ -123,7 +123,7 @@ export const majorDetails: readonly MajorDetail[] = [
       "Kontraktor atau pemborong",
     ],
     banner: {
-      src: "/images/school/tkp.jpg",
+      src: "/images/school/tkp.webp",
       alt: "Banner jurusan Teknik Konstruksi dan Perumahan SMK Negeri 2 Surabaya",
     },
   },
@@ -150,7 +150,7 @@ export const majorDetails: readonly MajorDetail[] = [
       "Sektor swasta",
     ],
     banner: {
-      src: "/images/school/tav.jpg",
+      src: "/images/school/tav.webp",
       alt: "Banner jurusan Teknik Audio Video SMK Negeri 2 Surabaya",
     },
   },
@@ -178,7 +178,7 @@ export const majorDetails: readonly MajorDetail[] = [
       "Sektor swasta",
     ],
     banner: {
-      src: "/images/school/tei.jpg",
+      src: "/images/school/tei.webp",
       alt: "Banner jurusan Teknik Elektronika Industri SMK Negeri 2 Surabaya",
     },
   },
@@ -206,7 +206,7 @@ export const majorDetails: readonly MajorDetail[] = [
       "Instansi pemerintah dan industri ketenagalistrikan",
     ],
     banner: {
-      src: "/images/school/titl.jpg",
+      src: "/images/school/titl.webp",
       alt: "Banner jurusan Teknik Instalasi Tenaga Listrik SMK Negeri 2 Surabaya",
     },
   },
@@ -236,7 +236,7 @@ export const majorDetails: readonly MajorDetail[] = [
       "Drafter",
     ],
     banner: {
-      src: "/images/school/tpm.jpg",
+      src: "/images/school/tpm.webp",
       alt: "Banner jurusan Teknik Pemesinan SMK Negeri 2 Surabaya",
     },
   },
@@ -265,7 +265,7 @@ export const majorDetails: readonly MajorDetail[] = [
       "Sektor swasta",
     ],
     banner: {
-      src: "/images/school/tkr.jpg",
+      src: "/images/school/tkr.webp",
       alt: "Banner jurusan Teknik Kendaraan Ringan SMK Negeri 2 Surabaya",
     },
   },
@@ -293,7 +293,7 @@ export const majorDetails: readonly MajorDetail[] = [
       "Wirausaha bengkel",
     ],
     banner: {
-      src: "/images/school/teaching-factory-motor.jpg",
+      src: "/images/school/teaching-factory-motor.webp",
       alt: "Ruang praktik layanan sepeda motor SMK Negeri 2 Surabaya",
     },
     sourceNote:
@@ -327,7 +327,7 @@ export const majorDetails: readonly MajorDetail[] = [
       "Game developer",
     ],
     banner: {
-      src: "/images/school/tkj.jpg",
+      src: "/images/school/tkj.webp",
       alt: "Banner jurusan Teknik Komputer dan Jaringan SMK Negeri 2 Surabaya",
     },
   },
@@ -356,7 +356,7 @@ export const majorDetails: readonly MajorDetail[] = [
       "Software tester",
     ],
     banner: {
-      src: "/images/school/rpl.jpg",
+      src: "/images/school/rpl.webp",
       alt: "Banner jurusan Rekayasa Perangkat Lunak SMK Negeri 2 Surabaya",
     },
   },
