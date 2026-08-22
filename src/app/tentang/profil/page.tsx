@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { AboutBreadcrumb } from "@/components/about/about-breadcrumb";
-import { AboutNavigation } from "@/components/about/about-navigation";
 import { DocumentaryImage } from "@/components/about/documentary-image";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
@@ -29,7 +28,6 @@ export default function ProfilePage() {
         { name: "Tentang Sekolah", path: "/tentang" },
         { name: "Profil Sekolah", path: "/tentang/profil" },
       ]} />
-      <AboutNavigation activeHref="/tentang/profil" />
 
       <section className="hero-grid border-b border-ink/10 px-5 py-14 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-site">
@@ -93,7 +91,7 @@ export default function ProfilePage() {
             <p className="eyebrow">Terhubung dengan industri</p>
             <h2 className="mt-5 text-4xl font-black leading-[0.95] tracking-[-0.055em] text-ink-strong sm:text-5xl">Teori bertemu situasi nyata.</h2>
             <p className="mt-6 text-base font-medium leading-7 text-ink-muted">Kunjungan industri, praktik kerja, kegiatan bersama mitra, dan paparan budaya profesional membantu murid memahami bagaimana kompetensi digunakan di lapangan.</p>
-            <Link href="/jurusan" className="mt-8 inline-flex min-h-12 items-center gap-3 rounded-full bg-ink-strong px-5 text-sm font-extrabold text-white">Jelajahi program keahlian <ArrowRightIcon className="size-4" /></Link>
+            <Link href="/#jurusan" className="mt-8 inline-flex min-h-12 items-center gap-3 rounded-full bg-ink-strong px-5 text-sm font-extrabold text-white">Jelajahi program keahlian <ArrowRightIcon className="size-4" /></Link>
           </div>
         </div>
       </section>

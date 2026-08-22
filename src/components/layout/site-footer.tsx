@@ -46,9 +46,6 @@ export function SiteFooter() {
               <a href={school.urls.bkk} className="inline-flex items-center gap-1.5 hover:text-accent-strong" rel="noreferrer">
                 BKK Smekda <ArrowUpRightIcon className="size-4" />
               </a>
-              <a href={school.urls.legacyWebsite} className="inline-flex items-center gap-1.5 hover:text-accent-strong" rel="noreferrer">
-                Website lama <ArrowUpRightIcon className="size-4" />
-              </a>
             </div>
           </div>
           <p className="text-xs leading-5 text-white/50">© {new Date().getFullYear()} {school.name}. Semua hak dilindungi.</p>

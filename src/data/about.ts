@@ -10,15 +10,6 @@ export const aboutSource = {
     "https://web.smkn2sby.sch.id/read/147/penyaluran-zakat-fitrah-wujud-kepedulian-keluarga-besar-smk-negeri-2-surabaya-di-bulan-ramadan",
 } as const;
 
-export const aboutNavigation = [
-  { label: "Ringkasan", href: "/tentang" },
-  { label: "Profil", href: "/tentang/profil" },
-  { label: "Kurikulum", href: "/tentang/kurikulum" },
-  { label: "Fasilitas", href: "/tentang/fasilitas" },
-  { label: "Sejarah", href: "/tentang/sejarah" },
-  { label: "Visi & Misi", href: "/tentang/visi-misi" },
-] as const;
-
 export const aboutImages = {
   industryVisit: {
     src: "/images/school/kunjungan-industri-2025.jpg",

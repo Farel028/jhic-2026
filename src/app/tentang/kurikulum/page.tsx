@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { AboutBreadcrumb } from "@/components/about/about-breadcrumb";
-import { AboutNavigation } from "@/components/about/about-navigation";
 import { DocumentaryImage } from "@/components/about/documentary-image";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
@@ -63,7 +62,6 @@ export default function CurriculumPage() {
           { name: "Kurikulum", path: "/tentang/kurikulum" },
         ]}
       />
-      <AboutNavigation activeHref="/tentang/kurikulum" />
 
       <section className="hero-grid overflow-hidden border-b border-ink/10 px-5 py-14 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-site">
@@ -201,7 +199,7 @@ export default function CurriculumPage() {
               <h2 className="mt-5 text-3xl font-black leading-tight tracking-[-0.045em] text-ink-strong sm:text-4xl">Cara belajar berbeda menurut keahlian.</h2>
               <p className="mt-5 text-sm font-medium leading-6 text-ink">Buka profil jurusan untuk melihat fokus belajar, kegiatan, dan kemungkinan langkah lanjut yang lebih spesifik.</p>
             </div>
-            <Link href="/jurusan" className="mt-12 inline-flex min-h-12 w-fit items-center gap-3 rounded-full bg-ink-strong px-5 text-sm font-extrabold text-white">Jelajahi jurusan <ArrowRightIcon className="size-4" /></Link>
+            <Link href="/#jurusan" className="mt-12 inline-flex min-h-12 w-fit items-center gap-3 rounded-full bg-ink-strong px-5 text-sm font-extrabold text-white">Jelajahi jurusan <ArrowRightIcon className="size-4" /></Link>
           </div>
         </div>
       </section>

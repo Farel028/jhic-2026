@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { AboutBreadcrumb } from "@/components/about/about-breadcrumb";
-import { AboutNavigation } from "@/components/about/about-navigation";
 import { DocumentaryImage } from "@/components/about/documentary-image";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
@@ -29,7 +28,6 @@ export default function VisionMissionPage() {
         { name: "Tentang Sekolah", path: "/tentang" },
         { name: "Visi dan Misi", path: "/tentang/visi-misi" },
       ]} />
-      <AboutNavigation activeHref="/tentang/visi-misi" />
 
       <section className="hero-grid border-b border-ink/10 px-5 py-14 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-site">
@@ -85,7 +83,7 @@ export default function VisionMissionPage() {
       <section className="px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
         <div className="mx-auto flex w-full max-w-site flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <p className="max-w-xl text-xl font-black leading-tight tracking-[-0.03em] text-ink-strong">Kenali program keahlian yang menjadi ruang bertumbuhnya kompetensi tersebut.</p>
-          <Link href="/jurusan" className="inline-flex min-h-12 items-center gap-3 rounded-full bg-ink-strong px-5 text-sm font-extrabold text-white">Program keahlian <ArrowRightIcon className="size-4" /></Link>
+          <Link href="/#jurusan" className="inline-flex min-h-12 items-center gap-3 rounded-full bg-ink-strong px-5 text-sm font-extrabold text-white">Program keahlian <ArrowRightIcon className="size-4" /></Link>
         </div>
       </section>
     </main>

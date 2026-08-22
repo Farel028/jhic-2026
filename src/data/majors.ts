@@ -1,179 +1,372 @@
-export type MajorPreview = {
+export type MajorGroup =
+  | "Digital & Kreatif"
+  | "Konstruksi"
+  | "Elektronika & Listrik"
+  | "Manufaktur"
+  | "Otomotif";
+
+export type MajorDetail = {
   slug: string;
   code: string;
   name: string;
+  group: MajorGroup;
   description: string;
   focus: readonly string[];
   accent: "blue" | "yellow";
-};
-
-export type MajorDetail = MajorPreview & {
   overview: string;
+  learningLabel: "Kegiatan" | "Kompetensi yang diajarkan" | "Fokus pembelajaran";
   learningAreas: readonly string[];
   pathwayExamples: readonly string[];
-  evidence: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    href: string;
-    linkLabel: string;
+  banner: {
+    src: string;
+    alt: string;
   };
-  officialProfile: string;
+  sourceNote?: string;
 };
 
-export type MajorCatalogItem = {
-  code: string;
-  name: string;
-  group: "Digital & Kreatif" | "Konstruksi" | "Elektronika & Listrik" | "Manufaktur" | "Otomotif";
-  slug?: MajorDetail["slug"];
-};
+export type MajorPreview = Pick<
+  MajorDetail,
+  "slug" | "code" | "name" | "description" | "focus" | "accent"
+>;
+
+export type MajorCatalogItem = Pick<MajorDetail, "code" | "name" | "group" | "slug">;
 
 export const majorDetails: readonly MajorDetail[] = [
-  {
-    slug: "rekayasa-perangkat-lunak",
-    code: "RPL",
-    name: "Rekayasa Perangkat Lunak",
-    description:
-      "Mempelajari proses merancang, membangun, menguji, dan mengembangkan perangkat lunak.",
-    focus: ["Pemrograman", "Aplikasi web", "Basis data"],
-    accent: "blue",
-    overview:
-      "RPL cocok bagi murid yang tertarik memecahkan masalah melalui logika dan teknologi. Proses belajarnya bergerak dari memahami kebutuhan pengguna sampai menghasilkan aplikasi yang dapat diuji dan dikembangkan.",
-    learningAreas: [
-      "Logika, algoritma, dan dasar pemrograman",
-      "Pengembangan aplikasi web dan antarmuka",
-      "Perancangan serta pengelolaan basis data",
-      "Pengujian, dokumentasi, dan kerja proyek",
-    ],
-    pathwayExamples: [
-      "Pengembang perangkat lunak tingkat pemula",
-      "Penguji kualitas perangkat lunak",
-      "Teknisi dukungan aplikasi",
-      "Studi lanjut bidang informatika",
-    ],
-    evidence: {
-      eyebrow: "Jejak kegiatan 2025",
-      title: "Belajar menghubungkan perangkat lunak dan perangkat keras.",
-      description:
-        "Siswa RPL mengikuti workshop Arduino IDE dan Proteus untuk berlatih pemrograman mikrokontroler serta simulasi rangkaian.",
-      href: "https://web.smkn2sby.sch.id/read/100/workshop-simulasi-software-arduino-ide-dan-proteus-di-smk-n-2-surabaya",
-      linkLabel: "Baca liputan workshop",
-    },
-    officialProfile: "https://web.smkn2sby.sch.id/read/125/rekayasa-perangkat-lunak",
-  },
   {
     slug: "animasi",
     code: "ANI",
     name: "Animasi",
-    description:
-      "Menggabungkan kemampuan visual, cerita, dan teknologi untuk menghasilkan karya animasi.",
-    focus: ["Visual story", "2D & 3D", "Motion"],
+    group: "Digital & Kreatif",
+    description: "Mempelajari teori dan teknik pembuatan animasi 2D, 3D, film, dan game.",
+    focus: ["3D modelling", "Ilustrasi", "Storyboard"],
     accent: "yellow",
     overview:
-      "Animasi mempertemukan cara bercerita, kepekaan visual, dan proses produksi digital. Murid belajar mengolah ide menjadi rangkaian visual yang komunikatif melalui latihan dan proyek.",
+      "Animasi merupakan jurusan yang berdiri terakhir di SMK Negeri 2 Surabaya, sekitar tahun 2005. Bidang ini mempelajari teori dan teknik untuk membuat animasi 2D dan 3D, animasi film, animasi game, serta berbagai karya yang menggunakan konten animasi.",
+    learningLabel: "Kompetensi yang diajarkan",
     learningAreas: [
-      "Dasar visual, komposisi, dan storytelling",
-      "Perancangan karakter dan storyboard",
-      "Produksi animasi dua dan tiga dimensi",
-      "Penyuntingan, motion, dan presentasi karya",
+      "3D modelling",
+      "Ilustrasi",
+      "Storyboard",
+      "Animasi 2D dan 3D",
     ],
     pathwayExamples: [
-      "Animator tingkat pemula",
+      "Animator",
+      "Ilustrator",
       "Storyboard artist",
-      "Motion graphic designer",
-      "Studi lanjut bidang desain dan multimedia",
+      "Desainer karakter",
+      "Desainer grafis",
+      "Konten kreator",
     ],
-    evidence: {
-      eyebrow: "Jejak kegiatan 2025",
-      title: "Mendekatkan proses belajar dengan dunia kreatif.",
-      description:
-        "Siswa kelas XII Animasi mengikuti workshop bersama DKV ITS yang membahas keterampilan, studi lanjut, dan praktik animasi sederhana.",
-      href: "https://web.smkn2sby.sch.id/read/109/smk-negeri-2-surabaya-sukses-gelar-workshop-inspiratif-bersama-prodi-dkv-its-untuk-siswa-animasi",
-      linkLabel: "Baca liputan workshop",
+    banner: {
+      src: "/images/school/animasi.jpg",
+      alt: "Banner jurusan Animasi SMK Negeri 2 Surabaya",
     },
-    officialProfile: "https://web.smkn2sby.sch.id/read/123/animasi",
   },
   {
     slug: "desain-pemodelan-informasi-bangunan",
     code: "DPIB",
-    name: "Desain Pemodelan & Informasi Bangunan",
-    description:
-      "Mempelajari gambar teknik dan pemodelan informasi untuk perencanaan bangunan.",
-    focus: ["Gambar teknik", "Pemodelan", "Perencanaan"],
+    name: "Desain Pemodelan dan Informasi Bangunan",
+    group: "Konstruksi",
+    description: "Mempelajari perencanaan, pelaksanaan, dan pemeliharaan bangunan.",
+    focus: ["Desain bangunan", "Estimasi biaya", "Konstruksi"],
     accent: "blue",
     overview:
-      "DPIB mengajak murid menerjemahkan kebutuhan ruang dan bangunan ke dalam gambar serta model yang terukur. Ketelitian, cara berpikir spasial, dan komunikasi teknis menjadi bagian penting dari prosesnya.",
+      "DPIB mempelajari perencanaan pembangunan, pelaksanaan pembangunan, dan perbaikan gedung.",
+    learningLabel: "Kegiatan",
     learningAreas: [
-      "Gambar teknik dan pembacaan dokumen bangunan",
-      "Pemodelan informasi bangunan",
-      "Dasar pengukuran dan perencanaan ruang",
-      "Presentasi gambar serta kerja proyek",
+      "Menggambar desain rumah, gedung, dan apartemen",
+      "Menghitung biaya pembangunan",
+      "Melaksanakan pembangunan",
+      "Memelihara konstruksi bangunan",
     ],
     pathwayExamples: [
-      "Drafter bangunan tingkat pemula",
-      "Operator pemodelan bangunan",
-      "Asisten pelaksana atau pengawas lapangan",
-      "Studi lanjut bidang arsitektur dan teknik sipil",
+      "Drafter",
+      "Quantity surveyor",
+      "Quality control",
+      "Pelaksana lapangan",
+      "Logistik",
+      "Perencana konstruksi",
+      "Pengendali proyek",
+      "Kontraktor atau pemborong",
     ],
-    evidence: {
-      eyebrow: "Jejak kegiatan 2025",
-      title: "Melihat penerapan teknologi konstruksi di lapangan.",
-      description:
-        "Siswa DPIB mengikuti kunjungan industri ke proyek Tol Probowangi untuk melihat proses konstruksi dan penerapan Building Information Modeling.",
-      href: "https://web.smkn2sby.sch.id/read/111/kunjungan-industri-program-keahlian-tkp-dpib-dan-kgsp-smkn-2-surabaya-ke-proyek-pembangunan-tol-probowangi-tahap-ii",
-      linkLabel: "Baca liputan kunjungan",
+    banner: {
+      src: "/images/school/dpib.jpg",
+      alt: "Banner jurusan Desain Pemodelan dan Informasi Bangunan SMK Negeri 2 Surabaya",
     },
-    officialProfile: "https://web.smkn2sby.sch.id/read/3/kompetensi-keahlian",
+  },
+  {
+    slug: "teknik-konstruksi-dan-perumahan",
+    code: "TKP",
+    name: "Teknik Konstruksi dan Perumahan",
+    group: "Konstruksi",
+    description: "Mempelajari konstruksi bangunan, pengukuran tanah, dan perencanaan biaya.",
+    focus: ["Pengukuran tanah", "Konstruksi", "Estimasi biaya"],
+    accent: "yellow",
+    overview:
+      "TKP mempelajari ilmu konstruksi bangunan dan furnitur perkayuan, pengukuran tanah, rancangan anggaran biaya (RAB), konstruksi bangunan, serta laporan pelaksanaan konstruksi.",
+    learningLabel: "Kompetensi yang diajarkan",
+    learningAreas: [
+      "Gambar manual dan mekanika teknik",
+      "Teknik pengukuran tanah dan dasar-dasar konstruksi bangunan",
+      "Perencanaan, pelaksanaan, serta pengawasan bisnis konstruksi dan properti",
+      "Estimasi biaya dan pengelolaan konstruksi serta properti",
+      "Produk kreatif dan kewirausahaan",
+    ],
+    pathwayExamples: [
+      "Drafter",
+      "Quantity surveyor",
+      "Quality control",
+      "Pelaksana lapangan",
+      "Logistik",
+      "Perencana konstruksi",
+      "Pengendali proyek",
+      "Kontraktor atau pemborong",
+    ],
+    banner: {
+      src: "/images/school/tkp.jpg",
+      alt: "Banner jurusan Teknik Konstruksi dan Perumahan SMK Negeri 2 Surabaya",
+    },
+  },
+  {
+    slug: "teknik-audio-video",
+    code: "TAV",
+    name: "Teknik Audio Video",
+    group: "Elektronika & Listrik",
+    description: "Mempelajari bidang elektronika, khususnya pengolahan sistem audio dan video.",
+    focus: ["Elektronika", "Audio", "Video"],
+    accent: "blue",
+    overview:
+      "Teknik Audio Video merupakan jurusan dalam bidang elektronika, khususnya pengolahan sistem audio dan video.",
+    learningLabel: "Kompetensi yang diajarkan",
+    learningAreas: [
+      "Dasar-dasar kelistrikan",
+      "Dasar elektronika dan teknik digital",
+      "Keselamatan dan kesehatan kerja (K3)",
+    ],
+    pathwayExamples: [
+      "Teknisi instalasi audio video",
+      "Sound engineer",
+      "Wirausaha",
+      "Sektor swasta",
+    ],
+    banner: {
+      src: "/images/school/tav.jpg",
+      alt: "Banner jurusan Teknik Audio Video SMK Negeri 2 Surabaya",
+    },
+  },
+  {
+    slug: "teknik-elektronika-industri",
+    code: "TEI",
+    name: "Teknik Elektronika Industri",
+    group: "Elektronika & Listrik",
+    description: "Mempelajari sistem kontrol dan pemeliharaan peralatan elektronika industri.",
+    focus: ["Sistem kontrol", "Mikrokontroler", "PLC"],
+    accent: "yellow",
+    overview:
+      "TEI mendidik siswa agar memiliki kemampuan pada bidang sistem kontrol dan pemeliharaan peralatan industri berbasis electrical control dan microprocessor.",
+    learningLabel: "Kompetensi yang diajarkan",
+    learningAreas: [
+      "Elektronika umum",
+      "Mikrokontroler dan mikroprosesor",
+      "Pneumatik dan PLC",
+      "Pemrograman berbasis komputer yang berkaitan dengan proses produksi industri",
+    ],
+    pathwayExamples: [
+      "Teknisi industri",
+      "Sound engineer",
+      "Wirausaha",
+      "Sektor swasta",
+    ],
+    banner: {
+      src: "/images/school/tei.jpg",
+      alt: "Banner jurusan Teknik Elektronika Industri SMK Negeri 2 Surabaya",
+    },
+  },
+  {
+    slug: "teknik-instalasi-tenaga-listrik",
+    code: "TITL",
+    name: "Teknik Instalasi Tenaga Listrik",
+    group: "Elektronika & Listrik",
+    description: "Mempelajari perencanaan dan pemasangan instalasi penerangan serta tenaga listrik.",
+    focus: ["Instalasi listrik", "Panel surya", "PLC"],
+    accent: "yellow",
+    overview:
+      "TITL mendidik peserta didik dengan keahlian dan keterampilan dalam perencanaan serta pemasangan instalasi penerangan dan tenaga.",
+    learningLabel: "Kegiatan",
+    learningAreas: [
+      "Praktik instalasi penerangan listrik",
+      "Merakit panel surya",
+      "PLC (Programmable Logic Controller)",
+      "Merawat dan memperbaiki alat rumah tangga listrik",
+    ],
+    pathwayExamples: [
+      "Bidang pembangkitan, transmisi, dan distribusi tenaga listrik",
+      "Peneliti atau perancang ketenagalistrikan",
+      "Insinyur operasi dan pemeliharaan",
+      "Instansi pemerintah dan industri ketenagalistrikan",
+    ],
+    banner: {
+      src: "/images/school/titl.jpg",
+      alt: "Banner jurusan Teknik Instalasi Tenaga Listrik SMK Negeri 2 Surabaya",
+    },
+  },
+  {
+    slug: "teknik-pemesinan",
+    code: "TPM",
+    name: "Teknik Pemesinan",
+    group: "Manufaktur",
+    description: "Mempersiapkan keterampilan dasar teknik mesin dan pengoperasian mesin produksi.",
+    focus: ["Teknik mesin", "Mesin produksi", "CNC"],
+    accent: "blue",
+    overview:
+      "TPM mempersiapkan tenaga kerja menengah terampil dalam bidang pemesinan melalui pekerjaan dasar teknik mesin dan dasar perancangan teknik mesin.",
+    learningLabel: "Kegiatan",
+    learningAreas: [
+      "Mengoperasikan mesin produksi manual",
+      "Mengoperasikan mesin CNC (Computer Numerical Control)",
+      "Pekerjaan dasar teknik mesin",
+      "Dasar perancangan teknik mesin",
+    ],
+    pathwayExamples: [
+      "Industri otomotif",
+      "Bidang konversi energi",
+      "Industri bioteknologi",
+      "Pembangkit Jawa Bali",
+      "Industri pertambangan",
+      "Drafter",
+    ],
+    banner: {
+      src: "/images/school/tpm.jpg",
+      alt: "Banner jurusan Teknik Pemesinan SMK Negeri 2 Surabaya",
+    },
+  },
+  {
+    slug: "teknik-kendaraan-ringan",
+    code: "TKR",
+    name: "Teknik Kendaraan Ringan",
+    group: "Otomotif",
+    description: "Mempelajari perawatan dan perbaikan kendaraan ringan.",
+    focus: ["Mesin", "Perawatan", "Perbaikan"],
+    accent: "blue",
+    overview:
+      "TKR merupakan kompetensi keahlian bidang teknik otomotif yang menekankan penguasaan jasa perbaikan kendaraan ringan.",
+    learningLabel: "Kompetensi yang diajarkan",
+    learningAreas: [
+      "Memahami dasar-dasar mesin",
+      "Memperbaiki sistem kendaraan ringan",
+      "Menerapkan prosedur perawatan",
+      "Memelihara komponen sistem kerja mesin",
+    ],
+    pathwayExamples: [
+      "Industri otomotif",
+      "Mekanik",
+      "Operator alat berat",
+      "Wirausaha",
+      "Sektor swasta",
+    ],
+    banner: {
+      src: "/images/school/tkr.jpg",
+      alt: "Banner jurusan Teknik Kendaraan Ringan SMK Negeri 2 Surabaya",
+    },
+  },
+  {
+    slug: "teknik-sepeda-motor",
+    code: "TSM",
+    name: "Teknik Sepeda Motor",
+    group: "Otomotif",
+    description: "Mempelajari pemeriksaan, perawatan, dan perbaikan sistem sepeda motor.",
+    focus: ["Sepeda motor", "Diagnosis", "Perawatan"],
+    accent: "yellow",
+    overview:
+      "Teknik Sepeda Motor berfokus pada pemeriksaan, perawatan, dan perbaikan sistem sepeda motor serta penerapan keselamatan kerja di bengkel.",
+    learningLabel: "Fokus pembelajaran",
+    learningAreas: [
+      "Dasar mesin dan sistem sepeda motor",
+      "Perawatan mesin, sasis, dan sistem kelistrikan",
+      "Diagnosis gangguan dan perbaikan",
+      "Keselamatan kerja dan layanan bengkel",
+    ],
+    pathwayExamples: [
+      "Mekanik sepeda motor",
+      "Teknisi bengkel",
+      "Service advisor tingkat pemula",
+      "Wirausaha bengkel",
+    ],
+    banner: {
+      src: "/images/school/teaching-factory-motor.jpg",
+      alt: "Ruang praktik layanan sepeda motor SMK Negeri 2 Surabaya",
+    },
+    sourceNote:
+      "Banner TSM pada arsip sekolah memuat materi TKR. Ringkasan TSM pada halaman ini disajikan sebagai orientasi umum bidang dan perlu dikonfirmasi kembali dengan tim jurusan.",
   },
   {
     slug: "teknik-komputer-dan-jaringan",
     code: "TKJ",
-    name: "Teknik Komputer & Jaringan",
-    description:
-      "Mempelajari perangkat komputer, jaringan, dan layanan infrastruktur digital.",
-    focus: ["Jaringan", "Server", "Infrastruktur"],
+    name: "Teknik Komputer dan Jaringan",
+    group: "Digital & Kreatif",
+    description: "Mempelajari perakitan komputer dan administrasi infrastruktur jaringan.",
+    focus: ["Komputer", "Routing", "Jaringan"],
     accent: "yellow",
     overview:
-      "TKJ berfokus pada cara perangkat saling terhubung dan layanan digital dapat berjalan dengan baik. Murid berlatih menangani perangkat, konfigurasi jaringan, serta pemeliharaan infrastruktur dasar.",
+      "TKJ mempelajari cara merakit komputer, memasang program komputer, dan mengelola infrastruktur jaringan.",
+    learningLabel: "Kegiatan",
     learningAreas: [
-      "Perakitan dan perawatan perangkat komputer",
-      "Konfigurasi jaringan kabel dan nirkabel",
-      "Layanan server dan administrasi sistem dasar",
-      "Pemecahan masalah serta keamanan jaringan dasar",
+      "Administrasi infrastruktur jaringan",
+      "Praktikum routing dinamis dengan protokol OSPF",
+      "Konfigurasi routing dinamis dengan protokol RIP",
+      "Perakitan dan instalasi program komputer",
     ],
     pathwayExamples: [
-      "Teknisi komputer dan jaringan",
-      "Administrator jaringan tingkat pemula",
-      "Teknisi dukungan infrastruktur TI",
-      "Studi lanjut bidang jaringan dan sistem informasi",
+      "Teknisi",
+      "Marketer atau sales",
+      "Pegawai negeri sipil",
+      "Desainer",
+      "Programmer",
+      "System analyst",
+      "Network administrator",
+      "Game developer",
     ],
-    evidence: {
-      eyebrow: "Program pendukung",
-      title: "Terhubung dengan pembelajaran jaringan berstandar industri.",
-      description:
-        "SMK Negeri 2 Surabaya tercatat sebagai training partner MikroTik Academy dengan materi konfigurasi jaringan, routing, firewall, wireless, VPN, dan QoS.",
-      href: "https://web.smkn2sby.sch.id/read/9/mikrotik-academy",
-      linkLabel: "Lihat informasi MikroTik Academy",
+    banner: {
+      src: "/images/school/tkj.jpg",
+      alt: "Banner jurusan Teknik Komputer dan Jaringan SMK Negeri 2 Surabaya",
     },
-    officialProfile: "https://web.smkn2sby.sch.id/read/124/teknik-komputer-dan-jaringan",
+  },
+  {
+    slug: "rekayasa-perangkat-lunak",
+    code: "RPL",
+    name: "Rekayasa Perangkat Lunak",
+    group: "Digital & Kreatif",
+    description: "Mempelajari proses pengembangan perangkat lunak, web, dan aplikasi bergerak.",
+    focus: ["Web", "Aplikasi bergerak", "Pemrograman"],
+    accent: "blue",
+    overview:
+      "RPL merupakan bidang yang mendalami cara pengembangan perangkat lunak.",
+    learningLabel: "Kegiatan",
+    learningAreas: [
+      "Pemrograman web",
+      "Pemrograman perangkat bergerak",
+      "Pemrograman berbasis objek",
+    ],
+    pathwayExamples: [
+      "Software engineer atau programmer",
+      "Mobile computing developer",
+      "IT consultant",
+      "System analyst",
+      "Game developer",
+      "Software tester",
+    ],
+    banner: {
+      src: "/images/school/rpl.jpg",
+      alt: "Banner jurusan Rekayasa Perangkat Lunak SMK Negeri 2 Surabaya",
+    },
   },
 ] as const;
 
 export const majorPreviews: readonly MajorPreview[] = majorDetails;
 
-export const majorCatalog: readonly MajorCatalogItem[] = [
-  { code: "ANI", name: "Animasi", group: "Digital & Kreatif", slug: "animasi" },
-  { code: "DPIB", name: "Desain Pemodelan dan Informasi Bangunan", group: "Konstruksi", slug: "desain-pemodelan-informasi-bangunan" },
-  { code: "TKP", name: "Teknik Konstruksi dan Perumahan", group: "Konstruksi" },
-  { code: "TAV", name: "Teknik Audio Video", group: "Elektronika & Listrik" },
-  { code: "TEI", name: "Teknik Elektronika Industri", group: "Elektronika & Listrik" },
-  { code: "TITL", name: "Teknik Instalasi Tenaga Listrik", group: "Elektronika & Listrik" },
-  { code: "TPM", name: "Teknik Pemesinan", group: "Manufaktur" },
-  { code: "TKR", name: "Teknik Kendaraan Ringan", group: "Otomotif" },
-  { code: "TSM", name: "Teknik Sepeda Motor", group: "Otomotif" },
-  { code: "TKJ", name: "Teknik Komputer dan Jaringan", group: "Digital & Kreatif", slug: "teknik-komputer-dan-jaringan" },
-  { code: "RPL", name: "Rekayasa Perangkat Lunak", group: "Digital & Kreatif", slug: "rekayasa-perangkat-lunak" },
-] as const;
+export const majorCatalog: readonly MajorCatalogItem[] = majorDetails.map(
+  ({ code, name, group, slug }) => ({ code, name, group, slug }),
+);
 
 export function getMajorBySlug(slug: string) {
   return majorDetails.find((major) => major.slug === slug);

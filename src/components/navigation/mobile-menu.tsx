@@ -46,11 +46,32 @@ export function MobileMenu() {
           <nav aria-label="Navigasi mobile" className="mt-9">
             <ul className="space-y-1">
               {primaryNavigation.map((item, index) => (
-                <li key={item.href}>
-                  <Link href={item.href} onClick={closeMenu} className="group flex items-center gap-4 rounded-2xl px-3 py-3.5 text-2xl font-bold tracking-[-0.04em] transition-colors hover:bg-secondary/35">
-                    <span className="w-6 text-xs font-bold text-primary-strong">0{index + 1}</span>
-                    {item.label}
-                  </Link>
+                <li key={item.label}>
+                  {"children" in item ? (
+                    <details className="group">
+                      <summary className="flex cursor-pointer list-none items-center gap-4 rounded-2xl px-3 py-3.5 text-2xl font-bold tracking-[-0.04em] transition-colors hover:bg-secondary/35 [&::-webkit-details-marker]:hidden">
+                        <span className="w-6 text-xs font-bold text-primary-strong">0{index + 1}</span>
+                        <span>{item.label}</span>
+                        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" className="ml-auto size-5 transition-transform group-open:rotate-180">
+                          <path d="m4 6 4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </summary>
+                      <ul className="ml-10 mt-1 space-y-1 border-l border-ink/10 pl-3">
+                        {item.children.map((child) => (
+                          <li key={child.href}>
+                            <Link href={child.href} onClick={closeMenu} className="flex min-h-11 items-center rounded-xl px-3 text-base font-bold text-ink-muted transition-colors hover:bg-secondary/35 hover:text-ink-strong">
+                              {child.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  ) : (
+                    <Link href={item.href} onClick={closeMenu} className="group flex items-center gap-4 rounded-2xl px-3 py-3.5 text-2xl font-bold tracking-[-0.04em] transition-colors hover:bg-secondary/35">
+                      <span className="w-6 text-xs font-bold text-primary-strong">0{index + 1}</span>
+                      {item.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

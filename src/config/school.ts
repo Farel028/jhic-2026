@@ -24,7 +24,6 @@ export const school = {
       width: 1122,
       height: 1402,
     },
-    messageUrl: "https://web.smkn2sby.sch.id/sambutan-kepala-sekolah",
   },
   address: {
     street: "Jl. Tentara Genie Pelajar No. 26",
@@ -45,7 +44,6 @@ export const school = {
   timeZone: "Asia/Jakarta",
   urls: {
     canonical: "https://web.smkn2sby.sch.id",
-    legacyWebsite: "https://web.smkn2sby.sch.id",
     smartPortal: "https://smkn2sby.sch.id",
     bkk: "https://bkk.smkn2sby.sch.id",
     admissions: "https://spmbjatim.net",

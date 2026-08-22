@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { AboutBreadcrumb } from "@/components/about/about-breadcrumb";
-import { AboutNavigation } from "@/components/about/about-navigation";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
 import { aboutSource, historyTimeline } from "@/data/about";
@@ -27,7 +26,6 @@ export default function HistoryPage() {
         { name: "Tentang Sekolah", path: "/tentang" },
         { name: "Sejarah", path: "/tentang/sejarah" },
       ]} />
-      <AboutNavigation activeHref="/tentang/sejarah" />
 
       <section className="relative overflow-hidden bg-ink-strong px-5 py-14 text-white sm:px-8 sm:py-20 lg:px-10 lg:py-28">
         <span aria-hidden="true" className="absolute -right-12 top-10 text-[13rem] font-black leading-none tracking-[-0.1em] text-white/[0.04] sm:text-[23rem]">1912</span>

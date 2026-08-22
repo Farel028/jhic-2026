@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
-import { ArrowUpRightIcon } from "@/components/ui/icons";
+import { ArrowRightIcon, ArrowUpRightIcon } from "@/components/ui/icons";
 import { MediaPlaceholder } from "@/components/documentation/media-placeholder";
 import { newsCategories, newsroomItems } from "@/data/documentation";
 
@@ -50,7 +51,11 @@ export function NewsroomFilter() {
               </div>
               <h2 className="mt-5 text-2xl font-black leading-tight tracking-[-0.04em] text-ink-strong">{item.title}</h2>
               <p className="mt-4 text-sm leading-6 text-ink-muted">{item.excerpt}</p>
-              <a href={item.href} rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong underline decoration-primary decoration-2 underline-offset-8">Baca di sumber <ArrowUpRightIcon className="size-4" /></a>
+              {item.internal ? (
+                <Link href={item.href} className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong underline decoration-primary decoration-2 underline-offset-8">Baca selengkapnya <ArrowRightIcon className="size-4" /></Link>
+              ) : (
+                <a href={item.href} rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong underline decoration-primary decoration-2 underline-offset-8">Baca di sumber <ArrowUpRightIcon className="size-4" /></a>
+              )}
             </div>
           </article>
         ))}

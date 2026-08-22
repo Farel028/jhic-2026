@@ -1,18 +1,18 @@
 import type { MetadataRoute } from "next";
 import { school } from "@/config/school";
 import { majorDetails } from "@/data/majors";
+import { practiceStories } from "@/data/practice-stories";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? school.urls.canonical;
   const aboutRoutes = [
-    "/tentang",
     "/tentang/profil",
     "/tentang/kurikulum",
     "/tentang/fasilitas",
     "/tentang/sejarah",
     "/tentang/visi-misi",
   ] as const;
-  const studentRoutes = ["/siswa", "/siswa/karya", "/siswa/prestasi"] as const;
+  const studentRoutes = ["/siswa/karya", "/siswa/prestasi"] as const;
   const informationRoutes = ["/informasi", "/informasi/faq", "/informasi/spmb"] as const;
   const documentationRoutes = ["/dokumentasi", "/berita"] as const;
 
@@ -23,12 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
-    {
-      url: `${baseUrl}/jurusan`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
   ];
 
   return [
@@ -37,13 +31,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}${path}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
-      priority: path === "/tentang" ? 0.9 : 0.8,
+      priority: path === "/tentang/profil" ? 0.9 : 0.8,
     })),
     ...studentRoutes.map((path) => ({
       url: `${baseUrl}${path}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
-      priority: path === "/siswa" ? 0.9 : 0.8,
+      priority: path === "/siswa/prestasi" ? 0.9 : 0.8,
     })),
     ...informationRoutes.map((path) => ({
       url: `${baseUrl}${path}`,
@@ -62,6 +56,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...practiceStories.map((story) => ({
+      url: `${baseUrl}/berita/${story.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.7,
     })),
   ];
 }

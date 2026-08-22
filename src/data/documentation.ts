@@ -136,6 +136,7 @@ export type NewsItem = {
   date: string;
   year: "2025" | "2026";
   href: string;
+  internal?: boolean;
   image?: DocumentationImage;
 };
 
@@ -190,6 +191,30 @@ export const newsroomItems: readonly NewsItem[] = [
     excerpt: "Duta Anugerah dari XI TITL 2 meraih capaian tingkat kota melalui latihan dan disiplin.",
     category: "prestasi", categoryLabel: "Prestasi", date: "20 Mei 2025", year: "2025",
     href: "https://web.smkn2sby.sch.id/read/116/smk-negeri-2-surabaya-bangga-ananda-duta-anugerah-xi-titl-2-raih-juara-1-karate-piala-isb-ke-1-kota-surabaya-tahun-2025",
+  },
+  {
+    title: "Melihat Kelistrikan Industri dari Pabrik hingga Ruang Siaran",
+    excerpt: "Siswa Teknik Ketenagalistrikan mengamati proses produksi Pocari Sweat dan sistem penyiaran TVRI.",
+    category: "industri", categoryLabel: "Kunjungan Industri", date: "25 Januari 2025", year: "2025",
+    href: "/berita/kunjungan-industri-pocari-tvri-2025",
+    internal: true,
+    image: { src: "/images/school/kunjungan-industri-2025.jpg", alt: "Siswa SMK Negeri 2 Surabaya mengikuti kunjungan industri tahun 2025" },
+  },
+  {
+    title: "Peralatan Baru untuk Memperkuat Praktik Kelistrikan",
+    excerpt: "Hibah alat dan pelatihan dari CV Dar Al Ilmi menambah pengalaman praktik siswa kelas XI TITL.",
+    category: "industri", categoryLabel: "Praktik TITL", date: "25 Januari 2025", year: "2025",
+    href: "/berita/hibah-alat-praktik-titl-2025",
+    internal: true,
+    image: { src: "/images/school/fasilitas-listrik-2025.jpeg", alt: "Peralatan praktik kelistrikan bersama guru SMK Negeri 2 Surabaya" },
+  },
+  {
+    title: "Uji Keterampilan Otomotif dengan Standar Industri",
+    excerpt: "Tes praktik HTEC menguji keterampilan perawatan, perbaikan, dan diagnosis kendaraan siswa Otomotif.",
+    category: "industri", categoryLabel: "Praktik Otomotif", date: "25 Januari 2025", year: "2025",
+    href: "/berita/tes-praktik-htec-otomotif-2025",
+    internal: true,
+    image: { src: "/images/school/bengkel-otomotif-2025.jpeg", alt: "Siswa melaksanakan tes praktik di bengkel otomotif SMK Negeri 2 Surabaya" },
   },
   {
     title: "Kunjungan Industri Konstruksi ke Proyek Tol Probowangi",

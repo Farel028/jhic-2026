@@ -7,8 +7,8 @@ export const smkn2Tour = {
   description: "Jelajahi lingkungan SMKN 2 Surabaya melalui panorama 360 derajat.",
   initialSceneId: "ceremony-field",
   autorotate: {
-    enabled: false,
-    yawSpeed: 0.06,
+    enabled: true,
+    yawSpeed: 0.5,
     idleDelayMs: 5000,
   },
   scenes: [

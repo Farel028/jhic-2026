@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { withPageTwitter } from "@/lib/metadata";
 import Link from "next/link";
 import { AboutBreadcrumb } from "@/components/about/about-breadcrumb";
-import { AboutNavigation } from "@/components/about/about-navigation";
 import { DocumentaryImage } from "@/components/about/documentary-image";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ArrowRightIcon, ArrowUpRightIcon, MailIcon, MapPinIcon, PhoneIcon } from "@/components/ui/icons";
@@ -36,7 +35,6 @@ export default function FacilitiesPage() {
           { name: "Fasilitas", path: "/tentang/fasilitas" },
         ]}
       />
-      <AboutNavigation activeHref="/tentang/fasilitas" />
 
       <section className="hero-grid overflow-hidden border-b border-ink/10 px-5 py-14 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-site">

@@ -122,7 +122,7 @@ export default function AdmissionPage() {
               ))}
             </div>
             <p className="mt-5 text-xs leading-5 text-ink-muted">Ketersediaan dan nomenklatur konsentrasi pada penerimaan berikutnya harus dikonfirmasi melalui portal SPMB resmi.</p>
-            <Link href="/jurusan" className="mt-7 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong underline decoration-primary decoration-2 underline-offset-8">Jelajahi program keahlian <ArrowRightIcon className="size-4" /></Link>
+            <Link href="/#jurusan" className="mt-7 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong underline decoration-primary decoration-2 underline-offset-8">Jelajahi program keahlian <ArrowRightIcon className="size-4" /></Link>
           </div>
         </div>
       </section>

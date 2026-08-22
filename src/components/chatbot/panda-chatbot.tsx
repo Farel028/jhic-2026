@@ -70,7 +70,7 @@ const responseGuides: Array<{
   {
     keywords: ["jurusan", "keahlian", "program"],
     text: "Kamu bisa melihat seluruh program keahlian beserta profil jurusannya di halaman Jurusan.",
-    action: { label: "Jelajahi jurusan", href: "/jurusan" },
+    action: { label: "Jelajahi jurusan", href: "/#jurusan" },
   },
   {
     keywords: ["spmb", "daftar", "pendaftaran", "siswa baru"],
