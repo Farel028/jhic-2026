@@ -54,12 +54,12 @@ export default function Home() {
 
           <div className="relative mt-1 w-full max-w-[76rem] sm:mt-2">
             <Image
-              src="/images/school/11-jurusan.png"
+              src="/images/school/11-jurusan.webp"
               alt="Sebelas siswa SMK Negeri 2 Surabaya mengenakan seragam praktik dari berbagai program keahlian"
               width={2163}
               height={727}
               sizes="(max-width: 640px) 94vw, (max-width: 1536px) 88vw, 1216px"
-              preload
+              priority
               className="relative z-10 h-auto w-full object-contain drop-shadow-[0_14px_16px_rgba(11,31,51,0.16)]"
             />
           </div>

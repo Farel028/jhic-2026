@@ -19,7 +19,7 @@ export const school = {
     name: "Dr. Dhanu Lukmantoro, S.Kom., ST., M.M.",
     role: "Kepala Sekolah",
     image: {
-      src: "/images/school/kepala-sekolah.png",
+      src: "/images/school/kepala-sekolah.webp",
       alt: "Dr. Dhanu Lukmantoro, Kepala SMK Negeri 2 Surabaya",
       width: 1122,
       height: 1402,

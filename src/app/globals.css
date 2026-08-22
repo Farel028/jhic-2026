@@ -25,6 +25,7 @@
   --color-ink-strong: var(--ink-strong);
   --color-ink-muted: var(--ink-muted);
   --font-sans: var(--font-plus-jakarta), "Aptos", "Segoe UI", Arial, sans-serif;
+  --font-handwriting: var(--font-handwriting), "Caveat", cursive;
   --container-site: 90rem;
   --shadow-soft: 0 16px 45px rgba(11, 31, 51, 0.08);
   --shadow-card: 0 28px 80px rgba(11, 31, 51, 0.16);
@@ -228,11 +229,12 @@ body:has(> [data-immersive-page]) > [data-site-chrome] {
     overflow-x: auto;
   }
 
-  .ticker-track {
-    animation: none;
-  }
-
   .ticker-track-list[aria-hidden="true"] {
     display: none;
   }
 }
+
+.font-handwriting {
+  font-family: var(--font-handwriting), "Caveat", cursive;
+}
+

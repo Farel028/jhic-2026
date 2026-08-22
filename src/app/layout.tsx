@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Caveat } from "next/font/google";
 import type { ReactNode } from "react";
 import { PandaChatbot } from "@/components/chatbot/panda-chatbot";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -10,6 +10,12 @@ import "./globals.css";
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-plus-jakarta",
+  display: "swap",
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-handwriting",
   display: "swap",
 });
 
@@ -66,7 +72,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="id" className={`${plusJakartaSans.variable} antialiased`}>
+    <html lang="id" className={`${plusJakartaSans.variable} ${caveat.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">
         <a href="#konten-utama" className="skip-link" data-site-chrome>Lewati ke konten utama</a>
         <SiteHeader />
