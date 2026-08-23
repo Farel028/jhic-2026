@@ -192,7 +192,7 @@ function MascotStage({ uniform }: { uniform: PandaUniform }) {
 
 function CompactMascot({ uniform }: { uniform: PandaUniform }) {
   return (
-    <div className="relative h-20 w-24 shrink-0 overflow-visible" aria-hidden="true">
+    <div className="relative h-12 w-32 shrink-0 overflow-visible" aria-hidden="true">
       <video
         key={uniform.src}
         src={uniform.src}
@@ -205,7 +205,7 @@ function CompactMascot({ uniform }: { uniform: PandaUniform }) {
           event.currentTarget.muted = true;
           void event.currentTarget.play();
         }}
-        className="pointer-events-none absolute bottom-[-0.25rem] left-1/2 h-[8.5rem] w-[8.5rem] -translate-x-1/2 object-contain object-bottom"
+        className="pointer-events-none absolute bottom-[-0.5rem] left-1/2 size-56 -translate-x-1/2 object-contain object-bottom"
       />
     </div>
   );
@@ -319,8 +319,8 @@ export function PandaChatbot() {
           <div className={`min-h-0 flex-1 ${isExpanded ? "flex flex-col sm:grid sm:grid-cols-[minmax(15rem,0.85fr)_minmax(22rem,1.25fr)]" : "flex flex-col"}`}>
             {isExpanded ? <MascotStage uniform={uniform} /> : null}
 
-            <div className="min-h-0 flex flex-1 flex-col bg-white">
-              <div className="panda-chat-surface min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-5" aria-live="polite" aria-relevant="additions">
+            <div className="panda-chat-surface min-h-0 flex flex-1 flex-col">
+              <div className="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-5" aria-live="polite" aria-relevant="additions">
                 <div className="space-y-4">
                   {messages.map((message) => (
                     <div key={message.id} className={`flex items-end gap-2.5 ${message.author === "user" ? "justify-end" : "justify-start"}`}>
@@ -347,10 +347,10 @@ export function PandaChatbot() {
                 </div>
               </div>
 
-              <div className="shrink-0 border-t border-primary/10 bg-white p-3 sm:p-4">
-                <div className="relative mb-3 flex min-w-0 items-end gap-2.5">
+              <div className="shrink-0 bg-white p-3 sm:p-4">
+                <div className="relative mb-3 flex min-h-14 min-w-0 items-center gap-2.5 py-1">
                   {!isExpanded ? <CompactMascot uniform={uniform} /> : null}
-                  <div className="relative z-10 flex min-w-0 flex-1 gap-2 overflow-x-auto pb-1" aria-label="Pertanyaan cepat">
+                  <div className="relative z-10 flex min-w-0 flex-1 gap-2 overflow-x-auto py-1" aria-label="Pertanyaan cepat">
                     {quickPrompts.map((prompt) => (
                       <button
                         key={prompt}
@@ -390,24 +390,28 @@ export function PandaChatbot() {
           </div>
         </section>
       ) : (
-        <button
-          ref={launcherRef}
-          type="button"
-          aria-expanded="false"
-          aria-controls={panelId}
-          aria-label="Buka Pando"
-          onClick={() => setIsOpen(true)}
-          className="group flex min-h-14 items-center gap-3 rounded-[1.35rem] bg-[linear-gradient(145deg,#ffffff,#dceaff)] p-2 pr-4 text-left text-ink-strong shadow-[0_12px_28px_rgba(6,24,48,0.2)] transition-transform hover:-translate-y-1"
-        >
-          <span className="relative flex h-11 w-[4.1rem] shrink-0 items-center justify-center">
-            <PandoIcon className="h-10 w-[3.75rem]" />
-            <span className="absolute -right-0.5 -top-0.5 size-3 rounded-full border-2 border-white bg-emerald-500" aria-hidden="true" />
-          </span>
-          <span className="hidden sm:block">
-            <span className="block text-sm font-black tracking-[-0.025em]">Tanya Pando</span>
-            <span className="mt-0.5 block text-[0.62rem] font-bold text-primary-strong">Asisten sekolah</span>
-          </span>
-        </button>
+        <div className="relative">
+          <button
+            ref={launcherRef}
+            type="button"
+            aria-expanded="false"
+            aria-controls={panelId}
+            aria-label="Tanya Pando"
+            onClick={() => setIsOpen(true)}
+            className="group relative flex h-14 w-14 items-center justify-end overflow-hidden rounded-full bg-white text-left text-ink-strong shadow-[0_10px_24px_rgba(6,24,48,0.18)] transition-[width,transform,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#f4f8ff] sm:hover:w-40 sm:focus-visible:w-40"
+          >
+            <span className="pointer-events-none absolute left-4 hidden -translate-x-2 whitespace-nowrap text-sm font-black tracking-[-0.025em] opacity-0 transition-[opacity,transform] duration-150 ease-out sm:block sm:group-hover:translate-x-0 sm:group-hover:opacity-100 sm:group-focus-visible:translate-x-0 sm:group-focus-visible:opacity-100">
+              Tanya Pando
+            </span>
+            <span className="relative grid size-14 shrink-0 place-items-center rounded-full" aria-hidden="true">
+              <PandoIcon className="size-[3.25rem]" />
+            </span>
+          </button>
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute right-0.5 top-0.5 size-3 rounded-full bg-emerald-500"
+          />
+        </div>
       )}
     </div>
   );

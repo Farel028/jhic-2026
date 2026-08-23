@@ -3,23 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/icons";
+import { ChevronRightIcon } from "@/components/ui/icons";
 import { majorDetails } from "@/data/majors";
-
-type NavigationState = {
-  canPrevious: boolean;
-  canNext: boolean;
-};
 
 type MajorTheme = {
   paper: string;
   border: string;
   accentText: string;
-};
-
-const initialNavigationState: NavigationState = {
-  canPrevious: false,
-  canNext: true,
 };
 
 const majorThemes: Record<string, MajorTheme> = {
@@ -42,24 +32,11 @@ export function MajorExplorer() {
   const trackRef = useRef<HTMLUListElement>(null);
   const cardRefs = useRef<(HTMLLIElement | null)[]>([]);
   const animationFrameRef = useRef<number | null>(null);
-  const [navigationState, setNavigationState] = useState(initialNavigationState);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const updateNavigationState = () => {
+  const updateActiveIndex = () => {
     const track = trackRef.current;
     if (!track) return;
-
-    const nextState = {
-      canPrevious: track.scrollLeft > 2,
-      canNext: track.scrollLeft < track.scrollWidth - track.clientWidth - 2,
-    };
-
-    setNavigationState((currentState) =>
-      currentState.canPrevious === nextState.canPrevious &&
-      currentState.canNext === nextState.canNext
-        ? currentState
-        : nextState,
-    );
 
     const trackCenter = track.scrollLeft + track.clientWidth / 2;
     let closestIndex = 0;
@@ -84,8 +61,8 @@ export function MajorExplorer() {
     const track = trackRef.current;
     if (!track) return;
 
-    updateNavigationState();
-    const resizeObserver = new ResizeObserver(updateNavigationState);
+    updateActiveIndex();
+    const resizeObserver = new ResizeObserver(updateActiveIndex);
     resizeObserver.observe(track);
 
     return () => {
@@ -100,30 +77,8 @@ export function MajorExplorer() {
     if (animationFrameRef.current !== null) return;
 
     animationFrameRef.current = requestAnimationFrame(() => {
-      updateNavigationState();
+      updateActiveIndex();
       animationFrameRef.current = null;
-    });
-  };
-
-  const scrollTrack = (direction: -1 | 1) => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const maxScrollLeft = track.scrollWidth - track.clientWidth;
-
-    if (direction === -1 && !navigationState.canPrevious) {
-      track.scrollTo({ left: maxScrollLeft, behavior: "smooth" });
-      return;
-    }
-
-    if (direction === 1 && !navigationState.canNext) {
-      track.scrollTo({ left: 0, behavior: "smooth" });
-      return;
-    }
-
-    track.scrollBy({
-      left: direction * track.clientWidth * 0.82,
-      behavior: "smooth",
     });
   };
 
@@ -134,34 +89,10 @@ export function MajorExplorer() {
       aria-roledescription="carousel"
       aria-label="Program keahlian SMK Negeri 2 Surabaya"
     >
-      <div className="mb-5 flex items-center justify-between border-t border-ink/15 pt-4">
-        <p className="text-xs font-bold text-ink-muted">
-          Geser untuk melihat seluruh program
-        </p>
-        <div className="flex gap-2" role="group" aria-label="Kontrol carousel">
-          <button
-            type="button"
-            onClick={() => scrollTrack(-1)}
-            aria-label="Lihat program sebelumnya"
-            className="grid size-11 place-items-center rounded-xl border border-ink/20 text-ink-strong transition-colors hover:border-primary-strong hover:bg-primary-strong hover:text-white"
-          >
-            <ChevronLeftIcon className="size-5" />
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollTrack(1)}
-            aria-label="Lihat program berikutnya"
-            className="grid size-11 place-items-center rounded-xl border border-ink/20 text-ink-strong transition-colors hover:border-primary-strong hover:bg-primary-strong hover:text-white"
-          >
-            <ChevronRightIcon className="size-5" />
-          </button>
-        </div>
-      </div>
-
       <ul
         ref={trackRef}
         onScroll={handleScroll}
-        className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-2 pb-5 pt-3 sm:gap-5 lg:gap-6 [scrollbar-color:var(--primary-strong)_transparent] [scrollbar-width:thin]"
+        className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-2 pb-5 pt-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-5 lg:gap-6"
       >
         {majorDetails.map((major, index) => {
           const theme = majorThemes[major.code] ?? majorThemes.RPL;

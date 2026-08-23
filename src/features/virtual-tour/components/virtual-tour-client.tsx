@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ComponentType, KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import { HotspotDialog } from "@/features/virtual-tour/components/hotspot-dialog";
@@ -361,7 +362,18 @@ export function VirtualTourClient({ config }: { config: TourConfig }) {
 
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-ink-strong/75 to-transparent px-5 pb-16 pt-5 sm:px-8 lg:px-10">
         <div className="mx-auto flex w-full max-w-site items-center gap-3">
-          <h1 id="virtual-tour-title" className="text-xl font-black tracking-[-0.035em] sm:text-2xl">{currentScene.title}</h1>
+          <Link
+            href="/"
+            prefetch={false}
+            aria-label="Kembali ke beranda"
+            className="pointer-events-auto inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-ink-strong/85 text-sm font-extrabold text-white transition-colors hover:bg-ink-strong sm:h-11 sm:w-auto sm:gap-2 sm:px-4"
+          >
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="size-4">
+              <path d="M19 12H5m6-6-6 6 6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="hidden sm:inline">Beranda</span>
+          </Link>
+          <h1 id="virtual-tour-title" className="min-w-0 flex-1 truncate text-xl font-black tracking-[-0.035em] sm:text-2xl">{currentScene.title}</h1>
           {status === "ready" ? (
             <button
               ref={sceneMenuButtonRef}
