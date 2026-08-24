@@ -14,15 +14,15 @@ export const featuredPartners: readonly FeaturedPartner[] = [
   },
   {
     name: "Toyota",
-    logo: { src: "/images/partners/toyota.webp", width: 300, height: 252 },
+    logo: { src: "/images/partners/toyota.svg", width: 300, height: 252 },
   },
   {
     name: "Honda",
-    logo: { src: "/images/partners/honda.webp", width: 300, height: 272 },
+    logo: { src: "/images/partners/honda.png", width: 300, height: 272 },
   },
   {
     name: "Yamaha",
-    logo: { src: "/images/partners/yamaha.webp", width: 300, height: 300 },
+    logo: { src: "/images/partners/yamaha.svg", width: 300, height: 300 },
   },
   {
     name: "Sharp",
@@ -30,7 +30,7 @@ export const featuredPartners: readonly FeaturedPartner[] = [
   },
   {
     name: "Toshiba",
-    logo: { src: "/images/partners/toshiba.webp", width: 300, height: 174 },
+    logo: { src: "/images/partners/toshiba.png", width: 300, height: 174 },
   },
   {
     name: "Kereta Api Indonesia",
