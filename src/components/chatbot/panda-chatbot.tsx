@@ -9,7 +9,6 @@ type PandaUniform = {
   dayLabel: string;
   uniformLabel: string;
   src: string;
-  isWeekendFallback?: boolean;
 };
 
 type ChatAction = {
@@ -36,15 +35,13 @@ const uniformsByDay: Record<string, PandaUniform> = {
 const weekendFallbacks: Record<string, PandaUniform> = {
   Sat: {
     dayLabel: "Sabtu",
-    uniformLabel: "Seragam akhir pekan segera hadir",
-    src: "/panda/idle/abu_idle.webm",
-    isWeekendFallback: true,
+    uniformLabel: "Seragam DC",
+    src: "/panda/idle/dc_idle.webm",
   },
   Sun: {
     dayLabel: "Minggu",
-    uniformLabel: "Seragam akhir pekan segera hadir",
-    src: "/panda/idle/abu_idle.webm",
-    isWeekendFallback: true,
+    uniformLabel: "Seragam DC",
+    src: "/panda/idle/dc_idle.webm",
   },
 };
 
@@ -118,6 +115,8 @@ const availableUniformList: PandaUniform[] = [
   uniformsByDay.Wed, // 3 / F3: Batik
   uniformsByDay.Thu, // 4 / F4: Kotak
   uniformsByDay.Fri, // 5 / F5: Pramuka
+  weekendFallbacks.Sat, // 6 / F6: DC
+  weekendFallbacks.Sun, // 7 / F7: DC
 ];
 
 function getBriefForPath(pathname: string): string {
@@ -403,7 +402,7 @@ export function PandaChatbot() {
     return () => window.clearInterval(interval);
   }, []);
 
-  // Secret shortcut key listener to change Pando's uniform (1-5, F1-F5, Alt+1-5)
+  // Secret shortcut key listener to change Pando's uniform (1-7, F1-F7, Alt+1-7)
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const activeEl = document.activeElement;
@@ -423,9 +422,11 @@ export function PandaChatbot() {
       else if (event.key === "F3") selectedIndex = 2;
       else if (event.key === "F4") selectedIndex = 3;
       else if (event.key === "F5") selectedIndex = 4;
-      else if (event.altKey && event.key >= "1" && event.key <= "5") {
+      else if (event.key === "F6") selectedIndex = 5;
+      else if (event.key === "F7") selectedIndex = 6;
+      else if (event.altKey && event.key >= "1" && event.key <= "7") {
         selectedIndex = parseInt(event.key, 10) - 1;
-      } else if (!event.altKey && !event.ctrlKey && !event.metaKey && event.key >= "1" && event.key <= "5") {
+      } else if (!event.altKey && !event.ctrlKey && !event.metaKey && event.key >= "1" && event.key <= "7") {
         selectedIndex = parseInt(event.key, 10) - 1;
       }
 
