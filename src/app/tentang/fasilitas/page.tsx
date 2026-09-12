@@ -72,6 +72,9 @@ export default function FacilitiesPage() {
               mengubah pengetahuan menjadi keterampilan.
             </p>
           </div>
+          <Link href="/peta-sekolah" className="mt-8 inline-flex min-h-12 items-center gap-4 rounded-xl bg-ink-strong px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-primary-strong focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-strong">
+            Temukan fasilitas di peta 3D <ArrowRightIcon className="size-4" />
+          </Link>
         </div>
       </section>
 

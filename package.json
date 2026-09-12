@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test:campus-map": "node --test src/features/campus-map/data.test.mjs tests/campus-map/site-integration.test.mjs",
     "lint": "eslint",
     "test:virtual-tour": "node --test --test-isolation=none tests/virtual-tour/validate-tour-config.test.mjs tests/virtual-tour/select-panorama-asset.test.mjs tests/virtual-tour/limit-panorama-view.test.mjs tests/virtual-tour/scene-manager.test.mjs"
   },
@@ -14,13 +15,15 @@
     "next": "16.3.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "sharp": "^0.35.3"
+    "sharp": "^0.35.3",
+    "three": "^0.186.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.186.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.1",
     "ffmpeg-static": "^5.3.0",

@@ -40,6 +40,7 @@ export const primaryNavigation: readonly NavigationItem[] = [
     ],
   },
   { label: "Berita", href: "/berita" },
+  { label: "Peta Sekolah", href: "/peta-sekolah" },
   { label: "Virtual Tour", href: "/virtual-tour" },
 ] as const;
 
@@ -55,5 +56,6 @@ export const footerNavigation = {
     { label: "Info SPMB", href: "/informasi/spmb" },
     { label: "Profil sekolah", href: "/tentang/profil" },
     { label: "Fasilitas", href: "/tentang/fasilitas" },
+    { label: "Peta Sekolah", href: "/peta-sekolah" },
   ],
 } as const;
