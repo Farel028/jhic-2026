@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/siswa/alumni",
   ] as const;
   const informationRoutes = ["/informasi/spmb"] as const;
-  const publicationRoutes = ["/berita"] as const;
+  const publicationRoutes = ["/berita", "/peta-sekolah"] as const;
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {

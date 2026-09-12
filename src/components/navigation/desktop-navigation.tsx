@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { primaryNavigation } from "@/config/navigation";
 
-const itemClassName = "inline-flex min-h-11 items-center rounded-xl px-3.5 text-[0.82rem] font-bold tracking-[-0.015em] text-ink-muted transition-colors hover:bg-secondary/25 hover:text-ink-strong";
+const itemClassName = "inline-flex min-h-11 items-center whitespace-nowrap rounded-xl px-2 xl:px-3.5 text-[0.82rem] font-bold tracking-[-0.015em] text-ink-muted transition-colors hover:bg-secondary/25 hover:text-ink-strong";
 
 export function DesktopNavigation() {
   const navRef = useRef<HTMLElement>(null);

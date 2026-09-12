@@ -8,6 +8,7 @@ import { PartnerTicker } from "@/components/home/partner-ticker";
 import { PracticeShowcase } from "@/components/home/practice-showcase";
 import { SchoolIntroduction } from "@/components/home/school-introduction";
 import { VirtualTourCta } from "@/components/home/virtual-tour-cta";
+import { CampusMapCta } from "@/components/home/campus-map-cta";
 import { SchoolJsonLd } from "@/components/seo/school-json-ld";
 
 export const metadata: Metadata = {
@@ -97,6 +98,7 @@ export default function Home() {
       <AlumniOutcome />
       <PartnerTicker />
       <VirtualTourCta />
+      <CampusMapCta />
       <InstagramSection />
       <AdmissionCta />
     </main>

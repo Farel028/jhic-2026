@@ -1,0 +1,61 @@
+// Run: PLAYWRIGHT_MODULE=<absolute playwright package> node src/features/campus-map/browser-check.mjs
+// Defaults to an installed playwright package; BASE_URL defaults to the parent's dev server.
+import { createRequire } from 'node:module';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+const require=createRequire(import.meta.url);
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const output=new URL('../../../artifacts/campus-map/',import.meta.url);
+await fs.mkdir(output,{recursive:true});
+const browser=await chromium.launch({channel:'msedge',headless:true,args:['--enable-unsafe-swiftshader']});
+try{
+  const page=await browser.newPage({viewport:{width:1440,height:1000}});
+  const errors=[];
+  page.on('pageerror',error=>errors.push(error.message));
+  const response=await page.goto((process.env.BASE_URL||'http://127.0.0.1:3100')+'/peta-sekolah');
+  assert.equal(response.status(),200);
+  await page.getByRole('button',{name:'Tampak atas',exact:true}).waitFor();
+  await page.waitForFunction(()=>!document.querySelector('button')?.disabled&&document.querySelector('[data-testid="school-map-canvas"] canvas'));
+  await page.getByRole('button',{name:'Tampak atas',exact:true}).click();
+  await page.getByLabel('Atap',{exact:true}).uncheck();
+  // Pick R. 08 position 4 by projecting known plan coordinates in source-aligned top view.
+  const canvas=page.locator('[data-testid="school-map-canvas"] canvas');
+  const b=await canvas.boundingBox();
+  const halfHeight=Math.max(297.5,666.5/(b.width/b.height))*1.08;
+  const scale=b.height/(2*halfHeight);
+  const hit={x:b.x+b.width/2+(344-666.5)*scale,y:b.y+b.height/2+(292-297.5)*scale};
+  await page.mouse.click(hit.x,hit.y);
+  await page.getByRole('heading',{name:'R. 08',exact:true}).waitFor();
+  assert.match(await page.locator('[aria-live="polite"][aria-atomic="true"]').innerText(),/posisi 4/);
+  await page.getByRole('button',{name:'Tutup detail'}).click();
+  await page.mouse.move(hit.x,hit.y);await page.mouse.down();await page.mouse.move(hit.x+80,hit.y+25,{steps:10});await page.mouse.up();
+  assert.equal(await page.getByRole('heading',{name:'Kenali ruangnya.'}).count(),1,'drag must not select room');
+  await page.getByLabel('Cari ruang atau area').fill(' R. 08 ');
+  assert.equal(await page.locator('ul[aria-label="Daftar ruang dan area"] li').count(),8);
+  await page.getByLabel('Kategori',{exact:true}).selectOption('animasi');
+  await page.getByText('Tidak ada ruang yang cocok.',{exact:false}).waitFor();
+  await page.getByRole('button',{name:'Hapus filter'}).click();
+  const room=page.getByRole('button',{name:'Aula Dalam Tengah',exact:true});
+  await room.focus();await page.keyboard.press('Enter');
+  await page.getByRole('heading',{name:'Aula Dalam',exact:true}).waitFor();
+  await page.getByRole('button',{name:'Bandingkan denah asli'}).click();
+  await page.waitForFunction(()=>Array.from(document.images).some(i=>i.alt.startsWith('Denah sumber sekolah')&&i.complete&&i.naturalWidth>0));
+  await page.getByRole('button',{name:'Kembali ke 3D'}).click();
+  await page.getByRole('button',{name:'Atur ulang',exact:true}).click();
+  await page.getByLabel('Atap',{exact:true}).check();
+  await page.screenshot({path:new URL('desktop.png',output).pathname.replace(/^\/(\w:)/,'$1'),fullPage:true});
+  await page.setViewportSize({width:390,height:844});
+  await page.getByRole('button',{name:'Atur ulang',exact:true}).click();
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'mobile must not overflow');
+  await page.screenshot({path:new URL('mobile.png',output).pathname.replace(/^\/(\w:)/,'$1'),fullPage:true});
+  await page.emulateMedia({colorScheme:'dark',reducedMotion:'reduce'});
+  await page.screenshot({path:new URL('dark-mobile.png',output).pathname.replace(/^\/(\w:)/,'$1'),fullPage:true});
+  assert.deepEqual(errors,[]);
+  const fallback=await browser.newPage();
+  await fallback.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return String(type).startsWith('webgl')?null:original.call(this,type,...args);};});
+  await fallback.goto((process.env.BASE_URL||'http://127.0.0.1:3100')+'/peta-sekolah');
+  await fallback.getByText('Tampilan 3D tidak tersedia pada perangkat ini.',{exact:false}).waitFor();
+  await fallback.getByLabel('Cari ruang atau area').fill('Lab Kimia');
+  assert.equal(await fallback.locator('ul[aria-label="Daftar ruang dan area"] li').count(),1);
+  console.log(JSON.stringify({route:200,raycast:true,dragNotClick:true,search:true,categoryIntersection:true,keyboardSelection:true,sourceImage:true,mobileOverflow:false,darkReducedMotion:true,webglFallback:true,pageErrors:errors,screenshots:output.href},null,2));
+}finally{await browser.close();}

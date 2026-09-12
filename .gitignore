@@ -47,4 +47,9 @@ prompt*.md
 .vercel
 
 tests*/
+# Keep focused map regression tests in version control.
+!/tests/
+/tests/*
+!/tests/campus-map/
+/artifacts/campus-map/
 docs/
