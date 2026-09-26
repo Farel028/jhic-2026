@@ -3,7 +3,7 @@ const { parse } = require('url');
 const next = require('next');
 
 const dev = false;
-const hostname = '0.0.0.0';
+const hostname = '127.0.0.1';
 const port = parseInt(process.env.PORT, 10) || 30001;
 
 const app = next({ dev, hostname, port });
@@ -19,8 +19,8 @@ app.prepare().then(() => {
       res.statusCode = 500;
       res.end('Internal Server Error');
     }
-  }).listen(port, (err) => {
+  }).listen(port, hostname, (err) => {
     if (err) throw err;
-    console.log(`> Ready on port ${port}`);
+    console.log(`> Ready on http://${hostname}:${port}`);
   });
 });
