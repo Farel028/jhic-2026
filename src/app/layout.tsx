@@ -72,8 +72,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="id" className={`${plusJakartaSans.variable} ${caveat.variable} antialiased`}>
-      <body className="flex min-h-dvh flex-col">
+    <html lang="id" className={`${plusJakartaSans.variable} ${caveat.variable} antialiased`} suppressHydrationWarning>
+      <body className="flex min-h-dvh flex-col" suppressHydrationWarning>
         <a href="#konten-utama" className="skip-link" data-site-chrome>Lewati ke konten utama</a>
         <SiteHeader />
         {children}

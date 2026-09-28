@@ -21,27 +21,66 @@ export default function Home() {
   return (
     <main id="konten-utama" className="flex-1">
       <SchoolJsonLd />
-      <section className="relative isolate overflow-hidden bg-[#f1f0ea] px-4 pt-3 sm:px-8 sm:pt-4 lg:px-10 lg:pt-5">
-        <div aria-hidden="true" className="absolute left-0 top-9 h-px w-[22%] bg-primary-strong/35 sm:top-12" />
-        <div aria-hidden="true" className="absolute left-[22%] top-[2.05rem] h-2 w-14 bg-primary-strong sm:top-[2.7rem] sm:w-24" />
-        <div aria-hidden="true" className="absolute right-0 top-20 h-px w-[18%] bg-ink/20 sm:top-28" />
-        <div aria-hidden="true" className="absolute right-[18%] top-[4.65rem] h-2 w-10 bg-accent-strong sm:top-[6.55rem] sm:w-16" />
-
-        <svg
+      <section className="relative isolate overflow-hidden bg-[#faf8f5] px-4 pt-6 sm:px-8 sm:pt-8 lg:px-10 lg:pt-10">
+        {/* Subtle Architectural Drafting Grid */}
+        <div
           aria-hidden="true"
-          viewBox="0 0 1600 440"
-          preserveAspectRatio="none"
-          className="absolute inset-x-0 bottom-0 h-[42%] w-full"
-        >
-          <path d="M0 0h1600v440H0z" fill="#e3e6e3" />
-          <path d="M-80 440 640 82" stroke="#e9b521" strokeOpacity="0.72" strokeWidth="14" />
-          <path d="m1680 440-720-358" stroke="#e9b521" strokeOpacity="0.72" strokeWidth="14" />
-          <path d="M252 440 692 82" stroke="#176b9f" strokeOpacity="0.22" strokeWidth="4" />
-          <path d="m1348 440-440-358" stroke="#176b9f" strokeOpacity="0.22" strokeWidth="4" />
-          <path d="M338 324h924" stroke="#e9b521" strokeOpacity="0.65" strokeWidth="10" />
-          <path d="M532 218h536" stroke="#176b9f" strokeOpacity="0.18" strokeWidth="4" />
-          <path d="M0 405h210v35H0zM1390 405h210v35h-210z" fill="#176b9f" fillOpacity="0.55" />
-        </svg>
+          className="pointer-events-none absolute inset-0 opacity-[0.04] [background-image:linear-gradient(to_right,#0b2447_1px,transparent_1px),linear-gradient(to_bottom,#0b2447_1px,transparent_1px)] [background-size:2.5rem_2.5rem]"
+        />
+
+        {/* Clean Typographic Badge & Institutional Masthead (Hero Backdrop - Scaled Proportional to Viewport) */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[35%] sm:top-[37%] lg:top-[39%] -translate-y-1/2 select-none flex items-center justify-center text-center overflow-visible">
+          <span className="block font-sans text-[clamp(4.25rem,19vw,15rem)] font-black tracking-[0.16em] sm:tracking-[0.22em] text-[#092244]/[0.055] leading-none drop-shadow-[0_2px_12px_rgba(255,255,255,0.8)] whitespace-nowrap">
+            <span className="inline-block translate-x-[0.08em] sm:translate-x-[0.11em]">SMEKDA</span>
+          </span>
+        </div>
+
+        {/* Engineering Coordinate & Datum Markers (Hidden on Mobile) */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-4 top-8 sm:inset-x-8 sm:top-10 hidden sm:flex items-center justify-between text-[0.62rem] sm:text-[0.7rem] font-bold font-mono text-[#0b2447]/30 tracking-widest uppercase">
+          <span>LAT -7.2584° · LON 112.7256°</span>
+          <span>EST. 1912 · SURABAYA</span>
+        </div>
+
+        {/* Precision Drafting Axis Behind Students */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center overflow-hidden">
+          <svg
+            viewBox="0 0 1440 260"
+            fill="none"
+            preserveAspectRatio="none"
+            className="h-44 w-full max-w-[96rem] opacity-35 sm:h-56 lg:h-64"
+          >
+            {/* Soft Ambient Horizon Center Light */}
+            <radialGradient id="draftingGlow" cx="50%" cy="100%" r="55%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+            </radialGradient>
+            <rect width="1440" height="260" fill="url(#draftingGlow)" />
+
+            {/* Precision Technical Center Axis */}
+            <line x1="720" y1="30" x2="720" y2="260" stroke="#0b2447" strokeWidth="1" strokeDasharray="4 4" strokeOpacity="0.25" />
+            <circle cx="720" cy="30" r="3.5" fill="#0b2447" fillOpacity="0.35" />
+
+            {/* Horizontal Datum Elevation Lines */}
+            <line x1="120" y1="210" x2="1320" y2="210" stroke="#0b2447" strokeWidth="1.2" strokeOpacity="0.2" />
+            <line x1="280" y1="160" x2="1160" y2="160" stroke="#0b2447" strokeWidth="0.8" strokeDasharray="6 6" strokeOpacity="0.2" />
+
+            {/* Dimension ticks */}
+            <line x1="280" y1="154" x2="280" y2="166" stroke="#0b2447" strokeWidth="1" strokeOpacity="0.3" />
+            <line x1="1160" y1="154" x2="1160" y2="166" stroke="#0b2447" strokeWidth="1" strokeOpacity="0.3" />
+            <line x1="120" y1="204" x2="120" y2="216" stroke="#0b2447" strokeWidth="1.2" strokeOpacity="0.3" />
+            <line x1="1320" y1="204" x2="1320" y2="216" stroke="#0b2447" strokeWidth="1.2" strokeOpacity="0.3" />
+
+            {/* Elevation labels */}
+            <text x="135" y="202" fill="#0b2447" fillOpacity="0.3" fontSize="10" fontFamily="monospace" fontWeight="600">EL +0.00 (BENCHMARK)</text>
+            <text x="295" y="152" fill="#0b2447" fillOpacity="0.28" fontSize="9" fontFamily="monospace" fontWeight="600">REF AXIS // 11 KEJURUAN</text>
+          </svg>
+        </div>
+
+        {/* Ambient Pedestal Light directly behind students */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 bottom-10 -translate-x-1/2 w-[72vw] max-w-4xl h-48 rounded-[100%] bg-gradient-to-t from-white via-white/80 to-transparent blur-3xl opacity-75"
+        />
 
         <div className="relative mx-auto flex w-full max-w-site flex-col items-center text-center">
           <div className="relative z-10 w-full max-w-5xl px-4 pb-2 pt-1 sm:px-10 sm:pb-3 sm:pt-2 lg:pb-4 lg:pt-3">

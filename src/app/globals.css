@@ -84,6 +84,14 @@ a {
   box-shadow: 0 0 0 6px var(--ink-strong);
 }
 
+/* Chatbot Input Specific Reset: override global yellow focus outline */
+.panda-chatbot-panel textarea,
+.panda-chatbot-panel input {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+}
+
 .skip-link {
   position: fixed;
   left: 1rem;

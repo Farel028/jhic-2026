@@ -195,29 +195,20 @@ function ExpandIcon({ expanded }: { expanded: boolean }) {
 
 function MascotStage({ uniform }: { uniform: PandaUniform }) {
   return (
-    <div className="relative h-48 shrink-0 overflow-hidden bg-[linear-gradient(145deg,#dcecff_0%,#f8fbff_48%,#bfd8ff_100%)] sm:h-auto">
-      <div className="absolute -left-10 top-6 size-40 rounded-full border border-primary/15" />
-      <div className="absolute -right-8 -top-12 size-44 rounded-full bg-white/35 blur-2xl" />
-
-      <LazyMascotVideo
-        src={uniform.src}
-        alt={`Pando memakai ${uniform.uniformLabel.toLocaleLowerCase("id-ID")}`}
-        className="absolute inset-0 size-full sm:h-[92%] sm:self-end"
-      />
+    <div className="relative flex flex-col justify-center overflow-hidden border-r border-ink/10 bg-[#f8f7f4] p-4 sm:p-5 sm:h-full">
+      <div className="relative my-auto flex h-72 sm:h-[26rem] w-full items-end justify-center overflow-hidden scale-110 sm:scale-125 origin-bottom">
+        <LazyMascotVideo
+          src={uniform.src}
+          alt={`Pando memakai ${uniform.uniformLabel.toLocaleLowerCase("id-ID")}`}
+          className="size-full object-bottom"
+        />
+      </div>
     </div>
   );
 }
 
 function CompactMascot({ uniform }: { uniform: PandaUniform }) {
-  return (
-    <div className="relative h-12 w-32 shrink-0 overflow-visible" aria-hidden="true">
-      <LazyMascotVideo
-        src={uniform.src}
-        alt=""
-        className="absolute bottom-[-0.5rem] left-1/2 size-56 -translate-x-1/2"
-      />
-    </div>
-  );
+  return null;
 }
 
 function LazyMascotVideo({
@@ -230,6 +221,7 @@ function LazyMascotVideo({
   className?: string;
 }) {
   const [hasError, setHasError] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
   if (hasError) {
     return (
@@ -244,23 +236,29 @@ function LazyMascotVideo({
   }
 
   return (
-    <video
-      key={src}
-      src={src}
-      poster="/panda/pandobot.webp"
-      autoPlay
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      onError={() => setHasError(true)}
-      onCanPlay={(event) => {
-        event.currentTarget.muted = true;
-        void event.currentTarget.play().catch(() => setHasError(true));
-      }}
-      aria-label={alt}
-      className={`pointer-events-none object-contain object-bottom ${className}`}
-    />
+    <div className={`relative flex items-end justify-center ${className}`}>
+      {/* Video with smooth fade-in once ready */}
+      <video
+        key={src}
+        src={src}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        onError={() => setHasError(true)}
+        onCanPlay={(event) => {
+          event.currentTarget.muted = true;
+          void event.currentTarget.play().then(() => {
+            setIsVideoReady(true);
+          }).catch(() => setHasError(true));
+        }}
+        aria-label={alt}
+        className={`pointer-events-none size-full object-contain object-bottom transition-opacity duration-700 ease-out ${
+          isVideoReady ? "opacity-100" : "opacity-0"
+        }`}
+      />
+    </div>
   );
 }
 
@@ -313,19 +311,21 @@ function LeftPandoMascot({
         onClick={handleMascotClick}
         className="pointer-events-auto pando-float relative h-[32rem] w-[22rem] sm:h-[44rem] sm:w-[32rem] md:h-[54rem] md:w-[40rem] lg:h-[66rem] lg:w-[48rem] max-h-[80vh] sm:max-h-[90vh] md:max-h-[98vh] shrink-0 cursor-pointer drop-shadow-[0_25px_35px_rgba(0,0,0,0.3)]"
       >
-        {/* Dynamic Auto-Appearing & Auto-Disappearing Speech Bubble */}
+        {/* Dynamic Auto-Appearing & Auto-Disappearing Speech Bubble - Clean Editorial Card */}
         <div
-          className={`pointer-events-auto absolute top-2 sm:top-6 md:top-10 left-[6rem] sm:left-[9rem] md:left-[12rem] lg:left-[14rem] z-20 w-[15rem] sm:w-[18rem] md:w-[21rem] rounded-2xl border border-primary/20 bg-white/95 p-3.5 sm:p-4 shadow-[0_20px_48px_rgba(6,24,48,0.25)] backdrop-blur-md text-ink-strong transition-all duration-500 ease-out ${
+          className={`pointer-events-auto absolute top-2 sm:top-6 md:top-10 left-[6rem] sm:left-[9rem] md:left-[12rem] lg:left-[14rem] z-20 w-[15rem] sm:w-[18rem] md:w-[21rem] rounded-xl border border-ink/15 bg-white p-3.5 sm:p-4 shadow-[0_10px_28px_rgba(11,36,71,0.12)] text-ink-strong transition-all duration-500 ease-out ${
             showBubble
               ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
               : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
           }`}
         >
-          <div className="flex items-center justify-between mb-1.5">
-            <div className="flex items-center gap-1.5">
-              <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[0.72rem] font-black uppercase tracking-wider text-primary-strong">
-                Pando Guide 🐼
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <span className="rounded bg-[#0b2447] px-1.5 py-0.5 font-mono text-[0.62rem] font-bold text-white tracking-wider">
+                PANDO
+              </span>
+              <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-wider text-ink-muted">
+                Virtual Guide
               </span>
             </div>
             <button
@@ -334,39 +334,36 @@ function LeftPandoMascot({
                 e.stopPropagation();
                 setShowBubble(false);
               }}
-              className="grid size-5 place-items-center rounded-full bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors"
+              className="grid size-6 place-items-center rounded-lg border border-ink/10 text-ink-muted hover:bg-black/5 hover:text-ink-strong transition-colors"
               title="Tutup sapaan"
               aria-label="Tutup sapaan"
             >
-              <svg viewBox="0 0 24 24" fill="none" className="size-3" stroke="currentColor" strokeWidth="2.2">
+              <svg viewBox="0 0 24 24" fill="none" className="size-3" stroke="currentColor" strokeWidth="2.4">
                 <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" />
               </svg>
             </button>
           </div>
 
-          <p className="text-xs sm:text-sm font-semibold leading-relaxed text-ink-strong">
+          <p className="text-xs sm:text-sm font-medium leading-relaxed text-ink-strong">
             {briefText}
           </p>
 
-          <div className="mt-2.5 flex items-center justify-between border-t border-slate-100 pt-2">
+          <div className="mt-3 flex items-center justify-between border-t border-ink/10 pt-2.5">
             <button
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 onOpenChat();
               }}
-              className="inline-flex items-center gap-1 text-[0.72rem] font-extrabold text-primary-strong hover:underline"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[#0b2447] px-3 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-[#081a33] transition-colors"
             >
-              Tanya Pando AI
-              <svg viewBox="0 0 24 24" fill="none" className="size-3" stroke="currentColor" strokeWidth="2">
+              Tanya Pando
+              <svg viewBox="0 0 24 24" fill="none" className="size-3" stroke="currentColor" strokeWidth="2.4">
                 <path d="M5 12h14m-5-5 5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
-            <span className="text-[0.62rem] text-slate-400 font-bold">Klik Pando untuk sapa lagi</span>
+            <span className="text-[0.65rem] text-ink-muted/60 font-mono">Klik maskot untuk chat</span>
           </div>
-
-          {/* Speech bubble tail pointing to Pando */}
-          <div className="absolute -left-2.5 top-6 size-0 border-y-[8px] border-y-transparent border-r-[10px] border-r-white" />
         </div>
 
         <LazyMascotVideo
@@ -542,27 +539,26 @@ export function PandaChatbot() {
             id={panelId}
             role="region"
             aria-labelledby={`${panelId}-title`}
-            className={`panda-chatbot-panel flex h-[min(40rem,calc(100dvh-5.25rem))] w-[min(26rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[1.75rem] bg-white text-ink-strong shadow-[0_20px_48px_rgba(6,24,48,0.22)] ${isExpanded
+            className={`panda-chatbot-panel flex h-[min(40rem,calc(100dvh-5.25rem))] w-[min(26rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-2xl border border-ink/15 bg-white text-ink-strong shadow-[0_16px_40px_rgba(11,36,71,0.16)] ${isExpanded
               ? "sm:h-[min(43rem,calc(100dvh-2.5rem))] sm:w-[min(52rem,calc(100vw-2.5rem))]"
               : ""
               }`}
           >
-            <header className="relative flex min-h-[4.75rem] shrink-0 items-center gap-3 overflow-hidden border-b border-primary/15 bg-[linear-gradient(110deg,#ffffff_0%,#edf4ff_58%,#c8dcff_100%)] px-4 sm:px-5">
-              <PandoIcon className="h-10 w-[3.75rem] shrink-0" />
+            <header className="relative flex min-h-[4.25rem] shrink-0 items-center gap-3 border-b border-ink/10 bg-[#faf9f6] px-4 sm:px-5">
+              <PandoIcon className="h-9 w-12 shrink-0" />
               <div className="min-w-0 flex-1">
-                <h2 id={`${panelId}-title`} className="truncate text-base font-black tracking-[-0.035em]">
+                <h2 id={`${panelId}-title`} className="truncate text-base font-extrabold tracking-tight text-ink-strong">
                   Pando
                 </h2>
-                <p className="mt-0.5 flex items-center gap-1.5 truncate text-[0.68rem] font-bold text-primary-strong">
-                  <span className="size-1.5 shrink-0 rounded-full bg-emerald-500" aria-hidden="true" />
-                  Panduan website sekolah
+                <p className="mt-0.5 truncate text-[0.68rem] font-medium text-ink-muted">
+                  Asisten Informasi SMKN 2 Surabaya
                 </p>
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 <button
                   type="button"
                   onClick={() => setIsExpanded((current) => !current)}
-                  className="hidden size-11 place-items-center rounded-xl text-primary-strong transition-colors hover:bg-white/70 sm:grid"
+                  className="hidden size-9 place-items-center rounded-lg border border-ink/10 text-ink-muted transition-colors hover:bg-black/5 hover:text-ink-strong sm:grid"
                   aria-label={isExpanded ? "Kecilkan panel Pando" : "Perbesar panel Pando"}
                   title={isExpanded ? "Kecilkan panel" : "Perbesar panel"}
                 >
@@ -571,12 +567,12 @@ export function PandaChatbot() {
                 <button
                   type="button"
                   onClick={closePanel}
-                  className="grid size-11 place-items-center rounded-xl text-primary-strong transition-colors hover:bg-white/70"
+                  className="grid size-9 place-items-center rounded-lg border border-ink/10 text-ink-muted transition-colors hover:bg-black/5 hover:text-ink-strong"
                   aria-label="Tutup Pando"
                   title="Tutup"
                 >
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="size-5">
-                    <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="size-4">
+                    <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
                   </svg>
                 </button>
               </div>
@@ -590,7 +586,7 @@ export function PandaChatbot() {
             >
               {isExpanded ? <MascotStage uniform={uniform} /> : null}
 
-              <div className="panda-chat-surface min-h-0 flex flex-1 flex-col">
+              <div className="panda-chat-surface min-h-0 flex flex-1 flex-col bg-[#fdfcfb]">
                 <div
                   className="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-5"
                   aria-live="polite"
@@ -609,23 +605,26 @@ export function PandaChatbot() {
                           </span>
                         ) : null}
                         <div
-                          className={`max-w-[82%] rounded-[1.35rem] px-4 py-3 shadow-sm ${message.author === "user"
-                            ? "rounded-br-md bg-[linear-gradient(145deg,#4380e6,#2f66ca)] text-white"
-                            : "rounded-bl-md border border-primary/10 bg-white text-ink-strong"
+                          className={`max-w-[84%] rounded-xl px-4 py-3 shadow-[0_1px_3px_rgba(0,0,0,0.04)] ${message.author === "user"
+                            ? "rounded-br-xs bg-[#0b2447] text-white"
+                            : "rounded-bl-xs border border-ink/10 bg-white text-ink-strong"
                             }`}
                         >
-                          <p className="text-sm font-semibold leading-6">{message.text}</p>
+                          <p className="text-sm font-medium leading-relaxed">{message.text}</p>
                           {message.action ? (
                             <Link
                               href={message.action.href}
-                              className="mt-3 inline-flex min-h-10 items-center rounded-full bg-secondary/30 px-4 text-xs font-black text-primary-strong transition-colors hover:bg-secondary/50"
+                              className={`mt-3 inline-flex min-h-9 items-center rounded-lg px-3.5 text-xs font-bold transition-colors ${message.author === "user"
+                                ? "bg-white/15 text-white hover:bg-white/25"
+                                : "bg-[#0b2447] text-white hover:bg-[#081a33]"
+                                }`}
                             >
                               {message.action.label}
-                              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="ml-1.5 size-4">
+                              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="ml-1.5 size-3.5">
                                 <path
                                   d="M5 12h14m-5-5 5 5-5 5"
                                   stroke="currentColor"
-                                  strokeWidth="1.9"
+                                  strokeWidth="2"
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
                                 />
@@ -634,7 +633,7 @@ export function PandaChatbot() {
                           ) : null}
                           {message.time ? (
                             <p
-                              className={`mt-1.5 text-right text-[0.62rem] font-bold ${message.author === "user" ? "text-white/65" : "text-ink-muted/45"
+                              className={`mt-1.5 text-right font-mono text-[0.62rem] ${message.author === "user" ? "text-white/60" : "text-ink-muted/50"
                                 }`}
                             >
                               {message.time}
@@ -647,11 +646,10 @@ export function PandaChatbot() {
                   </div>
                 </div>
 
-                <div className="shrink-0 bg-white p-3 sm:p-4">
-                  <div className="relative mb-3 flex min-h-14 min-w-0 items-center gap-2.5 py-1">
-                    {!isExpanded ? <CompactMascot uniform={uniform} /> : null}
+                <div className="shrink-0 border-t border-ink/10 bg-white p-3 sm:p-4">
+                  <div className="relative mb-3 flex min-w-0 items-center">
                     <div
-                      className="relative z-10 flex min-w-0 flex-1 gap-2 overflow-x-auto py-1"
+                      className="flex min-w-0 flex-1 gap-2 overflow-x-auto py-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                       aria-label="Pertanyaan cepat"
                     >
                       {quickPrompts.map((prompt) => (
@@ -659,7 +657,7 @@ export function PandaChatbot() {
                           key={prompt}
                           type="button"
                           onClick={() => sendMessage(prompt)}
-                          className="min-h-10 shrink-0 rounded-full border border-primary/15 bg-[#f4f8ff] px-3.5 text-xs font-extrabold text-primary-strong transition-colors hover:border-primary/30 hover:bg-secondary/20"
+                          className="min-h-8 shrink-0 rounded-lg border border-ink/10 bg-[#f8f9fa] px-3 text-xs font-semibold text-ink-strong transition-all hover:border-[#0b2447] hover:bg-[#0b2447] hover:text-white"
                         >
                           {prompt}
                         </button>
@@ -668,34 +666,52 @@ export function PandaChatbot() {
                   </div>
                   <form
                     onSubmit={handleSubmit}
-                    className="flex items-center gap-2 rounded-[1.25rem] border border-primary/15 bg-[#f7faff] p-1.5 pl-4 focus-within:border-primary/60 focus-within:bg-white"
+                    className="flex items-end gap-2"
                   >
-                    <label htmlFor={`${panelId}-input`} className="sr-only">
-                      Ketik pesan untuk Pando
-                    </label>
-                    <input
-                      id={`${panelId}-input`}
-                      value={inputValue}
-                      onChange={(event) => setInputValue(event.target.value)}
-                      placeholder="Tanya seputar website..."
-                      autoComplete="off"
-                      className="min-h-11 min-w-0 flex-1 bg-transparent text-sm font-semibold text-ink-strong outline-none placeholder:text-ink-muted/45 focus-visible:outline-none focus-visible:shadow-none"
-                    />
+                    <div className="flex min-w-0 flex-1 items-end rounded-xl border border-ink/20 bg-white px-3.5 py-1 transition-colors focus-within:border-[#0b2447] focus-within:ring-1 focus-within:ring-[#0b2447]">
+                      <label htmlFor={`${panelId}-input`} className="sr-only">
+                        Ketik pesan untuk Pando
+                      </label>
+                      <textarea
+                        id={`${panelId}-input`}
+                        rows={1}
+                        value={inputValue}
+                        onChange={(event) => {
+                          setInputValue(event.target.value);
+                          event.target.style.height = "auto";
+                          event.target.style.height = `${Math.min(event.target.scrollHeight, 120)}px`;
+                        }}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter" && !event.shiftKey) {
+                            event.preventDefault();
+                            const message = inputValue.trim();
+                            if (message) {
+                              sendMessage(message);
+                              setInputValue("");
+                              event.currentTarget.style.height = "auto";
+                            }
+                          }
+                        }}
+                        placeholder="Tanya seputar SMKN 2 Surabaya..."
+                        autoComplete="off"
+                        className="max-h-28 min-h-10 min-w-0 w-full resize-none bg-transparent py-2.5 text-sm font-medium text-ink-strong outline-none ring-0 border-0 focus:outline-none focus:ring-0 placeholder:text-ink-muted/40 [outline:none!important] [box-shadow:none!important]"
+                      />
+                    </div>
                     <button
                       type="submit"
                       disabled={!inputValue.trim()}
-                      className="grid size-11 shrink-0 place-items-center rounded-2xl bg-[linear-gradient(145deg,#4d88ea,#2e65c8)] text-white shadow-md transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0"
+                      className="grid size-11 shrink-0 place-items-center rounded-xl bg-[#0b2447] text-white shadow-xs transition-all hover:bg-[#081a33] active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-[#0b2447]"
                       aria-label="Kirim pesan"
                     >
-                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="size-5">
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="size-4">
                         <path
                           d="m4 5 16 7-16 7 3-7-3-7Z"
                           stroke="currentColor"
-                          strokeWidth="1.8"
+                          strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         />
-                        <path d="M7 12h7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                        <path d="M7 12h7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                       </svg>
                     </button>
                   </form>
@@ -729,7 +745,6 @@ export function PandaChatbot() {
                     aria-hidden="true"
                   >
                     <PandoIcon className="size-7" />
-                    <span className="absolute right-0 top-0 size-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
                   </span>
                 </button>
 
@@ -783,10 +798,6 @@ export function PandaChatbot() {
                 <PandoIcon className="size-[3.25rem]" />
               </span>
             </button>
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute right-0.5 top-0.5 size-3 rounded-full bg-emerald-500"
-            />
           </div>
         )}
       </div>
