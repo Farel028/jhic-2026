@@ -34,9 +34,28 @@ export function MajorExplorer() {
   const animationFrameRef = useRef<number | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const scrollLeft = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    track.scrollBy({ left: -360, behavior: "smooth" });
+  };
+
+  const scrollRight = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    track.scrollBy({ left: 360, behavior: "smooth" });
+  };
+
   const updateActiveIndex = () => {
     const track = trackRef.current;
     if (!track) return;
+
+    // Update scroll reach status for button states
+    setCanScrollLeft(track.scrollLeft > 10);
+    setCanScrollRight(track.scrollLeft + track.clientWidth < track.scrollWidth - 10);
 
     const trackCenter = track.scrollLeft + track.clientWidth / 2;
     let closestIndex = 0;
@@ -84,11 +103,37 @@ export function MajorExplorer() {
 
   return (
     <div
-      className="mt-9"
+      className="relative mt-9"
       role="region"
       aria-roledescription="carousel"
       aria-label="Program keahlian SMK Negeri 2 Surabaya"
     >
+      {/* Navigasi Carousel Arrow Kanan */}
+      <div className="mb-4 flex items-center justify-end gap-2">
+        <button
+          type="button"
+          onClick={scrollLeft}
+          disabled={!canScrollLeft}
+          aria-label="Geser ke kiri"
+          className="group relative flex size-10 sm:size-11 items-center justify-center rounded-xl border border-ink/15 bg-white text-ink-strong shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all hover:border-primary hover:bg-primary hover:text-white hover:shadow-md active:scale-95 disabled:pointer-events-none disabled:opacity-35 focus-visible:outline-2 focus-visible:outline-primary"
+        >
+          <svg viewBox="0 0 24 24" fill="none" className="size-5 transition-transform group-hover:-translate-x-0.5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          onClick={scrollRight}
+          disabled={!canScrollRight}
+          aria-label="Geser ke kanan"
+          className="group relative flex size-10 sm:size-11 items-center justify-center rounded-xl border border-ink/15 bg-white text-ink-strong shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all hover:border-primary hover:bg-primary hover:text-white hover:shadow-md active:scale-95 disabled:pointer-events-none disabled:opacity-35 focus-visible:outline-2 focus-visible:outline-primary"
+        >
+          <svg viewBox="0 0 24 24" fill="none" className="size-5 transition-transform group-hover:translate-x-0.5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
       <ul
         ref={trackRef}
         onScroll={handleScroll}
