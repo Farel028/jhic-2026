@@ -13,8 +13,9 @@ export async function GET(
   }
 
   const directory = process.env.INSTAGRAM_MEDIA_DIR ?? path.join(process.cwd(), "var", "instagram-media");
+  const mediaFile = path.join(/* turbopackIgnore: true */ directory, file);
   try {
-    const bytes = await readFile(path.join(directory, file));
+    const bytes = await readFile(/* turbopackIgnore: true */ mediaFile);
     return new Response(new Uint8Array(bytes), {
       headers: {
         "Content-Type": "image/webp",

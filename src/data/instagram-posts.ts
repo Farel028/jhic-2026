@@ -29,7 +29,7 @@ export async function getInstagramPosts(): Promise<InstagramPost[]> {
   const file = process.env.INSTAGRAM_FEED_FILE ?? path.join(process.cwd(), "var", "instagram-feed.json");
 
   try {
-    const snapshot: unknown = JSON.parse(await readFile(file, "utf8"));
+    const snapshot: unknown = JSON.parse(await readFile(/* turbopackIgnore: true */ file, "utf8"));
     if (snapshot && typeof snapshot === "object" && "posts" in snapshot) {
       const posts = (snapshot as { posts: unknown }).posts;
       if (Array.isArray(posts) && posts.length >= 4 && posts.every(isInstagramPost)) {

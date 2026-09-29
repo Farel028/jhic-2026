@@ -4,6 +4,10 @@ Target ini memakai domain `smekdaverse.my.id` dan user Webuzo `americano`.
 Next.js berjalan sebagai proses Node lokal; Nginx Webuzo adalah satu-satunya
 server yang menerima traffic publik.
 
+Gunakan **satu** process manager: Application Manager Webuzo atau unit systemd
+di bawah. Karena Application Manager sudah tersedia, pilih itu dan jangan
+menyalakan service systemd yang memakai port `30001`.
+
 ## Konfigurasi Webuzo
 
 1. Buat atau pastikan domain `smekdaverse.my.id` dimiliki user `americano`.
@@ -29,17 +33,25 @@ mkdir -p /home/americano/apps/smekdaverse /home/americano/data/instagram-media /
 cd /home/americano/apps/smekdaverse
 git clone <REPOSITORY_URL> .
 export NEXT_PUBLIC_SITE_URL=https://smekdaverse.my.id
+export NEXT_PUBLIC_ASSET_ORIGIN=https://cdn.codel.diy
 npm ci
 npm run build
 npm run deploy:prepare
 ```
 
 `deploy:prepare` membuat `/home/americano/apps/smekdaverse/build`, berisi server
-standalone, `public`, dan `.next/static`. Proses Node tidak boleh dijalankan dari
-repository root karena dua directory static tersebut tidak otomatis dicopy oleh
-Next.js ke standalone output.
+standalone, `public`, dan `.next/static`. Saat `NEXT_PUBLIC_ASSET_ORIGIN` diisi,
+folder `public/tours` dan `public/panda/idle` tidak ikut folder release karena
+browser mengambilnya dari R2. Proses Node tidak boleh dijalankan dari repository
+root karena dua directory static tersebut tidak otomatis dicopy oleh Next.js ke
+standalone output.
 
-## Service systemd
+## Application Manager Webuzo
+
+Ikuti [application-manager.md](application-manager.md) untuk nilai port, start,
+stop, environment, dan cron Instagram yang tepat.
+
+## Alternatif: service systemd
 
 Sebagai root, salin `smekdaverse.service` ke
 `/etc/systemd/system/smekdaverse.service`, lalu:
@@ -50,7 +62,7 @@ systemctl enable --now smekdaverse
 systemctl status smekdaverse
 ```
 
-Service berjalan sebagai `americano`, bind hanya pada `127.0.0.1:3000`, dan
+Service berjalan sebagai `americano`, bind hanya pada `127.0.0.1:30001`, dan
 systemd menyalakannya kembali lima detik setelah crash. Setelah rilis berikutnya,
 jalankan `npm run build && npm run deploy:prepare` lalu `systemctl restart smekdaverse`.
 
@@ -59,7 +71,7 @@ Log proses tersedia melalui `journalctl -u smekdaverse -f`.
 ## Verifikasi dan beban
 
 ```sh
-curl -fsSI http://127.0.0.1:3000/
+curl -fsSI http://127.0.0.1:30001/
 curl -fsSI https://smekdaverse.my.id/
 STRESS_TEST_URL=https://smekdaverse.my.id STRESS_TEST_ALLOW_REMOTE=true \
   STRESS_TEST_CONNECTIONS=20 STRESS_TEST_DURATION=30 npm run stress:test
