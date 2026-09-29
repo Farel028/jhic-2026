@@ -73,6 +73,11 @@ const responseGuides: Array<{
       action: { label: "Jelajahi jurusan", href: "/#jurusan" },
     },
     {
+      keywords: ["ekskul", "ekstra", "paskibra", "pramuka", "futsal", "basket", "robotik"],
+      text: "SMEKDA punya 14 ekstrakurikuler, dari Paskibra sampai Robotik. Lihat jadwal dan cara gabung lewat IG masing-masing ekskul.",
+      action: { label: "Lihat ekstrakurikuler", href: "/#ekstrakurikuler" },
+    },
+    {
       keywords: ["spmb", "daftar", "pendaftaran", "siswa baru"],
       text: "Informasi penerimaan murid baru tersedia di pusat informasi SPMB. Periksa periode jadwalnya sebelum mendaftar.",
       action: { label: "Buka info SPMB", href: "/informasi/spmb" },

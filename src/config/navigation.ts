@@ -1,3 +1,4 @@
+import { extracurricularCatalog } from "@/data/extracurriculars";
 import { majorCatalog } from "@/data/majors";
 
 export type NavigationLink = {
@@ -37,6 +38,11 @@ export const primaryNavigation: readonly NavigationItem[] = [
       { label: "Prestasi", href: "/siswa/prestasi" },
       { label: "Karya Siswa", href: "/siswa/karya" },
       { label: "Alumni", href: "/siswa/alumni" },
+      { label: "Ekstrakurikuler", href: "/#ekstrakurikuler" },
+      ...extracurricularCatalog.map((item) => ({
+        label: item.name,
+        href: `/ekstrakurikuler/${item.slug}`,
+      })),
     ],
   },
   { label: "Berita", href: "/berita" },
@@ -47,6 +53,7 @@ export const primaryNavigation: readonly NavigationItem[] = [
 export const footerNavigation = {
   jelajahi: [
     { label: "Program keahlian", href: "/#jurusan" },
+    { label: "Ekstrakurikuler", href: "/#ekstrakurikuler" },
     { label: "Karya siswa", href: "/siswa/karya" },
     { label: "Prestasi", href: "/siswa/prestasi" },
     { label: "Alumni", href: "/siswa/alumni" },
