@@ -23,6 +23,17 @@ function isPublicAssetPath(value: string) {
   return value.startsWith("/") && !value.startsWith("//") && !value.split("/").includes("..");
 }
 
+function isAssetSrc(value: string) {
+  if (isPublicAssetPath(value)) return true;
+
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" || url.protocol === "http:";
+  } catch {
+    return false;
+  }
+}
+
 function isSafeLink(value: string) {
   if (isPublicAssetPath(value)) return true;
 
@@ -35,7 +46,7 @@ function isSafeLink(value: string) {
 }
 
 function validateImage(image: TourImage, path: string, issues: TourConfigIssue[]) {
-  if (!isPublicAssetPath(image.src)) issues.push({ path: `${path}.src`, message: "must be an absolute public asset path" });
+  if (!isAssetSrc(image.src)) issues.push({ path: `${path}.src`, message: "must be an absolute public asset path or an HTTP(S) URL" });
   if (!hasText(image.alt)) issues.push({ path: `${path}.alt`, message: "must provide meaningful alternative text" });
 }
 
@@ -50,7 +61,7 @@ function validateView(view: ViewState, path: string, issues: TourConfigIssue[]) 
 }
 
 function validatePanoramaAsset(asset: EquirectangularAsset, path: string, issues: TourConfigIssue[], dimensionsRequired = false) {
-  if (!isPublicAssetPath(asset.src)) issues.push({ path: `${path}.src`, message: "must be an absolute public asset path" });
+  if (!isAssetSrc(asset.src)) issues.push({ path: `${path}.src`, message: "must be an absolute public asset path or an HTTP(S) URL" });
   if (asset.width !== undefined && (!Number.isInteger(asset.width) || asset.width <= 0)) {
     issues.push({ path: `${path}.width`, message: "must be a positive integer" });
   }
@@ -89,13 +100,13 @@ function validateHotspot(hotspot: Hotspot, path: string, sceneIds: ReadonlySet<s
       break;
     case "video":
       if (!hasText(hotspot.title)) issues.push({ path: `${path}.title`, message: "must not be empty" });
-      if (!isPublicAssetPath(hotspot.video.src)) {
-        issues.push({ path: `${path}.video.src`, message: "must be an absolute public asset path for V1" });
+      if (!isAssetSrc(hotspot.video.src)) {
+        issues.push({ path: `${path}.video.src`, message: "must be an absolute public asset path or an HTTP(S) URL for V1" });
       }
       if (hotspot.video.poster) validateImage(hotspot.video.poster, `${path}.video.poster`, issues);
       if (hotspot.video.captions) {
-        if (!isPublicAssetPath(hotspot.video.captions.src)) {
-          issues.push({ path: `${path}.video.captions.src`, message: "must be an absolute public asset path" });
+        if (!isAssetSrc(hotspot.video.captions.src)) {
+          issues.push({ path: `${path}.video.captions.src`, message: "must be an absolute public asset path or an HTTP(S) URL" });
         }
         if (!hasText(hotspot.video.captions.srcLang)) issues.push({ path: `${path}.video.captions.srcLang`, message: "must not be empty" });
         if (!hasText(hotspot.video.captions.label)) issues.push({ path: `${path}.video.captions.label`, message: "must not be empty" });
