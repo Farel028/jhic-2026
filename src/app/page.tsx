@@ -18,8 +18,6 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const showInstagram = process.env.NEXT_PUBLIC_ENABLE_INSTAGRAM !== "false";
-
   return (
     <main id="konten-utama" className="flex-1">
       <SchoolJsonLd />
@@ -140,7 +138,7 @@ export default function Home() {
       <PartnerTicker />
       <VirtualTourCta />
       <CampusMapCta />
-      {showInstagram ? <InstagramSection /> : null}
+      <InstagramSection />
       <AdmissionCta />
     </main>
   );
