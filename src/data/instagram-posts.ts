@@ -1,113 +1,44 @@
-import rawInstagramPosts from "../../ig.json";
-
-type RawInstagramPost = {
-  alt: string;
-  displayUrl: string;
-  images: string[];
-  url: string;
-  type: "Image" | "Sidecar" | "Video";
-};
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import feed from "./instagram-feed.json";
 
 export type InstagramPost = {
   id: string;
-  dateLabel: string;
-  image: {
-    src: string;
-    alt: string;
-  };
-  mediaType: "image" | "carousel" | "video";
   permalink: string;
-  publishedAt: number;
+  imageSrc: string;
+  imageAlt: string;
+  caption: string | null;
+  publishedAt: string | null;
+  mediaType: "image" | "carousel" | "video";
 };
 
-const monthIndexes: Record<string, number> = {
-  January: 0,
-  February: 1,
-  March: 2,
-  April: 3,
-  May: 4,
-  June: 5,
-  July: 6,
-  August: 7,
-  September: 8,
-  October: 9,
-  November: 10,
-  December: 11,
-};
-
-const dateFormatter = new Intl.DateTimeFormat("id-ID", {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-  timeZone: "UTC",
-});
-
-const localImagesByPostId: Record<string, string> = {
-  DcQVOv8RfO8: "/images/temp-ig/1.jpg",
-  DcLBeHEhi6w: "/images/temp-ig/2.webp",
-  DcJCnVtoL0q: "/images/temp-ig/3.jpg",
-  DcIgNV2RUj_: "/images/temp-ig/4.jpg",
-  DcIei0akRMU: "/images/temp-ig/5.jpg",
-  DcDpttVor9Y: "/images/temp-ig/6.jpg",
-};
-
-function getPublishedAt(alt: string) {
-  const match = alt.match(/\bon ([A-Z][a-z]+) (\d{1,2}), (\d{4})\./);
-
-  if (!match) {
-    return 0;
-  }
-
-  const [, month, day, year] = match;
-  const monthIndex = monthIndexes[month];
-
-  if (monthIndex === undefined) {
-    return 0;
-  }
-
-  return Date.UTC(Number(year), monthIndex, Number(day));
+function isInstagramPost(value: unknown): value is InstagramPost {
+  if (!value || typeof value !== "object") return false;
+  const post = value as Partial<InstagramPost>;
+  return typeof post.id === "string"
+    && /^https:\/\/www\.instagram\.com\/(p|reel)\/[\w-]+\/$/.test(post.permalink ?? "")
+    && typeof post.imageSrc === "string"
+    && /^\/instagram-media\/[\w-]+-[a-f0-9]{12}\.webp$/.test(post.imageSrc)
+    && typeof post.imageAlt === "string"
+    && (post.caption === null || typeof post.caption === "string")
+    && (post.publishedAt === null || typeof post.publishedAt === "string")
+    && ["image", "carousel", "video"].includes(post.mediaType ?? "");
 }
 
-function getMediaType(type: RawInstagramPost["type"]): InstagramPost["mediaType"] {
-  if (type === "Video") {
-    return "video";
-  }
+export async function getInstagramPosts(): Promise<InstagramPost[]> {
+  const file = process.env.INSTAGRAM_FEED_FILE ?? path.join(process.cwd(), "var", "instagram-feed.json");
 
-  if (type === "Sidecar") {
-    return "carousel";
-  }
-
-  return "image";
-}
-
-function getPostId(url: string) {
-  return url.match(/\/p\/([^/]+)/)?.[1] ?? url;
-}
-
-export const instagramPosts: InstagramPost[] = (rawInstagramPosts as RawInstagramPost[])
-  .map((post) => {
-    const id = getPostId(post.url);
-    const localImage = localImagesByPostId[id];
-
-    if (!localImage) {
-      return null;
+  try {
+    const snapshot: unknown = JSON.parse(await readFile(file, "utf8"));
+    if (snapshot && typeof snapshot === "object" && "posts" in snapshot) {
+      const posts = (snapshot as { posts: unknown }).posts;
+      if (Array.isArray(posts) && posts.length >= 4 && posts.every(isInstagramPost)) {
+        return posts.slice(0, 4);
+      }
     }
+  } catch {
+    // A missing or invalid runtime snapshot falls back to the bundled gallery.
+  }
 
-    const publishedAt = getPublishedAt(post.alt);
-    const dateLabel = publishedAt ? dateFormatter.format(publishedAt) : "Tanggal tidak tersedia";
-    const mediaType = getMediaType(post.type);
-
-    return {
-      id,
-      dateLabel,
-      image: {
-        src: localImage,
-        alt: `Posting ${mediaType === "video" ? "video" : mediaType === "carousel" ? "carousel" : "foto"} Instagram terkait SMKN 2 Surabaya pada ${dateLabel}`,
-      },
-      mediaType,
-      permalink: post.url,
-      publishedAt,
-    };
-  })
-  .filter((post): post is InstagramPost => post !== null)
-  .sort((firstPost, secondPost) => secondPost.publishedAt - firstPost.publishedAt);
+  return feed.posts as InstagramPost[];
+}

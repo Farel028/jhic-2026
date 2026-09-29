@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { mediaAssetUrl } from "@/config/media-assets";
 
 type PandaUniform = {
   dayLabel: string;
@@ -25,23 +26,23 @@ type ChatMessage = {
 };
 
 const uniformsByDay: Record<string, PandaUniform> = {
-  Mon: { dayLabel: "Senin", uniformLabel: "Seragam abu-abu", src: "/panda/idle/abu_idle.webm" },
-  Tue: { dayLabel: "Selasa", uniformLabel: "Seragam biru", src: "/panda/idle/biru_idle.webm" },
-  Wed: { dayLabel: "Rabu", uniformLabel: "Seragam batik", src: "/panda/idle/batik_idle.webm" },
-  Thu: { dayLabel: "Kamis", uniformLabel: "Seragam kotak", src: "/panda/idle/kotak_idle.webm" },
-  Fri: { dayLabel: "Jumat", uniformLabel: "Seragam pramuka", src: "/panda/idle/pramuka_idle.webm" },
+  Mon: { dayLabel: "Senin", uniformLabel: "Seragam abu-abu", src: mediaAssetUrl("/panda/idle/abu_idle.webm") },
+  Tue: { dayLabel: "Selasa", uniformLabel: "Seragam biru", src: mediaAssetUrl("/panda/idle/biru_idle.webm") },
+  Wed: { dayLabel: "Rabu", uniformLabel: "Seragam batik", src: mediaAssetUrl("/panda/idle/batik_idle.webm") },
+  Thu: { dayLabel: "Kamis", uniformLabel: "Seragam kotak", src: mediaAssetUrl("/panda/idle/kotak_idle.webm") },
+  Fri: { dayLabel: "Jumat", uniformLabel: "Seragam pramuka", src: mediaAssetUrl("/panda/idle/pramuka_idle.webm") },
 };
 
 const weekendFallbacks: Record<string, PandaUniform> = {
   Sat: {
     dayLabel: "Sabtu",
     uniformLabel: "Seragam DC",
-    src: "/panda/idle/dc_idle.webm",
+    src: mediaAssetUrl("/panda/idle/dc_idle.webm"),
   },
   Sun: {
     dayLabel: "Minggu",
     uniformLabel: "Seragam DC",
-    src: "/panda/idle/dc_idle.webm",
+    src: mediaAssetUrl("/panda/idle/dc_idle.webm"),
   },
 };
 

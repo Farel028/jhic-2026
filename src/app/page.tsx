@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   },
 };
 
+// Refresh the cached homepage after the daily Instagram snapshot changes.
+export const revalidate = 60;
+
 export default function Home() {
   return (
     <main id="konten-utama" className="flex-1">
