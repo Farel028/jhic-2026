@@ -10,11 +10,16 @@ const root = fileURLToPath(new URL("../", import.meta.url));
 const feedFile = process.env.INSTAGRAM_FEED_FILE ?? path.join(root, "var/instagram-feed.json");
 const imagesDir = process.env.INSTAGRAM_MEDIA_DIR ?? path.join(root, "var/instagram-media");
 const account = "smkn2surabaya";
+const pinnedPostIds = new Set([
+  "DMKMu85SepL",
+  "DMKMtfvSNID",
+  "DMKMsNHy-72",
+]);
 const args = process.argv.slice(2);
 const inputIndex = args.indexOf("--input");
 const limitIndex = args.indexOf("--limit");
 const inputFile = inputIndex >= 0 ? args[inputIndex + 1] : null;
-const limit = limitIndex >= 0 ? Number(args[limitIndex + 1]) : inputFile ? 12 : 4;
+const limit = limitIndex >= 0 ? Number(args[limitIndex + 1]) : 12;
 const dryRun = args.includes("--dry-run");
 
 if ((inputIndex >= 0 && !inputFile) || !Number.isInteger(limit) || limit < 4 || limit > 12) {
@@ -42,6 +47,14 @@ function imageUrl(value) {
   } catch {
     return null;
   }
+}
+
+function isPinnedPost(node) {
+  return pinnedPostIds.has(node.code)
+    || node.is_pinned === true
+    || node.pinned_for_users === true
+    || (Array.isArray(node.pinned_for_users) && node.pinned_for_users.length > 0)
+    || (Array.isArray(node.timeline_pinned_user_ids) && node.timeline_pinned_user_ids.length > 0);
 }
 
 function decodeHtml(value) {
@@ -143,7 +156,7 @@ function profilePostsFromDom(html) {
       return;
     }
     const node = value;
-    if (typeof node.code === "string" && typeof node.display_uri === "string") {
+    if (typeof node.code === "string" && typeof node.display_uri === "string" && !isPinnedPost(node)) {
       const url = instagramPostUrl(`https://www.instagram.com/${node.product_type === "clips" ? "reel" : "p"}/${node.code}/`);
       if (url) {
         const caption = typeof node.caption === "object" && node.caption ? node.caption.text : null;
@@ -216,7 +229,9 @@ async function resolvePost(candidate) {
     const meta = metadata(await (await get(candidate.url)).text());
     return {
       ...candidate,
-      image: imageUrl(meta["og:image"] ?? meta["twitter:image"]) ?? candidate.image,
+      // The profile-grid thumbnail is the media cover. OG images for Reels can include
+      // Instagram's own variable play treatment, so use them only as a fallback.
+      image: candidate.image ?? imageUrl(meta["og:image"] ?? meta["twitter:image"]),
       date: publishedAt(meta["article:published_time"]) ?? publishedAt(meta["og:description"]) ?? candidate.date,
       type: candidate.type ?? (candidate.url.includes("/reel/") || meta["og:type"] === "video" ? "Video" : "Image"),
       caption: captionFromMeta(meta) ?? candidate.caption ?? candidate.alt,

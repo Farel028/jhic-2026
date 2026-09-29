@@ -33,7 +33,7 @@ export async function getInstagramPosts(): Promise<InstagramPost[]> {
     if (snapshot && typeof snapshot === "object" && "posts" in snapshot) {
       const posts = (snapshot as { posts: unknown }).posts;
       if (Array.isArray(posts) && posts.length >= 4 && posts.every(isInstagramPost)) {
-        return posts.slice(0, 4);
+        return posts.slice(0, 12);
       }
     }
   } catch {
