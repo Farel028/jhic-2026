@@ -1,4 +1,5 @@
 import { assertValidTourConfig } from "@/features/virtual-tour/core/validate-tour-config";
+import { withAssetVersion } from "@/features/virtual-tour/core/select-panorama-asset";
 import type { SceneConfig, TourConfig } from "@/features/virtual-tour/types/tour";
 
 export type SceneRegistry = {
@@ -7,9 +8,26 @@ export type SceneRegistry = {
   get(sceneId: string): SceneConfig;
 };
 
+function withSceneVersion(scene: SceneConfig, assetVersion?: string): SceneConfig {
+  if (!assetVersion) return scene;
+  return {
+    ...scene,
+    source: {
+      ...scene.source,
+      src: withAssetVersion(scene.source.src, assetVersion),
+      fallback: scene.source.fallback
+        ? {
+            ...scene.source.fallback,
+            src: withAssetVersion(scene.source.fallback.src, assetVersion),
+          }
+        : undefined,
+    },
+  };
+}
+
 export function createSceneRegistry(config: TourConfig): SceneRegistry {
   assertValidTourConfig(config);
-  const scenes = new Map(config.scenes.map((scene) => [scene.id, scene]));
+  const scenes = new Map(config.scenes.map((scene) => [scene.id, withSceneVersion(scene, config.assetVersion)]));
   const initialScene = scenes.get(config.initialSceneId);
 
   if (!initialScene) {
