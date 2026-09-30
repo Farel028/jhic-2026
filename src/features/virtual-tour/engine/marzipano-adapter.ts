@@ -16,6 +16,10 @@ function createAbortError() {
 function loadImageDimensions(src: string, signal?: AbortSignal) {
   return new Promise<{ width: number; height: number }>((resolve, reject) => {
     const image = new Image();
+    // Wajib CORS: URL yang sama dipakai Marzipano sebagai texture WebGL.
+    // Tanpa ini, probe mengisi cache dengan varian non-CORS tanpa header
+    // ACAO, lalu load texture Marzipano diblokir browser.
+    image.crossOrigin = "anonymous";
 
     const cleanup = () => {
       image.onload = null;
