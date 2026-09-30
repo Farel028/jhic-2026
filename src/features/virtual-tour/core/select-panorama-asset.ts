@@ -1,5 +1,14 @@
 import type { EquirectangularAsset, EquirectangularSource } from "@/features/virtual-tour/types/tour";
 
+export function withAssetVersion(src: string, assetVersion?: string): string {
+  if (!assetVersion) return src;
+  if (src.startsWith("/") || src.startsWith("http://") || src.startsWith("https://")) {
+    const separator = src.includes("?") ? "&" : "?";
+    return `${src}${separator}v=${encodeURIComponent(assetVersion)}`;
+  }
+  return src;
+}
+
 export function selectPanoramaAsset(source: EquirectangularSource, textureWidthLimit: number): EquirectangularAsset {
   const primary: EquirectangularAsset = {
     src: source.src,

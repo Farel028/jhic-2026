@@ -104,4 +104,5 @@ export type TourConfig = {
   initialSceneId: string;
   scenes: readonly SceneConfig[];
   autorotate?: AutorotateConfig;
+  assetVersion?: string;
 };
