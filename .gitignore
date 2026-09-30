@@ -19,6 +19,10 @@
 
 # production
 /build
+/var/instagram-feed.json
+/var/instagram-sync.lock
+/var/instagram-sync.log
+/var/instagram-media/
 
 # misc
 .DS_Store

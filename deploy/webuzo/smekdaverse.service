@@ -1,0 +1,24 @@
+[Unit]
+Description=SMEKDaverse Next.js application
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=americano
+Group=americano
+WorkingDirectory=/home/americano/apps/smekdaverse/build
+# Confirm with `command -v node` on the VPS and update this path if needed.
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=5
+Environment=NODE_ENV=production
+Environment=HOSTNAME=127.0.0.1
+Environment=PORT=30001
+Environment=NEXT_PUBLIC_SITE_URL=https://smekdaverse.my.id
+Environment=NEXT_PUBLIC_ASSET_ORIGIN=https://cdn.codel.diy
+Environment=INSTAGRAM_MEDIA_DIR=/home/americano/data/instagram-media
+Environment=INSTAGRAM_FEED_FILE=/home/americano/data/instagram-feed.json
+
+[Install]
+WantedBy=multi-user.target

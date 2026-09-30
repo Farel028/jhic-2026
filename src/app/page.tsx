@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { AchievementShowcase } from "@/components/home/achievement-showcase";
+import { ExtracurricularShowcase } from "@/components/home/extracurricular-showcase";
 import { InstagramSection } from "@/components/home/instagram-section";
 import { MajorExplorer } from "@/components/home/major-explorer";
 import { AdmissionCta, AlumniOutcome } from "@/components/home/outcomes-stories";
@@ -16,6 +17,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
 };
+
+// Refresh the cached homepage after the daily Instagram snapshot changes.
+export const revalidate = 60;
 
 export default function Home() {
   return (
@@ -132,6 +136,7 @@ export default function Home() {
         </div>
       </section>
 
+      <ExtracurricularShowcase />
       <AchievementShowcase />
       <PracticeShowcase />
       <AlumniOutcome />

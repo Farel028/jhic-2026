@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { school } from "@/config/school";
+import { extracurricularDetails } from "@/data/extracurriculars";
 import { majorDetails } from "@/data/majors";
 import { practiceStories } from "@/data/practice-stories";
 
@@ -56,6 +57,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     ...majorDetails.map((major) => ({
       url: `${baseUrl}/jurusan/${major.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+    ...extracurricularDetails.map((item) => ({
+      url: `${baseUrl}/ekstrakurikuler/${item.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.8,

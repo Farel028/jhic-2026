@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { mediaAssetUrl } from "@/config/media-assets";
 import { ArrowRightIcon } from "@/components/ui/icons";
 
 export function VirtualTourCta() {
@@ -13,7 +14,7 @@ export function VirtualTourCta() {
         aria-hidden="true"
         className="absolute inset-0 size-full origin-center scale-150 object-cover object-center"
       >
-        <source src="/tours/virtual-tour.webm" type="video/webm" />
+        <source src={mediaAssetUrl("/tours/virtual-tour.webm")} type="video/webm" />
       </video>
 
       <div aria-hidden="true" className="absolute inset-0 bg-ink-strong/55" />
