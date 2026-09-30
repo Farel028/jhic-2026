@@ -19,11 +19,11 @@ export const smkn2Tour = {
       description: "Panorama 360 derajat lapangan upacara SMKN 2 Surabaya.",
       source: {
         type: "equirectangular",
-        src: mediaAssetUrl("/tours/smkn2/panoramas/ceremony-field.jpg"),
+        src: mediaAssetUrl("/tours/smkn2/panoramas/ceremony-field-v2.jpg"),
         width: 8192,
         height: 4096,
         fallback: {
-          src: mediaAssetUrl("/tours/smkn2/panoramas/ceremony-field-mobile.jpg"),
+          src: mediaAssetUrl("/tours/smkn2/panoramas/ceremony-field-mobile-v2.jpg"),
           width: 4096,
           height: 2048,
         },
@@ -37,11 +37,11 @@ export const smkn2Tour = {
       description: "Panorama 360 derajat area outdoor hall SMKN 2 Surabaya.",
       source: {
         type: "equirectangular",
-        src: mediaAssetUrl("/tours/smkn2/panoramas/outdoor-hall.jpg"),
+        src: mediaAssetUrl("/tours/smkn2/panoramas/outdoor-hall-v2.jpg"),
         width: 8192,
         height: 4096,
         fallback: {
-          src: mediaAssetUrl("/tours/smkn2/panoramas/outdoor-hall-mobile.jpg"),
+          src: mediaAssetUrl("/tours/smkn2/panoramas/outdoor-hall-mobile-v2.jpg"),
           width: 4096,
           height: 2048,
         },
