@@ -2,6 +2,7 @@ import type { EquirectangularAsset, EquirectangularSource } from "@/features/vir
 
 export function withAssetVersion(src: string, assetVersion?: string): string {
   if (!assetVersion) return src;
+  if (src.includes("?v=") || src.includes("&v=")) return src;
   if (src.startsWith("/") || src.startsWith("http://") || src.startsWith("https://")) {
     const separator = src.includes("?") ? "&" : "?";
     return `${src}${separator}v=${encodeURIComponent(assetVersion)}`;
