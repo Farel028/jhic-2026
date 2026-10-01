@@ -125,6 +125,7 @@ async function dumpProfileDom(browser, userDataDir) {
   return new Promise((resolve, reject) => {
     const child = spawn(browser, [
       "--headless=new",
+      "--no-sandbox",
       "--disable-gpu",
       "--disable-crash-reporter",
       "--disable-breakpad",
