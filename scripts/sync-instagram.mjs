@@ -130,6 +130,7 @@ async function dumpProfileDom(browser, userDataDir) {
       "--disable-crash-reporter",
       "--disable-breakpad",
       "--disable-dev-shm-usage",
+      "--disable-features=UseDBus",
       "--no-first-run",
       "--no-default-browser-check",
       `--user-data-dir=${userDataDir}`,
