@@ -165,7 +165,7 @@ function profilePostsFromDom(html) {
         const caption = typeof node.caption === "object" && node.caption ? node.caption.text : null;
         posts.set(url, {
           url,
-          image: imageUrl(node.display_uri),
+          image: postImageUrl(node),
           date: publishedAt(node.accessibility_caption),
           type: node.media_type === 2 ? "Video" : node.media_type === 8 ? "Sidecar" : "Image",
           caption: typeof caption === "string" && caption.trim() ? caption.trim() : node.accessibility_caption ?? null,
@@ -226,6 +226,16 @@ async function candidatesFromProfile() {
   }
 
   return [];
+}
+
+function postImageUrl(node) {
+  const candidates = [
+    ...(Array.isArray(node?.image_versions2?.candidates) ? node.image_versions2.candidates : []),
+    ...(Array.isArray(node?.thumbnail_resources) ? node.thumbnail_resources : []),
+  ]
+    .filter((candidate) => candidate && typeof candidate.url === "string")
+    .sort((left, right) => (Number(right.width ?? 0) * Number(right.height ?? 0)) - (Number(left.width ?? 0) * Number(left.height ?? 0)));
+  return imageUrl(candidates[0]?.url) ?? imageUrl(node?.display_uri);
 }
 
 async function candidatesFromInput() {
