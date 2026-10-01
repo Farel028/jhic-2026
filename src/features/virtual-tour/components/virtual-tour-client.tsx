@@ -363,7 +363,7 @@ export function VirtualTourClient({ config }: { config: TourConfig }) {
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-ink-strong/75 to-transparent px-5 pb-16 pt-5 sm:px-8 lg:px-10">
         <div className="mx-auto flex w-full max-w-site items-center gap-3">
           <Link
-            href="/"
+            href="/#virtual-tour"
             prefetch={false}
             aria-label="Kembali ke beranda"
             className="pointer-events-auto inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-ink-strong/85 text-sm font-extrabold text-white transition-colors hover:bg-ink-strong sm:h-11 sm:w-auto sm:gap-2 sm:px-4"
