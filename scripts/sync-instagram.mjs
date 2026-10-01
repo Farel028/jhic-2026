@@ -122,6 +122,8 @@ function chromeCandidates() {
 }
 
 async function dumpProfileDom(browser, userDataDir) {
+  const outputDirectory = await mkdtemp(path.join(tmpdir(), "jhic-instagram-dom-"));
+  const outputFile = path.join(outputDirectory, "profile.html");
   return new Promise((resolve, reject) => {
     const browserArgs = [
       "--headless=new",
@@ -143,7 +145,8 @@ async function dumpProfileDom(browser, userDataDir) {
     delete childEnv.DBUS_SESSION_BUS_ADDRESS;
     delete childEnv.DBUS_SYSTEM_BUS_ADDRESS;
     delete childEnv.DISPLAY;
-    const child = spawn("/bin/sh", ["-c", [browser, ...browserArgs].map(shellQuote).join(" ")], {
+    const command = `${[browser, ...browserArgs].map(shellQuote).join(" ")} > ${shellQuote(outputFile)}`;
+    const child = spawn("/bin/sh", ["-c", command], {
       windowsHide: true,
       env: {
         ...childEnv,
@@ -151,14 +154,18 @@ async function dumpProfileDom(browser, userDataDir) {
     });
     let output = "";
     let error = "";
-    const timeout = setTimeout(() => child.kill(), 25000);
-    child.stdout.on("data", (chunk) => { output += chunk; });
+    const timeout = setTimeout(() => child.kill(), 45000);
     child.stderr.on("data", (chunk) => { error += chunk; });
     child.on("error", reject);
-    child.on("close", (code) => {
+    child.on("close", async (code) => {
       clearTimeout(timeout);
-      if (output.trim()) resolve(output);
-      else reject(new Error(`${browser} exited with ${code ?? "an error"}${error ? `: ${error.slice(0, 300)}` : ""}`));
+      try {
+        output = await readFile(outputFile, "utf8");
+        if (output.trim()) resolve(output);
+        else reject(new Error(`${browser} exited with ${code ?? "an error"}${error ? `: ${error.slice(0, 300)}` : ""}`));
+      } finally {
+        await rm(outputDirectory, { recursive: true, force: true });
+      }
     });
   });
 }
@@ -251,7 +258,14 @@ async function candidatesFromProfile() {
     const id = url.match(/\/(?:p|reel)\/([A-Za-z0-9_-]+)\//)?.[1];
     return id && !pinnedPostIds.has(id);
   });
-  if (uniqueUrls.length) return uniqueUrls.map((url) => ({ url }));
+  if (uniqueUrls.length) {
+    const gridImages = profileGridImagesFromDom(html);
+    return uniqueUrls.map((url) => {
+      const id = url.match(/\/(?:p|reel)\/([A-Za-z0-9_-]+)\//)?.[1];
+      const image = id ? gridImages.get(id) : null;
+      return image ? { url, image } : { url };
+    });
+  }
 
   if (/\b(?:log\s*in|login|challenge|captcha)\b/i.test(html)) {
     throw new Error("Instagram mengirim login wall/challenge. Login sekali pada profile browser VPS yang sama, lalu ulangi dry-run.");

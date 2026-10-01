@@ -26,6 +26,9 @@ Salin `.env.example` menjadi `.env.local` bila canonical URL deployment berbeda.
 NEXT_PUBLIC_SITE_URL=https://web.smkn2sby.sch.id
 ```
 
+Panduan deployment standalone ke VPS Jagoan Hosting tersedia di
+[`DEPLOYMENT-VPS.md`](DEPLOYMENT-VPS.md).
+
 ## Struktur utama
 
 - `src/app` — route, layout, metadata routes, dan error states.
