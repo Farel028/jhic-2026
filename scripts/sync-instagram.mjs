@@ -9,6 +9,7 @@ import sharp from "sharp";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const feedFile = process.env.INSTAGRAM_FEED_FILE ?? path.join(root, "var/instagram-feed.json");
 const imagesDir = process.env.INSTAGRAM_MEDIA_DIR ?? path.join(root, "var/instagram-media");
+const browserUserDataDir = process.env.INSTAGRAM_BROWSER_USER_DATA_DIR?.trim() || null;
 const account = "smkn2surabaya";
 const pinnedPostIds = new Set([
   "DMKMu85SepL",
@@ -126,6 +127,10 @@ async function dumpProfileDom(browser, userDataDir) {
       "--headless=new",
       "--disable-gpu",
       "--disable-background-networking",
+      "--disable-crash-reporter",
+      "--disable-breakpad",
+      "--disable-dev-shm-usage",
+      "--renderer-process-limit=1",
       "--no-first-run",
       "--no-default-browser-check",
       `--user-data-dir=${userDataDir}`,
@@ -185,10 +190,13 @@ function profilePostsFromDom(html) {
 }
 
 async function candidatesFromProfile() {
-  const userDataDir = await mkdtemp(path.join(tmpdir(), "jhic-instagram-"));
+  const userDataDir = browserUserDataDir
+    ? path.resolve(browserUserDataDir)
+    : await mkdtemp(path.join(tmpdir(), "jhic-instagram-"));
   let html;
   let lastError;
   try {
+    if (browserUserDataDir) await mkdir(userDataDir, { recursive: true });
     for (const browser of chromeCandidates()) {
       try {
         html = await dumpProfileDom(browser, userDataDir);
@@ -198,13 +206,17 @@ async function candidatesFromProfile() {
       }
     }
   } finally {
-    await rm(userDataDir, { recursive: true, force: true });
+    if (!browserUserDataDir) await rm(userDataDir, { recursive: true, force: true });
   }
   if (!html) {
     throw new Error(`Could not load Instagram in a local Chrome/Chromium browser. Install Chromium or set INSTAGRAM_BROWSER_BINARY. ${lastError?.message ?? ""}`.trim());
   }
   const posts = profilePostsFromDom(html);
   if (posts.length) return posts;
+
+  if (/\b(?:log\s*in|login|challenge|captcha)\b/i.test(html)) {
+    throw new Error("Instagram mengirim login wall/challenge. Login sekali pada profile browser VPS yang sama, lalu ulangi dry-run.");
+  }
 
   const urls = [...html.matchAll(/\/(?:p|reel)\/([A-Za-z0-9_-]+)\//g)]
     .map((match) => instagramPostUrl(`https://www.instagram.com/${match[0].split("/")[1]}/${match[1]}/`))
