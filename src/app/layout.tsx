@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Caveat } from "next/font/google";
 import type { ReactNode } from "react";
+import { PandaChatbot } from "@/components/chatbot/panda-chatbot";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { school } from "@/config/school";
@@ -77,6 +78,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SiteHeader />
         {children}
         <SiteFooter />
+        <PandaChatbot />
       </body>
     </html>
   );
