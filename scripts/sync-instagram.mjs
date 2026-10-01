@@ -123,7 +123,7 @@ function chromeCandidates() {
 
 async function dumpProfileDom(browser, userDataDir) {
   return new Promise((resolve, reject) => {
-    const child = spawn(browser, [
+    const browserArgs = [
       "--headless=new",
       "--no-sandbox",
       "--disable-gpu",
@@ -137,7 +137,9 @@ async function dumpProfileDom(browser, userDataDir) {
       "--virtual-time-budget=12000",
       "--dump-dom",
       `https://www.instagram.com/${account}/`,
-    ], {
+    ];
+    const shellQuote = (value) => `'${String(value).replaceAll("'", "'\\''")}'`;
+    const child = spawn("/bin/sh", ["-c", [browser, ...browserArgs].map(shellQuote).join(" ")], {
       windowsHide: true,
       env: {
         ...process.env,
