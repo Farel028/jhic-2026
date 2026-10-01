@@ -136,7 +136,14 @@ async function dumpProfileDom(browser, userDataDir) {
       "--virtual-time-budget=12000",
       "--dump-dom",
       `https://www.instagram.com/${account}/`,
-    ], { windowsHide: true });
+    ], {
+      windowsHide: true,
+      env: {
+        ...process.env,
+        DBUS_SESSION_BUS_ADDRESS: "",
+        DBUS_SYSTEM_BUS_ADDRESS: "",
+      },
+    });
     let output = "";
     let error = "";
     const timeout = setTimeout(() => child.kill(), 25000);
