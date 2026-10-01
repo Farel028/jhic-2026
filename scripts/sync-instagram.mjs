@@ -139,13 +139,14 @@ async function dumpProfileDom(browser, userDataDir) {
       `https://www.instagram.com/${account}/`,
     ];
     const shellQuote = (value) => `'${String(value).replaceAll("'", "'\\''")}'`;
+    const childEnv = { ...process.env };
+    delete childEnv.DBUS_SESSION_BUS_ADDRESS;
+    delete childEnv.DBUS_SYSTEM_BUS_ADDRESS;
+    delete childEnv.DISPLAY;
     const child = spawn("/bin/sh", ["-c", [browser, ...browserArgs].map(shellQuote).join(" ")], {
       windowsHide: true,
       env: {
-        ...process.env,
-        DBUS_SESSION_BUS_ADDRESS: "disabled:",
-        DBUS_SYSTEM_BUS_ADDRESS: "disabled:",
-        DISPLAY: "",
+        ...childEnv,
       },
     });
     let output = "";
