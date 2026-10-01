@@ -126,11 +126,9 @@ async function dumpProfileDom(browser, userDataDir) {
     const child = spawn(browser, [
       "--headless=new",
       "--disable-gpu",
-      "--disable-background-networking",
       "--disable-crash-reporter",
       "--disable-breakpad",
       "--disable-dev-shm-usage",
-      "--renderer-process-limit=1",
       "--no-first-run",
       "--no-default-browser-check",
       `--user-data-dir=${userDataDir}`,
@@ -214,14 +212,20 @@ async function candidatesFromProfile() {
   const posts = profilePostsFromDom(html);
   if (posts.length) return posts;
 
+  const urls = [...html.matchAll(/\/(?:p|reel)\/([A-Za-z0-9_-]+)\//g)]
+    .map((match) => instagramPostUrl(`https://www.instagram.com/${match[0].split("/")[1]}/${match[1]}/`))
+    .filter(Boolean);
+  const uniqueUrls = [...new Set(urls)].filter((url) => {
+    const id = url.match(/\/(?:p|reel)\/([A-Za-z0-9_-]+)\//)?.[1];
+    return id && !pinnedPostIds.has(id);
+  });
+  if (uniqueUrls.length) return uniqueUrls.map((url) => ({ url }));
+
   if (/\b(?:log\s*in|login|challenge|captcha)\b/i.test(html)) {
     throw new Error("Instagram mengirim login wall/challenge. Login sekali pada profile browser VPS yang sama, lalu ulangi dry-run.");
   }
 
-  const urls = [...html.matchAll(/\/(?:p|reel)\/([A-Za-z0-9_-]+)\//g)]
-    .map((match) => instagramPostUrl(`https://www.instagram.com/${match[0].split("/")[1]}/${match[1]}/`))
-    .filter(Boolean);
-  return [...new Set(urls)].map((url) => ({ url }));
+  return [];
 }
 
 async function candidatesFromInput() {
