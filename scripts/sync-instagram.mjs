@@ -140,8 +140,9 @@ async function dumpProfileDom(browser, userDataDir) {
       windowsHide: true,
       env: {
         ...process.env,
-        DBUS_SESSION_BUS_ADDRESS: "",
-        DBUS_SYSTEM_BUS_ADDRESS: "",
+        DBUS_SESSION_BUS_ADDRESS: "disabled:",
+        DBUS_SYSTEM_BUS_ADDRESS: "disabled:",
+        DISPLAY: "",
       },
     });
     let output = "";
