@@ -52,7 +52,7 @@ export async function InstagramSection() {
                           unoptimized={post.imageSrc.startsWith("/instagram-media/")}
                           loading="lazy"
                           sizes="(max-width: 639px) calc(50vw - 1.625rem), (max-width: 1023px) calc(50vw - 2.5rem), 25vw"
-                          className="object-contain transition-transform duration-300 group-hover:scale-[1.025] group-focus-visible:scale-[1.025] motion-reduce:transition-none"
+                          className="object-cover transition-transform duration-300 group-hover:scale-[1.025] group-focus-visible:scale-[1.025] motion-reduce:transition-none"
                         />
                         <span className="absolute right-2 top-2 rounded-full bg-ink-strong/90 px-2.5 py-1 text-xs font-bold text-white sm:right-3 sm:top-3">
                           {mediaLabels[post.mediaType]}
