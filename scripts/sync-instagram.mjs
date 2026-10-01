@@ -275,9 +275,9 @@ async function resolvePost(candidate) {
     const meta = metadata(await (await get(candidate.url)).text());
     return {
       ...candidate,
-      // Profile-grid URLs can be square crops. Prefer the post page's OG image,
-      // which preserves the original portrait or landscape aspect ratio.
-      image: imageUrl(meta["og:image"] ?? meta["twitter:image"]) ?? candidate.image,
+      // The profile grid carries the correct displayed aspect ratio. Use the
+      // post metadata only when the grid did not provide an image.
+      image: candidate.image ?? imageUrl(meta["og:image"] ?? meta["twitter:image"]),
       date: publishedAt(meta["article:published_time"]) ?? publishedAt(meta["og:description"]) ?? candidate.date,
       type: candidate.type ?? (candidate.url.includes("/reel/") || meta["og:type"] === "video" ? "Video" : "Image"),
       caption: captionFromMeta(meta) ?? candidate.caption ?? candidate.alt,
