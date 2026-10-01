@@ -256,9 +256,9 @@ async function resolvePost(candidate) {
     const meta = metadata(await (await get(candidate.url)).text());
     return {
       ...candidate,
-      // The profile-grid thumbnail is the media cover. OG images for Reels can include
-      // Instagram's own variable play treatment, so use them only as a fallback.
-      image: candidate.image ?? imageUrl(meta["og:image"] ?? meta["twitter:image"]),
+      // Profile-grid URLs can be square crops. Prefer the post page's OG image,
+      // which preserves the original portrait or landscape aspect ratio.
+      image: imageUrl(meta["og:image"] ?? meta["twitter:image"]) ?? candidate.image,
       date: publishedAt(meta["article:published_time"]) ?? publishedAt(meta["og:description"]) ?? candidate.date,
       type: candidate.type ?? (candidate.url.includes("/reel/") || meta["og:type"] === "video" ? "Video" : "Image"),
       caption: captionFromMeta(meta) ?? candidate.caption ?? candidate.alt,
