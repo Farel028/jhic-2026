@@ -157,7 +157,7 @@ async function dumpProfileDom(browser, userDataDir) {
     child.on("error", reject);
     child.on("close", (code) => {
       clearTimeout(timeout);
-      if (code === 0 && output) resolve(output);
+      if (output.trim()) resolve(output);
       else reject(new Error(`${browser} exited with ${code ?? "an error"}${error ? `: ${error.slice(0, 300)}` : ""}`));
     });
   });
