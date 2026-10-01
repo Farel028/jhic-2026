@@ -188,6 +188,18 @@ function profilePostsFromDom(html) {
   return [...posts.values()];
 }
 
+function profileGridImagesFromDom(html) {
+  const images = new Map();
+  const anchorPattern = /<a\b[^>]*href=["']\/[^"']+\/(p|reel)\/([A-Za-z0-9_-]+)\/?["'][^>]*>([\s\S]*?)<\/a>/gi;
+  for (const match of html.matchAll(anchorPattern)) {
+    const image = match[3].match(/<img\b[^>]*\bsrc=["']([^"']+)["']/i)?.[1]
+      ?? match[3].match(/<img\b[^>]*\bsrcset=["']([^"']+)["']/i)?.[1]?.split(/\s+/)[0];
+    const src = imageUrl(image?.replaceAll("&amp;", "&"));
+    if (src) images.set(match[2], src);
+  }
+  return images;
+}
+
 async function candidatesFromProfile() {
   const userDataDir = browserUserDataDir
     ? path.resolve(browserUserDataDir)
@@ -211,7 +223,14 @@ async function candidatesFromProfile() {
     throw new Error(`Could not load Instagram in a local Chrome/Chromium browser. Install Chromium or set INSTAGRAM_BROWSER_BINARY. ${lastError?.message ?? ""}`.trim());
   }
   const posts = profilePostsFromDom(html);
-  if (posts.length) return posts;
+  if (posts.length) {
+    const gridImages = profileGridImagesFromDom(html);
+    return posts.map((post) => {
+      const id = post.url.match(/\/(?:p|reel)\/([A-Za-z0-9_-]+)\//)?.[1];
+      const gridImage = id ? gridImages.get(id) : null;
+      return gridImage ? { ...post, image: gridImage } : post;
+    });
+  }
 
   const urls = [...html.matchAll(/\/(?:p|reel)\/([A-Za-z0-9_-]+)\//g)]
     .map((match) => instagramPostUrl(`https://www.instagram.com/${match[0].split("/")[1]}/${match[1]}/`))
