@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { mediaAssetUrl } from "@/config/media-assets";
 
@@ -104,17 +103,6 @@ const responseGuides: Array<{
     },
   ];
 
-const pageBriefs: Record<string, string> = {
-  "/": "Selamat datang di SMKN 2 Surabaya! Aku Pando, siap memandumu menjelajahi sekolah! 🐼",
-  "/berita": "Ini halaman Berita Sekolah. Kamu bisa baca kabar & kegiatan terbaru di sini! 📰",
-  "/virtual-tour": "Selamat datang di Virtual Tour! Yuk keliling kampus SMKN 2 Surabaya secara 360°! 🏫",
-  "/informasi/spmb": "Ini pusat informasi SPMB. Cek syarat, alur, dan jadwal pendaftaran siswa baru! 📝",
-  "/siswa/prestasi": "Ini halaman Prestasi. Lihat deretan piala dan karya terbaik siswa SMKN 2 Surabaya! 🏆",
-  "/tentang/fasilitas": "Ini halaman Fasilitas. Jelajahi lab, bengkel praktik, dan sarana belajar kami! 🔬",
-  "/tentang/visi-misi": "Ini halaman Visi & Misi SMKN 2 Surabaya untuk mencetak generasi vokasi unggul! 🎯",
-  "/tentang/profil": "Ini halaman Profil Sekolah. Pelajari visi-misi dan sejarah SMKN 2 Surabaya! 🎓",
-};
-
 const availableUniformList: PandaUniform[] = [
   uniformsByDay.Mon, // 1 / F1: Abu-abu
   uniformsByDay.Tue, // 2 / F2: Biru
@@ -124,15 +112,6 @@ const availableUniformList: PandaUniform[] = [
   weekendFallbacks.Sat, // 6 / F6: DC
   weekendFallbacks.Sun, // 7 / F7: DC
 ];
-
-function getBriefForPath(pathname: string): string {
-  if (pageBriefs[pathname]) return pageBriefs[pathname];
-  if (pathname.startsWith("/berita")) return "Ini artikel berita sekolah. Selamat membaca! 📰";
-  if (pathname.startsWith("/informasi")) return "Ini pusat informasi SMKN 2 Surabaya. 📢";
-  if (pathname.startsWith("/siswa")) return "Ini halaman seputar kegiatan dan prestasi siswa. 🎒";
-  if (pathname.startsWith("/tentang")) return "Ini halaman profil & fasilitas SMKN 2 Surabaya. ✨";
-  return "Aku Pando! Siap membantumu menjelajahi website SMKN 2 Surabaya. 🐼";
-}
 
 function getJakartaUniform() {
   const weekday = new Intl.DateTimeFormat("en-US", {
@@ -213,10 +192,6 @@ function MascotStage({ uniform }: { uniform: PandaUniform }) {
   );
 }
 
-function CompactMascot({ uniform }: { uniform: PandaUniform }) {
-  return null;
-}
-
 function LazyMascotVideo({
   src,
   alt = "Pando",
@@ -268,120 +243,6 @@ function LazyMascotVideo({
   );
 }
 
-function LeftPandoMascot({
-  uniform,
-  onOpenChat,
-}: {
-  uniform: PandaUniform;
-  onOpenChat: () => void;
-}) {
-  const pathname = usePathname();
-  const briefText = getBriefForPath(pathname);
-  const [showBubble, setShowBubble] = useState(true);
-  const [prevPathname, setPrevPathname] = useState(pathname);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-  if (pathname !== prevPathname) {
-    setPrevPathname(pathname);
-    setShowBubble(true);
-  }
-
-  useEffect(() => {
-    if (!showBubble) return;
-
-    if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-      setShowBubble(false);
-    }, 6000);
-
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [pathname, showBubble]);
-
-  const handleMascotClick = () => {
-    if (!showBubble) {
-      setShowBubble(true);
-    } else {
-      onOpenChat();
-    }
-  };
-
-  return (
-    <aside
-      aria-label="Pando VTuber Maskot"
-      className="hidden sm:flex pando-left-mascot fixed left-[-2.5rem] sm:left-[-4rem] md:left-[-5.5rem] lg:left-[-7rem] bottom-[-2.5rem] sm:bottom-[-3.5rem] md:bottom-[-4.5rem] z-[65] pointer-events-none flex-col items-start"
-    >
-      {/* Massive VTuber-style Avatar character anchored past bottom edge */}
-      <div
-        onClick={handleMascotClick}
-        className="pointer-events-auto pando-float relative h-[32rem] w-[22rem] sm:h-[44rem] sm:w-[32rem] md:h-[54rem] md:w-[40rem] lg:h-[66rem] lg:w-[48rem] max-h-[80vh] sm:max-h-[90vh] md:max-h-[98vh] shrink-0 cursor-pointer drop-shadow-[0_25px_35px_rgba(0,0,0,0.3)]"
-      >
-        {/* Dynamic Auto-Appearing & Auto-Disappearing Speech Bubble - Clean Editorial Card */}
-        <div
-          className={`pointer-events-auto absolute top-2 sm:top-6 md:top-10 left-[6rem] sm:left-[9rem] md:left-[12rem] lg:left-[14rem] z-20 w-[15rem] sm:w-[18rem] md:w-[21rem] rounded-xl border border-ink/15 bg-white p-3.5 sm:p-4 shadow-[0_10px_28px_rgba(11,36,71,0.12)] text-ink-strong transition-all duration-500 ease-out ${
-            showBubble
-              ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
-              : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
-          }`}
-        >
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-2">
-              <span className="rounded bg-[#0b2447] px-1.5 py-0.5 font-mono text-[0.62rem] font-bold text-white tracking-wider">
-                PANDO
-              </span>
-              <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-wider text-ink-muted">
-                Virtual Guide
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowBubble(false);
-              }}
-              className="grid size-6 place-items-center rounded-lg border border-ink/10 text-ink-muted hover:bg-black/5 hover:text-ink-strong transition-colors"
-              title="Tutup sapaan"
-              aria-label="Tutup sapaan"
-            >
-              <svg viewBox="0 0 24 24" fill="none" className="size-3" stroke="currentColor" strokeWidth="2.4">
-                <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" />
-              </svg>
-            </button>
-          </div>
-
-          <p className="text-xs sm:text-sm font-medium leading-relaxed text-ink-strong">
-            {briefText}
-          </p>
-
-          <div className="mt-3 flex items-center justify-between border-t border-ink/10 pt-2.5">
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onOpenChat();
-              }}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-[#0b2447] px-3 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-[#081a33] transition-colors"
-            >
-              Tanya Pando
-              <svg viewBox="0 0 24 24" fill="none" className="size-3" stroke="currentColor" strokeWidth="2.4">
-                <path d="M5 12h14m-5-5 5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            <span className="text-[0.65rem] text-ink-muted/60 font-mono">Klik maskot untuk chat</span>
-          </div>
-        </div>
-
-        <LazyMascotVideo
-          src={uniform.src}
-          alt={`Pando memakai ${uniform.uniformLabel}`}
-          className="size-full object-bottom"
-        />
-      </div>
-    </aside>
-  );
-}
-
 export function PandaChatbot() {
   const panelId = useId();
   const launcherRef = useRef<HTMLButtonElement>(null);
@@ -390,7 +251,6 @@ export function PandaChatbot() {
   const nextMessageIdRef = useRef(2);
   const [isOpen, setIsOpen] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const [isSummoned, setIsSummoned] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
@@ -521,16 +381,6 @@ export function PandaChatbot() {
 
   return (
     <>
-      {isSummoned ? (
-        <LeftPandoMascot
-          uniform={uniform}
-          onOpenChat={() => {
-            setIsOpen(true);
-            setShowMenu(false);
-          }}
-        />
-      ) : null}
-
       <div
         ref={launcherContainerRef}
         data-chatbot-root
@@ -751,41 +601,6 @@ export function PandaChatbot() {
                     aria-hidden="true"
                   >
                     <PandoIcon className="size-7" />
-                  </span>
-                </button>
-
-                {/* Bubble 2: Panggil Pando */}
-                <button
-                  type="button"
-                  role="menuitem"
-                  onClick={() => {
-                    setShowMenu(false);
-                    setIsSummoned((current) => !current);
-                  }}
-                  className={`hidden sm:flex group items-center gap-2.5 rounded-[1.25rem] px-4 py-2.5 shadow-[0_8px_24px_rgba(6,24,48,0.16)] border backdrop-blur-sm transition-all hover:scale-105 active:scale-95 text-left ${isSummoned
-                    ? "bg-primary-strong text-white border-primary-strong hover:bg-primary"
-                    : "bg-white text-ink-strong border-primary/20 hover:bg-[#f4f8ff]"
-                    }`}
-                >
-                  <span className="text-sm font-extrabold tracking-tight">
-                    {isSummoned ? "Sembunyikan Pando" : "Panggil Pando"}
-                  </span>
-                  <span
-                    className={`relative grid size-9 shrink-0 place-items-center rounded-full ${isSummoned ? "bg-white/20" : "bg-accent-soft/40"
-                      }`}
-                    aria-hidden="true"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      className={`size-5 ${isSummoned ? "text-white" : "text-amber-700"}`}
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M11 5.882a3 3 0 00-3-3H5a2 2 0 00-2 2v10a2 2 0 002 2h3a3 3 0 003-3v-8.118z" />
-                    </svg>
                   </span>
                 </button>
               </div>
