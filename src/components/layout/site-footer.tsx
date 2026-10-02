@@ -60,11 +60,7 @@ export function SiteFooter() {
       </div>
       <div className="mx-auto w-full max-w-site px-5 py-10 sm:px-8 lg:px-10">
         <section aria-label="Mitra JHIC" className="rounded-2xl bg-white px-6 py-7">
-          <div className="flex items-center justify-center gap-3">
-            <span aria-hidden="true" className="h-5 w-1 rounded-full bg-accent-strong" />
-            <p className="text-[0.7rem] font-extrabold uppercase tracking-[0.2em] text-ink-strong">Mitra JHIC</p>
-          </div>
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 sm:gap-x-8">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 sm:gap-x-8">
             {jhicPartners.map((partner, index) => (
               <span key={partner.src} className="flex items-center gap-x-6 sm:gap-x-8">
                 <Image
