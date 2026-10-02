@@ -67,7 +67,7 @@ export function SiteFooter() {
                 alt={partner.alt}
                 width={200}
                 height={90}
-                className="h-8 w-auto max-w-44 object-contain brightness-0 invert transition-transform duration-200 hover:-translate-y-0.5 sm:h-9"
+                className="h-8 w-auto max-w-44 object-contain sm:h-9"
               />
             ))}
           </div>
