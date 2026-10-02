@@ -180,26 +180,15 @@ function ExpandIcon({ expanded }: { expanded: boolean }) {
 
 function MascotStage({ uniform }: { uniform: PandaUniform }) {
   return (
-    <div className="relative flex flex-col justify-center overflow-hidden border-r border-ink/10 bg-[#f8f7f4] p-4 sm:p-5 sm:h-full">
+    <div className="relative hidden flex-col justify-center overflow-hidden border-r border-ink/10 bg-[#f8f7f4] p-4 sm:flex sm:h-full sm:p-5">
       <div className="relative my-auto flex h-72 sm:h-[26rem] w-full items-end justify-center overflow-hidden scale-110 sm:scale-125 origin-bottom">
         <LazyMascotVideo
           src={uniform.src}
           alt={`Pando memakai ${uniform.uniformLabel.toLocaleLowerCase("id-ID")}`}
           className="size-full object-bottom"
+          fit="contain"
         />
       </div>
-    </div>
-  );
-}
-
-function CompactMascot({ uniform }: { uniform: PandaUniform }) {
-  return (
-    <div className="relative z-30 h-20 w-24 shrink-0 overflow-visible" aria-hidden="true">
-      <LazyMascotVideo
-        src={uniform.src}
-        alt=""
-        className="absolute bottom-0 left-1/2 size-48 -translate-x-1/2"
-      />
     </div>
   );
 }
@@ -208,10 +197,12 @@ function LazyMascotVideo({
   src,
   alt = "Pando",
   className = "",
+  fit = "contain",
 }: {
   src: string;
   alt?: string;
   className?: string;
+  fit?: "contain" | "cover";
 }) {
   const [hasError, setHasError] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
@@ -247,7 +238,7 @@ function LazyMascotVideo({
           }).catch(() => setHasError(true));
         }}
         aria-label={alt}
-        className={`pointer-events-none size-full object-contain object-bottom transition-opacity duration-700 ease-out ${
+        className={`pointer-events-none size-full transition-opacity duration-700 ease-out ${fit === "cover" ? "object-cover" : "object-contain"} object-center ${
           isVideoReady ? "opacity-100" : "opacity-0"
         }`}
       />
@@ -387,13 +378,13 @@ export function PandaChatbot() {
             id={panelId}
             role="region"
             aria-labelledby={`${panelId}-title`}
-            className={`panda-chatbot-panel flex h-[min(40rem,calc(100dvh-5.25rem))] w-[min(26rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-2xl border border-ink/15 bg-white text-ink-strong shadow-[0_16px_40px_rgba(11,36,71,0.16)] ${isExpanded
-              ? "sm:h-[min(43rem,calc(100dvh-2.5rem))] sm:w-[min(52rem,calc(100vw-2.5rem))]"
-              : ""
-              }`}
+            className={`panda-chatbot-panel flex h-[min(40rem,calc(100dvh-5.25rem))] w-[min(26rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-2xl border border-ink/15 bg-white text-ink-strong shadow-[0_16px_40px_rgba(11,36,71,0.16)] sm:h-[min(40rem,calc(100dvh-5.25rem))] max-sm:max-h-[calc(100dvh-4.5rem)] max-sm:w-[calc(100vw-1.5rem)] max-sm:rounded-xl ${isExpanded
+                ? "sm:h-[min(43rem,calc(100dvh-2.5rem))] sm:w-[min(52rem,calc(100vw-2.5rem))]"
+                : ""
+                }`}
           >
-            <header className="relative flex min-h-[4.25rem] shrink-0 items-center gap-3 border-b border-ink/10 bg-[#faf9f6] px-4 sm:px-5">
-              <PandoIcon className="h-9 w-12 shrink-0" />
+            <header className="relative flex min-h-[3.75rem] shrink-0 items-center gap-2.5 border-b border-ink/10 bg-[#faf9f6] px-3 sm:min-h-[4.25rem] sm:gap-3 sm:px-5">
+              <PandoIcon className="h-8 w-10 shrink-0 sm:h-9 sm:w-12" />
               <div className="min-w-0 flex-1">
                 <h2 id={`${panelId}-title`} className="truncate text-base font-extrabold tracking-tight text-ink-strong">
                   Pando
@@ -429,14 +420,24 @@ export function PandaChatbot() {
             <div
               className={`min-h-0 flex-1 ${isExpanded
                 ? "flex flex-col sm:grid sm:grid-cols-[minmax(15rem,0.85fr)_minmax(22rem,1.25fr)]"
-                : "flex flex-col"
+                : "grid flex-col grid-rows-[minmax(0,1fr)_minmax(0,1fr)] sm:flex"
                 }`}
             >
               {isExpanded ? <MascotStage uniform={uniform} /> : null}
+              {!isExpanded ? (
+                <div className="relative flex min-h-0 items-start justify-center overflow-hidden bg-[#f8f7f4] sm:hidden">
+                  <LazyMascotVideo
+                    src={uniform.src}
+                    alt={`Pando memakai ${uniform.uniformLabel.toLocaleLowerCase("id-ID")}`}
+                    className="h-full max-h-full w-full"
+                    fit="contain"
+                  />
+                </div>
+              ) : null}
 
               <div className="panda-chat-surface min-h-0 flex flex-1 flex-col bg-[#fdfcfb]">
                 <div
-                  className="min-h-0 flex-1 overflow-y-auto px-4 py-5 pb-24 sm:px-5"
+                  className="min-h-0 flex-1 overflow-y-auto px-3 py-4 sm:px-5 sm:py-5"
                   aria-live="polite"
                   aria-relevant="additions"
                 >
@@ -444,21 +445,21 @@ export function PandaChatbot() {
                     {messages.map((message) => (
                       <div
                         key={message.id}
-                        className={`flex items-end gap-2.5 ${message.author === "user" ? "justify-end" : "justify-start"
+                        className={`flex items-end gap-1.5 sm:gap-2.5 ${message.author === "user" ? "justify-end" : "justify-start"
                           }`}
                       >
                         {message.author === "panda" ? (
-                          <span className="flex h-8 w-10 shrink-0 items-center justify-center" aria-hidden="true">
-                            <PandoIcon className="h-7 w-10" />
+                          <span className="flex h-7 w-8 shrink-0 items-center justify-center sm:h-8 sm:w-10" aria-hidden="true">
+                            <PandoIcon className="h-6 w-8 sm:h-7 sm:w-10" />
                           </span>
                         ) : null}
                         <div
-                          className={`max-w-[84%] rounded-xl px-4 py-3 shadow-[0_1px_3px_rgba(0,0,0,0.04)] ${message.author === "user"
+                          className={`min-w-0 max-w-[80%] rounded-xl px-3 py-2.5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] sm:max-w-[84%] sm:px-4 sm:py-3 ${message.author === "user"
                             ? "rounded-br-xs bg-[#0b2447] text-white"
                             : "rounded-bl-xs border border-ink/10 bg-white text-ink-strong"
                             }`}
                         >
-                          <p className="text-sm font-medium leading-relaxed">{message.text}</p>
+                          <p className="break-words text-[0.83rem] font-medium leading-relaxed sm:text-sm">{message.text}</p>
                           {message.action ? (
                             <Link
                               href={message.action.href}
@@ -494,13 +495,8 @@ export function PandaChatbot() {
                   </div>
                 </div>
 
-                <div className="relative shrink-0 border-t border-ink/10 bg-white p-3 sm:p-4">
-                  {!isExpanded ? (
-                    <div className="pointer-events-none absolute bottom-[160px] left-0 z-30" aria-hidden="true">
-                      <CompactMascot uniform={uniform} />
-                    </div>
-                  ) : null}
-                  <div className="relative z-10 mb-3 flex min-h-10 min-w-0 items-center rounded-xl bg-white px-2 py-1 pl-24 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+                <div className="shrink-0 border-t border-ink/10 bg-white p-2.5 sm:p-4">
+                  <div className="mb-2 flex min-w-0">
                     <div
                       className="flex min-w-0 flex-1 gap-2 overflow-x-auto py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                       aria-label="Pertanyaan cepat"
@@ -510,7 +506,7 @@ export function PandaChatbot() {
                           key={prompt}
                           type="button"
                           onClick={() => sendMessage(prompt)}
-                          className="min-h-8 shrink-0 rounded-lg border border-ink/10 bg-[#f8f9fa] px-3 text-xs font-semibold text-ink-strong transition-all hover:border-[#0b2447] hover:bg-[#0b2447] hover:text-white"
+                          className="min-h-9 shrink-0 rounded-lg border border-ink/10 bg-[#f8f9fa] px-2.5 text-[0.72rem] font-semibold text-ink-strong transition-all hover:border-[#0b2447] hover:bg-[#0b2447] hover:text-white sm:px-3 sm:text-xs"
                         >
                           {prompt}
                         </button>
@@ -521,7 +517,7 @@ export function PandaChatbot() {
                     onSubmit={handleSubmit}
                     className="relative z-10 flex items-end gap-2"
                   >
-                    <div className="relative z-10 flex min-w-0 flex-1 items-end rounded-xl border border-ink/20 bg-white px-3.5 py-1 transition-colors focus-within:border-[#0b2447] focus-within:ring-1 focus-within:ring-[#0b2447]">
+                    <div className="relative z-10 flex min-w-0 flex-1 items-end rounded-xl border border-ink/20 bg-white px-2.5 py-1 transition-colors focus-within:border-[#0b2447] focus-within:ring-1 focus-within:ring-[#0b2447] sm:px-3.5">
                       <label htmlFor={`${panelId}-input`} className="sr-only">
                         Ketik pesan untuk Pando
                       </label>
@@ -545,15 +541,15 @@ export function PandaChatbot() {
                             }
                           }
                         }}
-                        placeholder="Tanya seputar SMKN 2 Surabaya..."
+                        placeholder="Tanya seputar SMKN 2 Sby..."
                         autoComplete="off"
-                        className="max-h-28 min-h-10 min-w-0 w-full resize-none bg-transparent py-2.5 text-sm font-medium text-ink-strong outline-none ring-0 border-0 focus:outline-none focus:ring-0 placeholder:text-ink-muted/40 [outline:none!important] [box-shadow:none!important]"
+                        className="max-h-28 min-h-10 min-w-0 w-full resize-none bg-transparent py-2 text-[0.83rem] font-medium text-ink-strong outline-none ring-0 border-0 focus:outline-none focus:ring-0 placeholder:text-ink-muted/40 [outline:none!important] [box-shadow:none!important] sm:py-2.5 sm:text-sm"
                       />
                     </div>
                     <button
                       type="submit"
                       disabled={!inputValue.trim()}
-                      className="grid size-11 shrink-0 place-items-center rounded-xl bg-[#0b2447] text-white shadow-xs transition-all hover:bg-[#081a33] active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-[#0b2447]"
+                      className="grid size-11 shrink-0 place-items-center rounded-xl bg-[#0b2447] text-white shadow-xs transition-all hover:bg-[#081a33] active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-[#0b2447] max-sm:size-10"
                       aria-label="Kirim pesan"
                     >
                       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="size-4">
