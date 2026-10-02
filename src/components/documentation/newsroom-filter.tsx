@@ -4,17 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ArrowRightIcon } from "@/components/ui/icons";
-import { newsCategories, newsroomItems } from "@/data/documentation";
+import { newsCategories, type NewsItem } from "@/data/documentation";
 
 type CategoryKey = (typeof newsCategories)[number]["key"];
 type YearKey = "semua" | "2025" | "2026";
 
-export function NewsroomFilter() {
+export function NewsroomFilter({ items }: { items: readonly NewsItem[] }) {
   const [category, setCategory] = useState<CategoryKey>("semua");
   const [year, setYear] = useState<YearKey>("semua");
   const [visibleCount, setVisibleCount] = useState(6);
 
-  const filteredItems = newsroomItems.filter(
+  const filteredItems = items.filter(
     (item) =>
       (category === "semua" || item.category === category) &&
       (year === "semua" || item.year === year),

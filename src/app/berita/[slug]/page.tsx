@@ -7,12 +7,13 @@ import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ArrowRightIcon, EyeIcon } from "@/components/ui/icons";
 import { getPracticeStoryBySlug, practiceStories } from "@/data/practice-stories";
 import { withPageTwitter } from "@/lib/metadata";
+import { getCmsNews } from "@/lib/cms-news";
 
 type StoryPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export function generateStaticParams() {
   return practiceStories.map((story) => ({ slug: story.slug }));
@@ -22,7 +23,11 @@ export async function generateMetadata({ params }: StoryPageProps): Promise<Meta
   const { slug } = await params;
   const story = getPracticeStoryBySlug(slug);
 
-  if (!story) return {};
+  if (!story) {
+    const item = (await getCmsNews()).find((entry) => entry.slug === slug);
+    if (!item) return {};
+    return withPageTwitter({ title: item.title, description: item.excerpt, alternates: { canonical: item.href } });
+  }
 
   return withPageTwitter({
     title: story.title,
@@ -41,7 +46,24 @@ export default async function StoryPage({ params }: StoryPageProps) {
   const { slug } = await params;
   const story = getPracticeStoryBySlug(slug);
 
-  if (!story) notFound();
+  if (!story) {
+    const item = (await getCmsNews()).find((entry) => entry.slug === slug);
+    if (!item) notFound();
+    return (
+      <main id="konten-utama" className="flex-1 bg-white px-5 py-12 sm:px-8 lg:px-10">
+        <article className="mx-auto max-w-4xl">
+          <Link href="/berita" className="text-sm font-bold text-ink-muted hover:text-primary-strong">← Kembali ke berita</Link>
+          <p className="mt-10 text-xs font-extrabold uppercase tracking-[0.12em] text-primary-strong">{item.categoryLabel}</p>
+          <h1 className="mt-3 text-[clamp(1.85rem,4vw,3rem)] font-extrabold leading-tight text-ink-strong">{item.title}</h1>
+          <p className="mt-4 text-base font-medium leading-7 text-ink-muted">{item.excerpt}</p>
+          <p className="mt-5 text-sm font-bold text-ink-muted">{item.date}</p>
+          <div className="relative mt-8 aspect-[16/9] overflow-hidden bg-background">
+            <Image src={item.image.src} alt={item.image.alt} fill sizes="(max-width: 959px) calc(100vw - 2.5rem), 896px" className="object-cover" />
+          </div>
+        </article>
+      </main>
+    );
+  }
 
   const currentIndex = practiceStories.findIndex((item) => item.slug === story.slug);
   const nextStory = practiceStories[(currentIndex + 1) % practiceStories.length];

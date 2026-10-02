@@ -48,6 +48,18 @@ nohup node /home/americano/public_html/build/server.js \
   > /home/americano/logs/web.log 2>&1 &
 ```
 
+CMS berita memakai file JSON ringan di luar release. Tambahkan secret saat
+menjalankan proses Node (gunakan token panjang acak, jangan commit ke Git):
+
+```bash
+CMS_ADMIN_TOKEN='ganti-dengan-token-acak-panjang' \
+CMS_CONTENT_FILE=/home/americano/data/cms-news.json \
+```
+
+Gabungkan dua variabel tersebut pada command `nohup` di atas. Setelah itu buka
+`https://smekdaverse.my.id/admin/berita`, masukkan token, lalu kelola berita.
+Folder `/home/americano/data/` tidak boleh ikut terhapus saat upload release.
+
 Webuzo/Application Manager harus mem-proxy domain ke `127.0.0.1:30001`.
 Gunakan satu process manager saja untuk port tersebut.
 

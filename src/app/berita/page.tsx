@@ -3,6 +3,9 @@ import Link from "next/link";
 import { NewsroomFilter } from "@/components/documentation/newsroom-filter";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { withPageTwitter } from "@/lib/metadata";
+import { getCmsNews } from "@/lib/cms-news";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = withPageTwitter({
   title: "Berita Sekolah",
@@ -16,7 +19,8 @@ export const metadata: Metadata = withPageTwitter({
   },
 });
 
-export default function NewsPage() {
+export default async function NewsPage() {
+  const newsItems = await getCmsNews();
   return (
     <main id="konten-utama" className="flex-1">
       <BreadcrumbJsonLd
@@ -56,7 +60,7 @@ export default function NewsPage() {
 
       <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-site">
-          <NewsroomFilter />
+          <NewsroomFilter items={newsItems} />
         </div>
       </section>
     </main>
