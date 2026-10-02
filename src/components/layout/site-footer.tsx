@@ -58,19 +58,19 @@ export function SiteFooter() {
           </section>
         </div>
 
-        <section aria-label="Mitra JHIC" className="border-b border-white/15 py-6">
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5">
+        <section aria-label="Mitra JHIC" className="border-b border-white/15 py-7">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             {jhicPartners.map((partner) => (
               <div
                 key={partner.src}
-                className="flex h-11 w-[calc(50%-0.5rem)] sm:w-auto sm:min-w-[9.5rem] items-center justify-center rounded-xl bg-white/95 px-4 py-2 shadow-xs transition-all hover:bg-white"
+                className="flex h-14 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)] md:w-auto md:flex-1 md:min-w-0 items-center justify-center rounded-xl bg-white px-4 py-2.5 shadow-xs transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-sm"
               >
                 <Image
                   src={partner.src}
                   alt={partner.alt}
-                  width={180}
-                  height={80}
-                  className="max-h-7 w-auto max-w-full object-contain"
+                  width={200}
+                  height={90}
+                  className="max-h-7 sm:max-h-8 w-auto max-w-[85%] object-contain"
                 />
               </div>
             ))}
