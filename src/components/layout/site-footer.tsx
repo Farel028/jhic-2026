@@ -69,7 +69,7 @@ export function SiteFooter() {
                   alt={partner.alt}
                   width={200}
                   height={90}
-                  className="h-6 w-auto max-w-32 object-contain sm:h-7"
+                  className="h-9 w-auto max-w-48 object-contain sm:h-10"
                 />
                 {index < jhicPartners.length - 1 ? (
                   <span aria-hidden="true" className="h-5 w-px bg-ink/15" />
