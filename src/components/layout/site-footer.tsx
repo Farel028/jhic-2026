@@ -58,10 +58,13 @@ export function SiteFooter() {
           </section>
         </div>
       </div>
-      <section aria-label="Mitra JHIC" className="[background:linear-gradient(to_bottom,var(--color-ink-strong)_0%,#ffffff_30%,#ffffff_70%,var(--color-ink-strong)_100%)]">
-        <div className="mx-auto w-full max-w-site px-5 py-8 sm:px-8 lg:px-10">
-          <p className="text-center text-[0.7rem] font-extrabold uppercase tracking-[0.2em] text-ink-muted">Mitra JHIC</p>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 sm:gap-x-8">
+      <div className="mx-auto w-full max-w-site px-5 py-10 sm:px-8 lg:px-10">
+        <section aria-label="Mitra JHIC" className="rounded-2xl bg-white px-6 py-7">
+          <div className="flex items-center justify-center gap-3">
+            <span aria-hidden="true" className="h-5 w-1 rounded-full bg-accent-strong" />
+            <p className="text-[0.7rem] font-extrabold uppercase tracking-[0.2em] text-ink-strong">Mitra JHIC</p>
+          </div>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 sm:gap-x-8">
             {jhicPartners.map((partner, index) => (
               <span key={partner.src} className="flex items-center gap-x-6 sm:gap-x-8">
                 <Image
@@ -77,8 +80,8 @@ export function SiteFooter() {
               </span>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
       <div className="mx-auto w-full max-w-site px-5 py-9 sm:px-8 lg:px-10">
         <div className="grid gap-7 md:grid-cols-[1fr_auto] md:items-end">
           <div>
