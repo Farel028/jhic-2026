@@ -105,7 +105,7 @@ export default function Home() {
             />
             <Image
               src="/images/school/11-jurusan.webp"
-              alt="Sebelas siswa SMK Negeri 2 Surabaya mengenakan seragam praktik dari berbagai program keahlian"
+              alt="Sebelas siswa SMK Negeri 2 Surabaya mengenakan seragam praktik dari berbagai jurusan"
               width={2163}
               height={727}
               sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc(100vw - 4rem), (max-width: 1103px) calc(100vw - 5rem), (max-width: 1279px) 1024px, (max-width: 1535px) 1088px, 1152px"
@@ -129,7 +129,7 @@ export default function Home() {
         <div className="mx-auto w-full max-w-site">
           <div className="grid items-end gap-7 lg:grid-cols-[1.2fr_0.8fr]">
             <div>
-              <h2 className="max-w-4xl text-[clamp(2rem,3.8vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-ink-strong">11 Program Keahlian</h2>
+              <h2 className="max-w-4xl text-[clamp(2rem,3.8vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-ink-strong">11 Jurusan</h2>
             </div>
             <p className="max-w-xl text-base font-medium leading-7 text-ink-muted lg:justify-self-end lg:text-lg">Pilih bidang yang ingin kamu pelajari lebih jauh.</p>
           </div>

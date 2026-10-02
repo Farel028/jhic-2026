@@ -172,7 +172,7 @@ export function WhyChooseUs() {
 
             <div className="relative z-10">
               <h3 className="text-lg sm:text-xl font-extrabold text-white leading-tight">
-                11 Program Keahlian
+                11 Jurusan
               </h3>
               <p className="mt-1 text-xs sm:text-sm text-white/85">
                 Pilihan kejuruan teknik dan kreatif terlengkap di Jawa Timur.

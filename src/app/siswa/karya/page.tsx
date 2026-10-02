@@ -9,7 +9,7 @@ import { withPageTwitter } from "@/lib/metadata";
 export const metadata: Metadata = withPageTwitter({
   title: "Karya Siswa",
   description:
-    "Karya dan proyek siswa dari berbagai program keahlian SMK Negeri 2 Surabaya.",
+    "Karya dan proyek siswa dari berbagai jurusan SMK Negeri 2 Surabaya.",
   alternates: { canonical: "/siswa/karya" },
   openGraph: {
     title: "Karya Siswa SMK Negeri 2 Surabaya",

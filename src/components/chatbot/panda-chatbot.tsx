@@ -68,7 +68,7 @@ const responseGuides: Array<{
 }> = [
     {
       keywords: ["jurusan", "keahlian", "program"],
-      text: "Kamu bisa melihat seluruh program keahlian beserta profil jurusannya di halaman Jurusan.",
+      text: "Kamu bisa melihat seluruh jurusan beserta profilnya di halaman Jurusan.",
       action: { label: "Jelajahi jurusan", href: "/#jurusan" },
     },
     {

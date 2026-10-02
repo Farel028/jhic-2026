@@ -91,7 +91,7 @@ export default async function MajorPage({ params }: MajorPageProps) {
       <BreadcrumbJsonLd
         items={[
           { name: "Beranda", path: "/" },
-          { name: "Program Keahlian", path: "/#jurusan" },
+          { name: "Jurusan", path: "/#jurusan" },
           { name: major.name, path: `/jurusan/${major.slug}` },
         ]}
       />
@@ -102,7 +102,7 @@ export default async function MajorPage({ params }: MajorPageProps) {
             <ol className="flex flex-wrap items-center gap-2">
               <li><Link href="/" className="transition-colors hover:text-primary-strong">Beranda</Link></li>
               <li aria-hidden="true">/</li>
-              <li><Link href="/#jurusan" className="transition-colors hover:text-primary-strong">Program keahlian</Link></li>
+              <li><Link href="/#jurusan" className="transition-colors hover:text-primary-strong">Jurusan</Link></li>
               <li aria-hidden="true">/</li>
               <li aria-current="page" className="text-ink-strong">{major.code}</li>
             </ol>

@@ -81,7 +81,7 @@ export default function ProfilePage() {
               </p>
               <p>
                 Lebih dari satu abad kemudian, fungsi pendidikannya tetap hidup
-                melalui 11 program keahlian di bidang teknologi, seni,
+                melalui 11 jurusan di bidang teknologi, seni,
                 konstruksi, elektronika, manufaktur, dan otomotif.
               </p>
             </div>
@@ -89,7 +89,7 @@ export default function ProfilePage() {
               href="/#jurusan"
               className="mt-7 inline-flex items-center gap-3 text-sm font-extrabold text-ink-strong underline decoration-primary decoration-2 underline-offset-8"
             >
-              Lihat program keahlian <ArrowRightIcon className="size-4" />
+              Lihat jurusan <ArrowRightIcon className="size-4" />
             </Link>
           </div>
 

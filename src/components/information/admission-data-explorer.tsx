@@ -54,7 +54,7 @@ export function AdmissionDataExplorer() {
         <>
           <dl className="grid border-b border-ink/15 sm:grid-cols-2 lg:grid-cols-4">
             <div className="border-b border-ink/10 py-6 sm:border-r sm:pr-6 lg:border-b-0">
-              <dt className="text-xs font-bold text-ink-muted">Program keahlian</dt>
+              <dt className="text-xs font-bold text-ink-muted">Jurusan</dt>
               <dd className="mt-2 text-2xl font-extrabold tracking-[-0.03em] text-ink-strong">
                 {snapshot.programs.length}
               </dd>
@@ -98,7 +98,7 @@ export function AdmissionDataExplorer() {
               <table className="w-full min-w-[760px] border-collapse text-left">
                 <thead>
                   <tr className="text-xs font-extrabold text-ink-muted">
-                    <th scope="col" className="py-4 pr-8">Program keahlian</th>
+                    <th scope="col" className="py-4 pr-8">Jurusan</th>
                     <th scope="col" className="px-4 py-4 text-right">Pagu akademik</th>
                     <th scope="col" className="px-4 py-4 text-right">Nilai tertinggi</th>
                     <th scope="col" className="py-4 pl-4 text-right">Nilai terendah</th>

@@ -117,7 +117,7 @@ export function MajorExplorer() {
       className="relative mt-8"
       role="region"
       aria-roledescription="carousel"
-      aria-label="Program keahlian SMK Negeri 2 Surabaya"
+      aria-label="Jurusan SMK Negeri 2 Surabaya"
     >
       {/* Navigasi Carousel Arrow */}
       <div className="mb-4 flex items-center justify-end gap-2">
@@ -145,7 +145,7 @@ export function MajorExplorer() {
         </button>
       </div>
 
-      {/* Area Kartu Program Keahlian */}
+      {/* Area kartu jurusan */}
       <div className="relative pt-2">
         <ul
           ref={trackRef}

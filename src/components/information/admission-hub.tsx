@@ -517,7 +517,7 @@ export function AdmissionHub() {
             </div>
           </div>
 
-          {/* Kolom Kanan: Komparasi 11 Program Keahlian */}
+          {/* Kolom kanan: komparasi 11 jurusan */}
           <div className="flex flex-col justify-between border border-ink/15 bg-white p-6 sm:p-8">
             <div>
               <div className="border-b border-ink/10 pb-4">

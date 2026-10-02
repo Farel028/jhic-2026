@@ -1,14 +1,24 @@
+import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { BrandMark } from "@/components/layout/brand-mark";
 import { ArrowUpRightIcon, MailIcon, MapPinIcon, PhoneIcon } from "@/components/ui/icons";
 import { footerNavigation } from "@/config/navigation";
 import { school, schoolMapUrl } from "@/config/school";
 
+const jhicPartners = [
+  { src: "/images/partners/jhic-2.0", alt: "JHIC 2.0" },
+  { src: "/images/partners/jagoanhosting", alt: "Jagoan Hosting" },
+  { src: "/images/partners/komdigi", alt: "Kementerian Komunikasi dan Digital" },
+  { src: "/images/partners/garudaspark", alt: "Garuda Spark" },
+  { src: "/images/partners/ngalup", alt: "Ngalup Collaborative Network" },
+] as const;
+
 export function SiteFooter() {
   return (
     <footer data-site-chrome className="bg-ink-strong text-white">
       <div className="mx-auto w-full max-w-site px-5 py-14 sm:px-8 sm:py-18 lg:px-10 lg:py-20">
-        <div className="grid gap-12 border-b border-white/15 pb-14 lg:grid-cols-[1.35fr_0.65fr_0.65fr] lg:gap-16">
+        <div className="grid gap-12 border-b border-white/15 pb-14 lg:grid-cols-[1.05fr_0.55fr_0.55fr_0.9fr] lg:gap-12">
           <div className="max-w-xl">
             <BrandMark inverse />
             <p className="mt-7 max-w-lg text-xl font-semibold leading-relaxed tracking-[-0.025em] text-white/85 sm:text-2xl">
@@ -34,24 +44,55 @@ export function SiteFooter() {
 
           <FooterLinkGroup title="Jelajahi" links={footerNavigation.jelajahi} />
           <FooterLinkGroup title="Informasi" links={footerNavigation.informasi} />
+          <section aria-labelledby="footer-map-title">
+            <p id="footer-map-title" className="text-xs font-bold uppercase tracking-[0.2em] text-secondary">Lokasi</p>
+            <div className="mt-5 overflow-hidden rounded-lg border border-white/15 bg-white/5">
+              <iframe
+                title={`Peta lokasi ${school.name}`}
+                src={`https://www.google.com/maps?q=${school.coordinates.latitude},${school.coordinates.longitude}&z=16&output=embed`}
+                className="h-48 w-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </section>
         </div>
+
+        <section aria-label="Mitra JHIC" className="border-b border-white/15 py-6">
+          <ul className="grid grid-cols-5 items-center gap-2 sm:gap-5">
+            {jhicPartners.map((partner) => (
+              <li key={partner.src} className="flex h-8 min-w-0 items-center justify-center sm:h-10">
+                <Image src={partner.src} alt={partner.alt} width={180} height={80} className="max-h-6 w-auto max-w-full object-contain sm:max-h-8" />
+              </li>
+            ))}
+          </ul>
+        </section>
 
         <div className="grid gap-7 pt-9 md:grid-cols-[1fr_auto] md:items-end">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-secondary">Ekosistem digital sekolah</p>
             <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold">
-              <a href={school.urls.smartPortal} className="inline-flex items-center gap-1.5 hover:text-accent-strong" rel="noreferrer">
-                Smart Smekda <ArrowUpRightIcon className="size-4" />
-              </a>
-              <a href={school.urls.bkk} className="inline-flex items-center gap-1.5 hover:text-accent-strong" rel="noreferrer">
-                BKK Smekda <ArrowUpRightIcon className="size-4" />
-              </a>
+              <FooterExternalLink href={school.urls.siakad}>SIAKAD</FooterExternalLink>
+              <FooterExternalLink href={school.urls.elearning}>E-Learning</FooterExternalLink>
+              <FooterExternalLink href={school.urls.bkk}>BKK SMEKDA</FooterExternalLink>
+              <FooterExternalLink href={school.urls.pkl}>e-PKL</FooterExternalLink>
+              <FooterExternalLink href={school.urls.presensi}>e-Presensi</FooterExternalLink>
+              <FooterExternalLink href={school.urls.library}>e-Library</FooterExternalLink>
+              <FooterExternalLink href={school.urls.cbt}>CBT SMEKDA</FooterExternalLink>
             </div>
           </div>
           <p className="text-xs leading-5 text-white/50">© {new Date().getFullYear()} {school.name}. Semua hak dilindungi.</p>
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterExternalLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a href={href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-accent-strong">
+      {children} <ArrowUpRightIcon className="size-4" />
+    </a>
   );
 }
 

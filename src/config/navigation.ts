@@ -53,7 +53,7 @@ export const primaryNavigation: readonly NavigationItem[] = [
 
 export const footerNavigation = {
   jelajahi: [
-    { label: "Program keahlian", href: "/#jurusan" },
+    { label: "Jurusan", href: "/#jurusan" },
     { label: "Ekstrakurikuler", href: "/siswa/ekstrakurikuler" },
     { label: "Karya siswa", href: "/siswa/karya" },
     { label: "Prestasi", href: "/siswa/prestasi" },
