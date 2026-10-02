@@ -40,6 +40,24 @@ export function SiteFooter() {
                 </a>
               </div>
             </div>
+            <section aria-label="Mitra JHIC" className="mt-8 rounded-2xl bg-white px-5 py-4">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                {jhicPartners.map((partner, index) => (
+                  <span key={partner.src} className="flex items-center gap-x-5">
+                    <Image
+                      src={partner.src}
+                      alt={partner.alt}
+                      width={200}
+                      height={90}
+                      className="h-7 w-auto max-w-28 object-contain"
+                    />
+                    {index < jhicPartners.length - 1 ? (
+                      <span aria-hidden="true" className="h-5 w-px bg-ink/15" />
+                    ) : null}
+                  </span>
+                ))}
+              </div>
+            </section>
           </div>
 
           <FooterLinkGroup title="Jelajahi" links={footerNavigation.jelajahi} />
@@ -57,26 +75,6 @@ export function SiteFooter() {
             </div>
           </section>
         </div>
-      </div>
-      <div className="mx-auto w-full max-w-site px-5 py-10 sm:px-8 lg:px-10">
-        <section aria-label="Mitra JHIC" className="rounded-2xl bg-white px-6 py-7">
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 sm:gap-x-8">
-            {jhicPartners.map((partner, index) => (
-              <span key={partner.src} className="flex items-center gap-x-6 sm:gap-x-8">
-                <Image
-                  src={partner.src}
-                  alt={partner.alt}
-                  width={200}
-                  height={90}
-                  className="h-9 w-auto max-w-48 object-contain sm:h-10"
-                />
-                {index < jhicPartners.length - 1 ? (
-                  <span aria-hidden="true" className="h-5 w-px bg-ink/15" />
-                ) : null}
-              </span>
-            ))}
-          </div>
-        </section>
       </div>
       <div className="mx-auto w-full max-w-site px-5 py-9 sm:px-8 lg:px-10">
         <div className="grid gap-7 md:grid-cols-[1fr_auto] md:items-end">
