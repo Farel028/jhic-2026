@@ -17,6 +17,20 @@ const jhicPartners = [
 export function SiteFooter() {
   return (
     <footer data-site-chrome className="bg-ink-strong text-white">
+      <section aria-label="Mitra JHIC" className="bg-white">
+        <div className="mx-auto flex w-full max-w-site flex-wrap items-center justify-center gap-x-8 gap-y-5 px-5 py-8 sm:gap-x-10 sm:px-8 lg:px-10">
+          {jhicPartners.map((partner) => (
+            <Image
+              key={partner.src}
+              src={partner.src}
+              alt={partner.alt}
+              width={200}
+              height={90}
+              className="h-9 w-auto max-w-48 object-contain sm:h-10"
+            />
+          ))}
+        </div>
+      </section>
       <div className="mx-auto w-full max-w-site px-5 py-14 sm:px-8 sm:py-18 lg:px-10 lg:py-20">
         <div className="grid gap-12 border-b border-white/15 pb-14 lg:grid-cols-[1.05fr_0.55fr_0.55fr_0.9fr] lg:gap-12">
           <div className="max-w-xl">
@@ -57,21 +71,6 @@ export function SiteFooter() {
             </div>
           </section>
         </div>
-
-        <section aria-label="Mitra JHIC" className="border-b border-white/15 py-7">
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-10">
-            {jhicPartners.map((partner) => (
-              <Image
-                key={partner.src}
-                src={partner.src}
-                alt={partner.alt}
-                width={200}
-                height={90}
-                className="h-8 w-auto max-w-44 object-contain sm:h-9"
-              />
-            ))}
-          </div>
-        </section>
 
         <div className="grid gap-7 pt-9 md:grid-cols-[1fr_auto] md:items-end">
           <div>
