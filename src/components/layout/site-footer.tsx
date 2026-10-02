@@ -58,8 +58,8 @@ export function SiteFooter() {
           </section>
         </div>
       </div>
-      <section aria-label="Mitra JHIC" className="bg-white">
-        <div className="mx-auto flex w-full max-w-site flex-wrap items-center justify-center gap-x-8 gap-y-5 px-5 py-8 sm:gap-x-10 sm:px-8 lg:px-10">
+      <section aria-label="Mitra JHIC" className="[background:linear-gradient(to_bottom,var(--color-ink-strong)_0%,#ffffff_30%,#ffffff_70%,var(--color-ink-strong)_100%)]">
+        <div className="mx-auto flex w-full max-w-site flex-wrap items-center justify-center gap-x-8 gap-y-5 px-5 py-10 sm:gap-x-10 sm:px-8 lg:px-10">
           {jhicPartners.map((partner) => (
             <Image
               key={partner.src}
