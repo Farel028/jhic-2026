@@ -124,7 +124,7 @@ export default function Home() {
 
       <SchoolIntroduction />
 
-      <section id="jurusan" className="border-y border-ink/10 bg-[#f1f0ea] px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28">
+      <section id="jurusan" className="border-b border-ink/10 bg-white px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28">
         <div className="mx-auto w-full max-w-site">
           <div className="grid items-end gap-7 lg:grid-cols-[1.2fr_0.8fr]">
             <div>
