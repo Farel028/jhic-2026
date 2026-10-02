@@ -17,21 +17,7 @@ const jhicPartners = [
 export function SiteFooter() {
   return (
     <footer data-site-chrome className="bg-ink-strong text-white">
-      <section aria-label="Mitra JHIC" className="bg-white">
-        <div className="mx-auto flex w-full max-w-site flex-wrap items-center justify-center gap-x-8 gap-y-5 px-5 py-8 sm:gap-x-10 sm:px-8 lg:px-10">
-          {jhicPartners.map((partner) => (
-            <Image
-              key={partner.src}
-              src={partner.src}
-              alt={partner.alt}
-              width={200}
-              height={90}
-              className="h-9 w-auto max-w-48 object-contain sm:h-10"
-            />
-          ))}
-        </div>
-      </section>
-      <div className="mx-auto w-full max-w-site px-5 py-14 sm:px-8 sm:py-18 lg:px-10 lg:py-20">
+      <div className="mx-auto w-full max-w-site px-5 pt-14 sm:px-8 sm:pt-18 lg:px-10 lg:pt-20">
         <div className="grid gap-12 border-b border-white/15 pb-14 lg:grid-cols-[1.05fr_0.55fr_0.55fr_0.9fr] lg:gap-12">
           <div className="max-w-xl">
             <BrandMark inverse />
@@ -71,8 +57,23 @@ export function SiteFooter() {
             </div>
           </section>
         </div>
-
-        <div className="grid gap-7 pt-9 md:grid-cols-[1fr_auto] md:items-end">
+      </div>
+      <section aria-label="Mitra JHIC" className="bg-white">
+        <div className="mx-auto flex w-full max-w-site flex-wrap items-center justify-center gap-x-8 gap-y-5 px-5 py-8 sm:gap-x-10 sm:px-8 lg:px-10">
+          {jhicPartners.map((partner) => (
+            <Image
+              key={partner.src}
+              src={partner.src}
+              alt={partner.alt}
+              width={200}
+              height={90}
+              className="h-9 w-auto max-w-48 object-contain sm:h-10"
+            />
+          ))}
+        </div>
+      </section>
+      <div className="mx-auto w-full max-w-site px-5 py-9 sm:px-8 lg:px-10">
+        <div className="grid gap-7 md:grid-cols-[1fr_auto] md:items-end">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-secondary">Ekosistem digital sekolah</p>
             <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold">
