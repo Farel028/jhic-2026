@@ -59,20 +59,16 @@ export function SiteFooter() {
         </div>
 
         <section aria-label="Mitra JHIC" className="border-b border-white/15 py-7">
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-5 sm:gap-x-8">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-10">
             {jhicPartners.map((partner) => (
-              <div
+              <Image
                 key={partner.src}
-                className="flex items-center justify-center bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.18),transparent_70%)] px-6 py-3"
-              >
-                <Image
-                  src={partner.src}
-                  alt={partner.alt}
-                  width={200}
-                  height={90}
-                  className="h-9 w-auto max-w-48 object-contain transition-transform duration-200 hover:-translate-y-0.5 sm:h-10"
-                />
-              </div>
+                src={partner.src}
+                alt={partner.alt}
+                width={200}
+                height={90}
+                className="h-8 w-auto max-w-44 object-contain brightness-0 invert transition-transform duration-200 hover:-translate-y-0.5 sm:h-9"
+              />
             ))}
           </div>
         </section>
