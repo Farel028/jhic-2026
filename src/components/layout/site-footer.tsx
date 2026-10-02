@@ -7,11 +7,11 @@ import { footerNavigation } from "@/config/navigation";
 import { school, schoolMapUrl } from "@/config/school";
 
 const jhicPartners = [
-  { src: "/images/partners/jhic-2.0", alt: "JHIC 2.0" },
-  { src: "/images/partners/jagoanhosting", alt: "Jagoan Hosting" },
-  { src: "/images/partners/komdigi", alt: "Kementerian Komunikasi dan Digital" },
-  { src: "/images/partners/garudaspark", alt: "Garuda Spark" },
-  { src: "/images/partners/ngalup", alt: "Ngalup Collaborative Network" },
+  { src: "/images/partners/jhic-2.0.png", alt: "JHIC 2.0" },
+  { src: "/images/partners/jagoanhosting.png", alt: "Jagoan Hosting" },
+  { src: "/images/partners/komdigi.png", alt: "Kementerian Komunikasi dan Digital" },
+  { src: "/images/partners/garudaspark.png", alt: "Garuda Spark" },
+  { src: "/images/partners/ngalup.png", alt: "Ngalup Collaborative Network" },
 ] as const;
 
 export function SiteFooter() {
@@ -59,13 +59,22 @@ export function SiteFooter() {
         </div>
 
         <section aria-label="Mitra JHIC" className="border-b border-white/15 py-6">
-          <ul className="grid grid-cols-5 items-center gap-2 sm:gap-5">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5">
             {jhicPartners.map((partner) => (
-              <li key={partner.src} className="flex h-8 min-w-0 items-center justify-center sm:h-10">
-                <Image src={partner.src} alt={partner.alt} width={180} height={80} className="max-h-6 w-auto max-w-full object-contain sm:max-h-8" />
-              </li>
+              <div
+                key={partner.src}
+                className="flex h-11 w-[calc(50%-0.5rem)] sm:w-auto sm:min-w-[9.5rem] items-center justify-center rounded-xl bg-white/95 px-4 py-2 shadow-xs transition-all hover:bg-white"
+              >
+                <Image
+                  src={partner.src}
+                  alt={partner.alt}
+                  width={180}
+                  height={80}
+                  className="max-h-7 w-auto max-w-full object-contain"
+                />
+              </div>
             ))}
-          </ul>
+          </div>
         </section>
 
         <div className="grid gap-7 pt-9 md:grid-cols-[1fr_auto] md:items-end">
