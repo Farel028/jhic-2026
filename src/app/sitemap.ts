@@ -13,8 +13,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tentang/sejarah",
   ] as const;
   const studentRoutes = [
+    "/siswa/ekstrakurikuler",
     "/siswa/karya",
     "/siswa/prestasi",
+    "/siswa/lulusan-terbaik",
     "/siswa/alumni",
   ] as const;
   const informationRoutes = ["/informasi/spmb"] as const;

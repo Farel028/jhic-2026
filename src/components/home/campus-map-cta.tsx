@@ -4,7 +4,7 @@ import { ArrowRightIcon } from "@/components/ui/icons";
 
 export function CampusMapCta() {
   return (
-    <section aria-labelledby="campus-map-title" className="border-y border-ink/10 bg-[#f1f0ea] px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+    <section aria-labelledby="campus-map-title" className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
       <div className="mx-auto grid w-full max-w-site items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div>
           <p className="eyebrow">Kenali lingkungan sekolah</p>
