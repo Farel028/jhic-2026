@@ -29,8 +29,8 @@ Pastikan Node.js 22 tersedia di server (`command -v node`); bila path-nya bukan
 sebagai user `americano`:
 
 ```sh
-mkdir -p /home/americano/apps/smekdaverse /home/americano/data/instagram-media /home/americano/logs
-cd /home/americano/apps/smekdaverse
+mkdir -p /home/americano/public_html /home/americano/data/instagram-media /home/americano/logs
+cd /home/americano/public_html
 git clone <REPOSITORY_URL> .
 export NEXT_PUBLIC_SITE_URL=https://smekdaverse.my.id
 export NEXT_PUBLIC_ASSET_ORIGIN=https://cdn.codel.diy
@@ -39,7 +39,7 @@ npm run build
 npm run deploy:prepare
 ```
 
-`deploy:prepare` membuat `/home/americano/apps/smekdaverse/build`, berisi server
+`deploy:prepare` membuat `/home/americano/public_html/build`, berisi server
 standalone, `public`, dan `.next/static`. Saat `NEXT_PUBLIC_ASSET_ORIGIN` diisi,
 folder `public/tours` dan `public/panda/idle` tidak ikut folder release karena
 browser mengambilnya dari R2. Proses Node tidak boleh dijalankan dari repository

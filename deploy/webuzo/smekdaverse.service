@@ -7,7 +7,7 @@ Wants=network-online.target
 Type=simple
 User=americano
 Group=americano
-WorkingDirectory=/home/americano/apps/smekdaverse/build
+WorkingDirectory=/home/americano/public_html/build
 # Confirm with `command -v node` on the VPS and update this path if needed.
 ExecStart=/usr/bin/node server.js
 Restart=always

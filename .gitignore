@@ -57,3 +57,6 @@ tests*/
 !/tests/campus-map/
 /artifacts/campus-map/
 docs/
+
+build
+build.zip

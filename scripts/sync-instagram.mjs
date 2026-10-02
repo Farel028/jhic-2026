@@ -9,6 +9,7 @@ import sharp from "sharp";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const feedFile = process.env.INSTAGRAM_FEED_FILE ?? path.join(root, "var/instagram-feed.json");
 const imagesDir = process.env.INSTAGRAM_MEDIA_DIR ?? path.join(root, "var/instagram-media");
+const browserUserDataDir = process.env.INSTAGRAM_BROWSER_USER_DATA_DIR?.trim() || null;
 const account = "smkn2surabaya";
 const pinnedPostIds = new Set([
   "DMKMu85SepL",
@@ -121,28 +122,50 @@ function chromeCandidates() {
 }
 
 async function dumpProfileDom(browser, userDataDir) {
+  const outputDirectory = await mkdtemp(path.join(tmpdir(), "jhic-instagram-dom-"));
+  const outputFile = path.join(outputDirectory, "profile.html");
   return new Promise((resolve, reject) => {
-    const child = spawn(browser, [
+    const browserArgs = [
       "--headless=new",
+      "--no-sandbox",
       "--disable-gpu",
-      "--disable-background-networking",
+      "--disable-crash-reporter",
+      "--disable-breakpad",
+      "--disable-dev-shm-usage",
+      "--disable-features=UseDBus",
       "--no-first-run",
       "--no-default-browser-check",
       `--user-data-dir=${userDataDir}`,
       "--virtual-time-budget=12000",
       "--dump-dom",
       `https://www.instagram.com/${account}/`,
-    ], { windowsHide: true });
+    ];
+    const shellQuote = (value) => `'${String(value).replaceAll("'", "'\\''")}'`;
+    const childEnv = { ...process.env };
+    delete childEnv.DBUS_SESSION_BUS_ADDRESS;
+    delete childEnv.DBUS_SYSTEM_BUS_ADDRESS;
+    delete childEnv.DISPLAY;
+    const command = `${[browser, ...browserArgs].map(shellQuote).join(" ")} > ${shellQuote(outputFile)}`;
+    const child = spawn("/bin/sh", ["-c", command], {
+      windowsHide: true,
+      env: {
+        ...childEnv,
+      },
+    });
     let output = "";
     let error = "";
-    const timeout = setTimeout(() => child.kill(), 25000);
-    child.stdout.on("data", (chunk) => { output += chunk; });
+    const timeout = setTimeout(() => child.kill(), 45000);
     child.stderr.on("data", (chunk) => { error += chunk; });
     child.on("error", reject);
-    child.on("close", (code) => {
+    child.on("close", async (code) => {
       clearTimeout(timeout);
-      if (code === 0 && output) resolve(output);
-      else reject(new Error(`${browser} exited with ${code ?? "an error"}${error ? `: ${error.slice(0, 300)}` : ""}`));
+      try {
+        output = await readFile(outputFile, "utf8");
+        if (output.trim()) resolve(output);
+        else reject(new Error(`${browser} exited with ${code ?? "an error"}${error ? `: ${error.slice(0, 300)}` : ""}`));
+      } finally {
+        await rm(outputDirectory, { recursive: true, force: true });
+      }
     });
   });
 }
@@ -162,7 +185,7 @@ function profilePostsFromDom(html) {
         const caption = typeof node.caption === "object" && node.caption ? node.caption.text : null;
         posts.set(url, {
           url,
-          image: imageUrl(node.display_uri),
+          image: postImageUrl(node),
           date: publishedAt(node.accessibility_caption),
           type: node.media_type === 2 ? "Video" : node.media_type === 8 ? "Sidecar" : "Image",
           caption: typeof caption === "string" && caption.trim() ? caption.trim() : node.accessibility_caption ?? null,
@@ -184,11 +207,26 @@ function profilePostsFromDom(html) {
   return [...posts.values()];
 }
 
+function profileGridImagesFromDom(html) {
+  const images = new Map();
+  const anchorPattern = /<a\b[^>]*href=["']\/[^"']+\/(p|reel)\/([A-Za-z0-9_-]+)\/?["'][^>]*>([\s\S]*?)<\/a>/gi;
+  for (const match of html.matchAll(anchorPattern)) {
+    const image = match[3].match(/<img\b[^>]*\bsrc=["']([^"']+)["']/i)?.[1]
+      ?? match[3].match(/<img\b[^>]*\bsrcset=["']([^"']+)["']/i)?.[1]?.split(/\s+/)[0];
+    const src = imageUrl(image?.replaceAll("&amp;", "&"));
+    if (src) images.set(match[2], src);
+  }
+  return images;
+}
+
 async function candidatesFromProfile() {
-  const userDataDir = await mkdtemp(path.join(tmpdir(), "jhic-instagram-"));
+  const userDataDir = browserUserDataDir
+    ? path.resolve(browserUserDataDir)
+    : await mkdtemp(path.join(tmpdir(), "jhic-instagram-"));
   let html;
   let lastError;
   try {
+    if (browserUserDataDir) await mkdir(userDataDir, { recursive: true });
     for (const browser of chromeCandidates()) {
       try {
         html = await dumpProfileDom(browser, userDataDir);
@@ -198,18 +236,52 @@ async function candidatesFromProfile() {
       }
     }
   } finally {
-    await rm(userDataDir, { recursive: true, force: true });
+    if (!browserUserDataDir) await rm(userDataDir, { recursive: true, force: true });
   }
   if (!html) {
     throw new Error(`Could not load Instagram in a local Chrome/Chromium browser. Install Chromium or set INSTAGRAM_BROWSER_BINARY. ${lastError?.message ?? ""}`.trim());
   }
   const posts = profilePostsFromDom(html);
-  if (posts.length) return posts;
+  if (posts.length) {
+    const gridImages = profileGridImagesFromDom(html);
+    return posts.map((post) => {
+      const id = post.url.match(/\/(?:p|reel)\/([A-Za-z0-9_-]+)\//)?.[1];
+      const gridImage = id ? gridImages.get(id) : null;
+      return gridImage ? { ...post, image: gridImage } : post;
+    });
+  }
 
   const urls = [...html.matchAll(/\/(?:p|reel)\/([A-Za-z0-9_-]+)\//g)]
     .map((match) => instagramPostUrl(`https://www.instagram.com/${match[0].split("/")[1]}/${match[1]}/`))
     .filter(Boolean);
-  return [...new Set(urls)].map((url) => ({ url }));
+  const uniqueUrls = [...new Set(urls)].filter((url) => {
+    const id = url.match(/\/(?:p|reel)\/([A-Za-z0-9_-]+)\//)?.[1];
+    return id && !pinnedPostIds.has(id);
+  });
+  if (uniqueUrls.length) {
+    const gridImages = profileGridImagesFromDom(html);
+    return uniqueUrls.map((url) => {
+      const id = url.match(/\/(?:p|reel)\/([A-Za-z0-9_-]+)\//)?.[1];
+      const image = id ? gridImages.get(id) : null;
+      return image ? { url, image } : { url };
+    });
+  }
+
+  if (/\b(?:log\s*in|login|challenge|captcha)\b/i.test(html)) {
+    throw new Error("Instagram mengirim login wall/challenge. Login sekali pada profile browser VPS yang sama, lalu ulangi dry-run.");
+  }
+
+  return [];
+}
+
+function postImageUrl(node) {
+  const candidates = [
+    ...(Array.isArray(node?.image_versions2?.candidates) ? node.image_versions2.candidates : []),
+    ...(Array.isArray(node?.thumbnail_resources) ? node.thumbnail_resources : []),
+  ]
+    .filter((candidate) => candidate && typeof candidate.url === "string")
+    .sort((left, right) => (Number(right.width ?? 0) * Number(right.height ?? 0)) - (Number(left.width ?? 0) * Number(left.height ?? 0)));
+  return imageUrl(candidates[0]?.url) ?? imageUrl(node?.display_uri);
 }
 
 async function candidatesFromInput() {
@@ -229,8 +301,8 @@ async function resolvePost(candidate) {
     const meta = metadata(await (await get(candidate.url)).text());
     return {
       ...candidate,
-      // The profile-grid thumbnail is the media cover. OG images for Reels can include
-      // Instagram's own variable play treatment, so use them only as a fallback.
+      // The profile grid carries the correct displayed aspect ratio. Use the
+      // post metadata only when the grid did not provide an image.
       image: candidate.image ?? imageUrl(meta["og:image"] ?? meta["twitter:image"]),
       date: publishedAt(meta["article:published_time"]) ?? publishedAt(meta["og:description"]) ?? candidate.date,
       type: candidate.type ?? (candidate.url.includes("/reel/") || meta["og:type"] === "video" ? "Video" : "Image"),
@@ -256,7 +328,13 @@ async function saveImage(url, filename) {
   }
   const source = Buffer.from(await response.arrayBuffer());
   if (source.length > 8 * 1024 * 1024) throw new Error("Image exceeds 8 MB.");
-  const bytes = await sharp(source).rotate().resize({ width: 800, withoutEnlargement: true }).webp({ quality: 80 }).toBuffer();
+  // Instagram renders profile-grid media with object-fit: cover in a 3:4 tile.
+  // Persist that presentation crop, rather than the post's OG image or raw aspect ratio.
+  const bytes = await sharp(source)
+    .rotate()
+    .resize({ width: 800, height: 1067, fit: "cover", position: "centre", withoutEnlargement: false })
+    .webp({ quality: 80 })
+    .toBuffer();
   const digest = createHash("sha256").update(bytes).digest("hex").slice(0, 12);
   const name = `${filename}-${digest}.webp`;
   await writeFile(path.join(imagesDir, name), bytes);

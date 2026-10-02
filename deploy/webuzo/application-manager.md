@@ -24,11 +24,11 @@ Di Webuzo Enduser Panel > **Applications** > **Add Application**, pilih
 
 | Field | Nilai |
 | --- | --- |
-| Application path | `/home/americano/apps/smekdaverse` |
+| Application path | `/home/americano/public_html` |
 | Domain | `smekdaverse.my.id` |
 | Port | `30001` |
-| Start command | `PORT=30001 HOSTNAME=127.0.0.1 NODE_ENV=production node /home/americano/apps/smekdaverse/build/server.js` |
-| Stop command | `pkill -TERM -f '/home/americano/apps/smekdaverse/build/server\\.js' || true` |
+| Start command | `PORT=30001 HOSTNAME=127.0.0.1 NODE_ENV=production node /home/americano/public_html/build/server.js` |
+| Stop command | `pkill -9 -f 'next-server|build/server' || true` |
 
 Jika `node` tidak ada di PATH Webuzo, ganti `node` pada start command dengan
 hasil `command -v node`. Jangan gunakan `npm run dev`, `next dev`, atau
@@ -53,7 +53,7 @@ mkdir -p /home/americano/data/instagram-media /home/americano/logs
 Di Webuzo > **Cron Jobs**, buat jadwal misalnya setiap 6 jam. Isi command:
 
 ```sh
-cd /home/americano/apps/smekdaverse && INSTAGRAM_FEED_FILE=/home/americano/data/instagram-feed.json INSTAGRAM_MEDIA_DIR=/home/americano/data/instagram-media npm run instagram:sync >> /home/americano/logs/instagram-sync.log 2>&1
+cd /home/americano/public_html && INSTAGRAM_FEED_FILE=/home/americano/data/instagram-feed.json INSTAGRAM_MEDIA_DIR=/home/americano/data/instagram-media npm run instagram:sync >> /home/americano/logs/instagram-sync.log 2>&1
 ```
 
 Jika cron tidak mengenali `npm`, ganti dengan path dari `command -v npm`.
