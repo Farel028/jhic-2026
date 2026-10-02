@@ -59,17 +59,24 @@ export function SiteFooter() {
         </div>
       </div>
       <section aria-label="Mitra JHIC" className="[background:linear-gradient(to_bottom,var(--color-ink-strong)_0%,#ffffff_30%,#ffffff_70%,var(--color-ink-strong)_100%)]">
-        <div className="mx-auto flex w-full max-w-site flex-wrap items-center justify-center gap-x-8 gap-y-5 px-5 py-10 sm:gap-x-10 sm:px-8 lg:px-10">
-          {jhicPartners.map((partner) => (
-            <Image
-              key={partner.src}
-              src={partner.src}
-              alt={partner.alt}
-              width={200}
-              height={90}
-              className="h-9 w-auto max-w-48 object-contain sm:h-10"
-            />
-          ))}
+        <div className="mx-auto w-full max-w-site px-5 py-8 sm:px-8 lg:px-10">
+          <p className="text-center text-[0.7rem] font-extrabold uppercase tracking-[0.2em] text-ink-muted">Mitra JHIC</p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 sm:gap-x-8">
+            {jhicPartners.map((partner, index) => (
+              <span key={partner.src} className="flex items-center gap-x-6 sm:gap-x-8">
+                <Image
+                  src={partner.src}
+                  alt={partner.alt}
+                  width={200}
+                  height={90}
+                  className="h-6 w-auto max-w-32 object-contain sm:h-7"
+                />
+                {index < jhicPartners.length - 1 ? (
+                  <span aria-hidden="true" className="h-5 w-px bg-ink/15" />
+                ) : null}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
       <div className="mx-auto w-full max-w-site px-5 py-9 sm:px-8 lg:px-10">
