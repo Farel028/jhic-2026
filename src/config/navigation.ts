@@ -20,6 +20,7 @@ export const primaryNavigation: readonly NavigationItem[] = [
       { label: "Sejarah", href: "/tentang/sejarah" },
       { label: "Kurikulum & Pembelajaran", href: "/tentang/kurikulum" },
       { label: "Fasilitas", href: "/tentang/fasilitas" },
+      { label: "Berita", href: "/berita" },
     ],
   },
   {
@@ -41,7 +42,14 @@ export const primaryNavigation: readonly NavigationItem[] = [
       { label: "Alumni", href: "/siswa/alumni" },
     ],
   },
-  { label: "Berita", href: "/berita" },
+  {
+    label: "Layanan",
+    children: [
+      { label: "BKK dan Karier", href: "/informasi/bkk" },
+      { label: "PKL", href: "/informasi/pkl" },
+      { label: "Produk BLUD", href: "/produk" },
+    ],
+  },
   {
     label: "Jelajahi Sekolah",
     children: [
@@ -62,6 +70,9 @@ export const footerNavigation = {
   ],
   informasi: [
     { label: "Info SPMB", href: "/informasi/spmb" },
+    { label: "BKK dan Karier", href: "/informasi/bkk" },
+    { label: "PKL", href: "/informasi/pkl" },
+    { label: "Produk BLUD", href: "/produk" },
     { label: "Profil sekolah", href: "/tentang/profil" },
     { label: "Fasilitas", href: "/tentang/fasilitas" },
     { label: "Peta Sekolah", href: "/peta-sekolah" },

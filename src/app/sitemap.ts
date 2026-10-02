@@ -3,6 +3,7 @@ import { school } from "@/config/school";
 import { extracurricularDetails } from "@/data/extracurriculars";
 import { majorDetails } from "@/data/majors";
 import { practiceStories } from "@/data/practice-stories";
+import { products } from "@/data/products";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? school.urls.canonical;
@@ -19,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/siswa/lulusan-terbaik",
     "/siswa/alumni",
   ] as const;
-  const informationRoutes = ["/informasi/spmb"] as const;
+  const informationRoutes = ["/informasi/spmb", "/informasi/bkk", "/informasi/pkl", "/produk"] as const;
   const publicationRoutes = ["/berita", "/peta-sekolah"] as const;
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -62,6 +63,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...products.map((product) => ({
+      url: `${baseUrl}/produk/${product.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
     })),
     ...extracurricularDetails.map((item) => ({
       url: `${baseUrl}/ekstrakurikuler/${item.slug}`,
