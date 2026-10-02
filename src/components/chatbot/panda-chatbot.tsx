@@ -192,6 +192,18 @@ function MascotStage({ uniform }: { uniform: PandaUniform }) {
   );
 }
 
+function CompactMascot({ uniform }: { uniform: PandaUniform }) {
+  return (
+    <div className="relative z-30 h-20 w-24 shrink-0 overflow-visible" aria-hidden="true">
+      <LazyMascotVideo
+        src={uniform.src}
+        alt=""
+        className="absolute bottom-0 left-1/2 size-48 -translate-x-1/2"
+      />
+    </div>
+  );
+}
+
 function LazyMascotVideo({
   src,
   alt = "Pando",
@@ -250,7 +262,6 @@ export function PandaChatbot() {
   const messageEndRef = useRef<HTMLDivElement>(null);
   const nextMessageIdRef = useRef(2);
   const [isOpen, setIsOpen] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
@@ -317,30 +328,15 @@ export function PandaChatbot() {
   }, [isOpen, messages]);
 
   useEffect(() => {
-    if (!isOpen && !showMenu) return;
+    if (!isOpen) return;
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
       setIsOpen(false);
-      setShowMenu(false);
       window.requestAnimationFrame(() => launcherRef.current?.focus());
     };
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
-  }, [isOpen, showMenu]);
-
-  useEffect(() => {
-    if (!showMenu) return;
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        launcherContainerRef.current &&
-        !launcherContainerRef.current.contains(event.target as Node)
-      ) {
-        setShowMenu(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showMenu]);
+  }, [isOpen]);
 
   function closePanel() {
     setIsOpen(false);
@@ -350,12 +346,8 @@ export function PandaChatbot() {
   function handleLauncherClick() {
     if (isOpen) {
       setIsOpen(false);
-      setShowMenu(false);
-    } else if (typeof window !== "undefined" && window.innerWidth < 640) {
-      setIsOpen(true);
-      setShowMenu(false);
     } else {
-      setShowMenu((current) => !current);
+      setIsOpen(true);
     }
   }
 
@@ -444,7 +436,7 @@ export function PandaChatbot() {
 
               <div className="panda-chat-surface min-h-0 flex flex-1 flex-col bg-[#fdfcfb]">
                 <div
-                  className="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-5"
+                  className="min-h-0 flex-1 overflow-y-auto px-4 py-5 pb-24 sm:px-5"
                   aria-live="polite"
                   aria-relevant="additions"
                 >
@@ -502,10 +494,15 @@ export function PandaChatbot() {
                   </div>
                 </div>
 
-                <div className="shrink-0 border-t border-ink/10 bg-white p-3 sm:p-4">
-                  <div className="relative mb-3 flex min-w-0 items-center">
+                <div className="relative shrink-0 border-t border-ink/10 bg-white p-3 sm:p-4">
+                  {!isExpanded ? (
+                    <div className="pointer-events-none absolute bottom-[160px] left-0 z-30" aria-hidden="true">
+                      <CompactMascot uniform={uniform} />
+                    </div>
+                  ) : null}
+                  <div className="relative z-10 mb-3 flex min-h-10 min-w-0 items-center rounded-xl bg-white px-2 py-1 pl-24 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
                     <div
-                      className="flex min-w-0 flex-1 gap-2 overflow-x-auto py-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                      className="flex min-w-0 flex-1 gap-2 overflow-x-auto py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                       aria-label="Pertanyaan cepat"
                     >
                       {quickPrompts.map((prompt) => (
@@ -522,9 +519,9 @@ export function PandaChatbot() {
                   </div>
                   <form
                     onSubmit={handleSubmit}
-                    className="flex items-end gap-2"
+                    className="relative z-10 flex items-end gap-2"
                   >
-                    <div className="flex min-w-0 flex-1 items-end rounded-xl border border-ink/20 bg-white px-3.5 py-1 transition-colors focus-within:border-[#0b2447] focus-within:ring-1 focus-within:ring-[#0b2447]">
+                    <div className="relative z-10 flex min-w-0 flex-1 items-end rounded-xl border border-ink/20 bg-white px-3.5 py-1 transition-colors focus-within:border-[#0b2447] focus-within:ring-1 focus-within:ring-[#0b2447]">
                       <label htmlFor={`${panelId}-input`} className="sr-only">
                         Ketik pesan untuk Pando
                       </label>
@@ -577,39 +574,10 @@ export function PandaChatbot() {
           </section>
         ) : (
           <div className="relative">
-            {showMenu ? (
-              <div
-                role="menu"
-                aria-label="Pilihan Pando"
-                className="pando-bubbles-menu absolute bottom-16 right-0 mb-2.5 flex flex-col items-end gap-2 min-w-[12rem] sm:min-w-[13.5rem]"
-              >
-                {/* Bubble 1: Tanya Pando */}
-                <button
-                  type="button"
-                  role="menuitem"
-                  onClick={() => {
-                    setShowMenu(false);
-                    setIsOpen(true);
-                  }}
-                  className="group flex items-center gap-2.5 rounded-[1.25rem] bg-white/95 px-4 py-2.5 shadow-[0_8px_24px_rgba(6,24,48,0.16)] border border-primary/20 backdrop-blur-sm transition-all hover:scale-105 hover:bg-[#f4f8ff] active:scale-95 text-left"
-                >
-                  <span className="text-sm font-extrabold tracking-tight text-ink-strong group-hover:text-primary-strong">
-                    Tanya Pando
-                  </span>
-                  <span
-                    className="relative grid size-9 shrink-0 place-items-center rounded-full bg-primary/10"
-                    aria-hidden="true"
-                  >
-                    <PandoIcon className="size-7" />
-                  </span>
-                </button>
-              </div>
-            ) : null}
-
             <button
               ref={launcherRef}
               type="button"
-              aria-expanded={showMenu}
+              aria-expanded={isOpen}
               aria-controls={panelId}
               aria-label="Pilihan Pando"
               onClick={handleLauncherClick}
