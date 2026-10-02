@@ -50,7 +50,41 @@ export default async function MajorPage({ params }: MajorPageProps) {
   if (!major) notFound();
 
   const currentIndex = majorDetails.findIndex((item) => item.slug === major.slug);
-  const nextMajor = majorDetails[(currentIndex + 1) % majorDetails.length];
+  // Urutan linear tetap Animasi (1) sampai RPL (11), tanpa kembali ke awal.
+  const nextMajor: (typeof majorDetails)[number] | undefined =
+    currentIndex + 1 < majorDetails.length ? majorDetails[currentIndex + 1] : undefined;
+  const nextIsSameGroup = nextMajor?.group === major.group;
+
+  // Tint hero per jurusan, diambil dari warna dominan banner masing-masing
+  // (disampling dari public/images/school/*.webp). Background selalu versi
+  // pastel dan teks aksen versi gelap agar kontras lolos WCAG AA; badan
+  // halaman tetap netral demi keterbacaan.
+  const majorHeroThemes: Record<string, { tint: string; accentText: string }> = {
+    ANI: { tint: "bg-[#e2f4d8]", accentText: "text-[#2c6e1c]" },
+    DPIB: { tint: "bg-[#f2e3dc]", accentText: "text-[#74382c]" },
+    TKP: { tint: "bg-[#f2e7d3]", accentText: "text-[#6f4c22]" },
+    TAV: { tint: "bg-[#fce8d5]", accentText: "text-[#8f4411]" },
+    TEI: { tint: "bg-[#fceecf]", accentText: "text-[#7d5200]" },
+    TITL: { tint: "bg-[#fdf3cb]", accentText: "text-[#6e5400]" },
+    TPM: { tint: "bg-[#f8dbd6]", accentText: "text-[#961910]" },
+    TKR: { tint: "bg-[#d9e6f9]", accentText: "text-[#003a8c]" },
+    TSM: { tint: "bg-[#d9e6f9]", accentText: "text-[#003a8c]" },
+    TKJ: { tint: "bg-[#d7f1e1]", accentText: "text-[#0a6335]" },
+    RPL: { tint: "bg-[#d4ecfa]", accentText: "text-[#0a5a94]" },
+  };
+  const heroTheme = majorHeroThemes[major.code] ?? {
+    tint: "bg-[#f1f0ea]",
+    accentText: "text-primary-strong",
+  };
+  // CTA bawah memakai warna jurusan berikutnya (bukan jurusan saat ini)
+  // sebagai isyarat arah navigasi. Di jurusan terakhir (RPL, nomor 11)
+  // tidak ada berikutnya sehingga memakai tint sendiri.
+  const nextTheme = nextMajor
+    ? (majorHeroThemes[nextMajor.code] ?? {
+        tint: "bg-primary",
+        accentText: "text-ink-strong",
+      })
+    : { tint: heroTheme.tint, accentText: "text-ink-strong" };
 
   return (
     <main id="konten-utama" className="flex-1">
@@ -62,7 +96,7 @@ export default async function MajorPage({ params }: MajorPageProps) {
         ]}
       />
 
-      <section className="border-b border-ink/10 bg-[#f1f0ea] px-5 py-12 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section className={`border-b border-ink/10 px-5 py-12 sm:px-8 sm:py-16 lg:px-10 lg:py-20 ${heroTheme.tint}`}>
         <div className="mx-auto w-full max-w-site">
           <nav aria-label="Breadcrumb" className="text-xs font-extrabold uppercase tracking-[0.12em] text-ink-muted">
             <ol className="flex flex-wrap items-center gap-2">
@@ -76,7 +110,7 @@ export default async function MajorPage({ params }: MajorPageProps) {
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-center lg:gap-16">
             <div>
-              <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary-strong">{major.group} · {major.code}</p>
+              <p className={`text-xs font-extrabold uppercase tracking-[0.16em] ${heroTheme.accentText}`}>{major.group} · {major.code}</p>
               <h1 className="mt-4 text-[clamp(2.4rem,4.8vw,3.75rem)] font-extrabold leading-[1.02] tracking-[-0.035em] text-ink-strong">
                 {major.name}
               </h1>
@@ -160,23 +194,57 @@ export default async function MajorPage({ params }: MajorPageProps) {
         </div>
       </section>
 
-      <section className="bg-primary px-5 py-14 sm:px-8 sm:py-16 lg:px-10">
+      <section className={`px-5 py-14 sm:px-8 sm:py-16 lg:px-10 ${nextTheme.tint}`}>
+        {nextMajor ? (
         <div className="mx-auto flex w-full max-w-site flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-ink">Jurusan berikutnya</p>
+            <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-ink">
+              {nextIsSameGroup
+                ? `Jurusan berikutnya dalam kelompok ${major.group}`
+                : `Jurusan berikutnya · ${nextMajor.group}`}
+            </p>
             <h2 className="mt-3 max-w-3xl text-[clamp(1.75rem,3.2vw,2.5rem)] font-extrabold leading-[1.08] tracking-[-0.025em] text-ink-strong">
               {nextMajor.name}
             </h2>
+            <p className="mt-3 max-w-3xl text-base font-medium leading-7 text-ink">
+              {nextMajor.code} · {nextMajor.description}
+            </p>
           </div>
-          <div className="flex flex-wrap gap-6">
-            <Link href={`/jurusan/${nextMajor.slug}`} className="inline-flex min-h-11 items-center gap-3 border-b-2 border-ink-strong text-sm font-extrabold text-ink-strong transition-colors hover:border-white">
-              Lihat jurusan <ArrowRightIcon className="size-4" />
+          <div className="flex flex-wrap gap-x-6 gap-y-4">
+            <Link href={`/jurusan/${nextMajor.slug}`} className="inline-flex min-h-11 items-center gap-3 border-b-2 border-ink-strong text-sm font-extrabold text-ink-strong transition-colors hover:border-primary-strong hover:text-primary-strong">
+              Berikutnya <ArrowRightIcon className="size-4" />
             </Link>
-            <Link href="/#jurusan" className="inline-flex min-h-11 items-center text-sm font-extrabold text-ink-strong underline decoration-white decoration-2 underline-offset-8">
+            <Link href="/informasi/spmb" className="inline-flex min-h-11 items-center text-sm font-extrabold text-ink-strong underline decoration-primary-strong decoration-2 underline-offset-8">
+              Lihat jalur pendaftaran
+            </Link>
+            <Link href="/#jurusan" className="inline-flex min-h-11 items-center text-sm font-extrabold text-ink-strong underline decoration-primary-strong decoration-2 underline-offset-8">
               Semua jurusan
             </Link>
           </div>
         </div>
+        ) : (
+        <div className="mx-auto flex w-full max-w-site flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-ink">
+              Jurusan 11 dari 11
+            </p>
+            <h2 className="mt-3 max-w-3xl text-[clamp(1.75rem,3.2vw,2.5rem)] font-extrabold leading-[1.08] tracking-[-0.025em] text-ink-strong">
+              Tentukan pilihanmu
+            </h2>
+            <p className="mt-3 max-w-3xl text-base font-medium leading-7 text-ink">
+              Lihat jalur pendaftaran resmi serta ketentuan tiap jurusan.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-x-6 gap-y-4">
+            <Link href="/informasi/spmb" className="inline-flex min-h-11 items-center gap-3 border-b-2 border-ink-strong text-sm font-extrabold text-ink-strong transition-colors hover:border-primary-strong hover:text-primary-strong">
+              Lihat jalur pendaftaran
+            </Link>
+            <Link href="/#jurusan" className="inline-flex min-h-11 items-center text-sm font-extrabold text-ink-strong underline decoration-primary-strong decoration-2 underline-offset-8">
+              Semua jurusan
+            </Link>
+          </div>
+        </div>
+        )}
       </section>
     </main>
   );
