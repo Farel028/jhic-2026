@@ -328,7 +328,13 @@ async function saveImage(url, filename) {
   }
   const source = Buffer.from(await response.arrayBuffer());
   if (source.length > 8 * 1024 * 1024) throw new Error("Image exceeds 8 MB.");
-  const bytes = await sharp(source).rotate().resize({ width: 800, withoutEnlargement: true }).webp({ quality: 80 }).toBuffer();
+  // Instagram renders profile-grid media with object-fit: cover in a 3:4 tile.
+  // Persist that presentation crop, rather than the post's OG image or raw aspect ratio.
+  const bytes = await sharp(source)
+    .rotate()
+    .resize({ width: 800, height: 1067, fit: "cover", position: "centre", withoutEnlargement: false })
+    .webp({ quality: 80 })
+    .toBuffer();
   const digest = createHash("sha256").update(bytes).digest("hex").slice(0, 12);
   const name = `${filename}-${digest}.webp`;
   await writeFile(path.join(imagesDir, name), bytes);
