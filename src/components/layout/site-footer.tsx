@@ -59,22 +59,24 @@ export function SiteFooter() {
         </div>
 
         <section aria-label="Mitra JHIC" className="border-b border-white/15 py-7">
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+          <ul className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             {jhicPartners.map((partner) => (
-              <div
+              <li
                 key={partner.src}
-                className="flex h-14 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)] md:w-auto md:flex-1 md:min-w-0 items-center justify-center rounded-xl bg-white px-4 py-2.5 shadow-xs transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-sm"
+                className="flex h-14 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.75rem)] md:w-[calc(20%-0.85rem)] items-center justify-center rounded-xl bg-white px-4 py-2.5 shadow-xs transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-sm"
               >
                 <Image
                   src={partner.src}
                   alt={partner.alt}
-                  width={200}
-                  height={90}
-                  className="max-h-7 sm:max-h-8 w-auto max-w-[85%] object-contain"
+                  width={180}
+                  height={60}
+                  unoptimized
+                  priority
+                  className="h-7 sm:h-8 w-auto max-w-full object-contain"
                 />
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
 
         <div className="grid gap-7 pt-9 md:grid-cols-[1fr_auto] md:items-end">
