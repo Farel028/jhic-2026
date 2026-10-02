@@ -10,7 +10,7 @@ function PartnerItems({ hidden = false }: { hidden?: boolean }) {
       {featuredPartners.map((partner) => (
         <li key={partner.name} className="flex items-center whitespace-nowrap">
           <div
-            className="group relative flex h-24 w-52 sm:h-28 sm:w-64 items-center justify-center px-8 transition-all duration-300 hover:scale-110 cursor-pointer"
+            className="group relative flex h-20 w-40 sm:h-28 sm:w-64 items-center justify-center px-4 sm:px-8 transition-all duration-300 hover:scale-110 cursor-pointer"
           >
             {/* Halo background timbul saat hover */}
             <span
@@ -22,11 +22,11 @@ function PartnerItems({ hidden = false }: { hidden?: boolean }) {
               alt={partner.name}
               width={partner.logo.width}
               height={partner.logo.height}
-              sizes="(max-width: 639px) 10rem, 12rem"
-              className="relative z-10 max-h-16 w-auto max-w-36 sm:max-h-20 sm:max-w-44 object-contain filter grayscale-[0.2] transition-all duration-300 group-hover:grayscale-0 group-hover:scale-105"
+              sizes="(max-width: 639px) 7.5rem, 12rem"
+              className="relative z-10 max-h-12 w-auto max-w-28 sm:max-h-20 sm:max-w-44 object-contain filter grayscale-[0.2] transition-all duration-300 group-hover:grayscale-0 group-hover:scale-105"
             />
           </div>
-          <span aria-hidden="true" className="h-8 w-px bg-ink/15" />
+          <span aria-hidden="true" className="h-6 sm:h-8 w-px bg-ink/15" />
         </li>
       ))}
     </ul>
@@ -55,9 +55,9 @@ export function WhyChooseUs() {
         </div>
 
         {/* Bento Grid Bersih: Visual Kuat & Data Keras */}
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-12">
+        <div className="mt-8 grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-12">
           {/* Tile 1: Foto Bengkel Manufaktur (7 Col) */}
-          <div className="group relative overflow-hidden rounded-2xl border border-ink/15 bg-ink-strong sm:col-span-2 lg:col-span-7 min-h-[22rem] lg:min-h-[25rem] flex flex-col justify-end p-6 sm:p-8 text-white shadow-xs">
+          <div className="group relative overflow-hidden rounded-2xl border border-ink/15 bg-ink-strong sm:col-span-2 lg:col-span-7 min-h-[19rem] sm:min-h-[22rem] lg:min-h-[25rem] flex flex-col justify-end p-5 sm:p-8 text-white shadow-xs">
             <Image
               src="/images/school/bengkel-otomotif-2025.jpeg"
               alt="Bengkel praktik siswa SMK Negeri 2 Surabaya"
@@ -81,7 +81,7 @@ export function WhyChooseUs() {
           </div>
 
           {/* Tile 2: Statistik Serapan Kerja & BKK Integrasi (5 Col) */}
-          <div className="flex flex-col justify-between rounded-2xl border border-ink/15 bg-white p-7 sm:p-8 lg:col-span-5 shadow-xs">
+          <div className="flex flex-col justify-between rounded-2xl border border-ink/15 bg-white p-5 sm:p-8 lg:col-span-5 shadow-xs">
             <div>
               <span className="font-mono text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-ink-strong">
                 88.4%
@@ -96,23 +96,23 @@ export function WhyChooseUs() {
 
             {/* BKK Mini Outcome Stats Bar */}
             <div className="mt-6 border-t border-ink/10 pt-4">
-              <div className="grid grid-cols-3 gap-2 py-1 text-center">
-                <div className="rounded-lg bg-[#f3f4f6] p-2">
+              <div className="grid grid-cols-3 gap-1.5 sm:gap-2 py-1 text-center">
+                <div className="rounded-lg bg-[#f3f4f6] px-1 py-2 sm:p-2">
                   <div className="font-mono text-sm sm:text-base font-black text-ink-strong">6.932</div>
-                  <div className="text-[0.65rem] font-bold text-ink-muted">Alumni di BKK</div>
+                  <div className="text-[0.62rem] sm:text-[0.65rem] font-bold text-ink-muted">Alumni BKK</div>
                 </div>
-                <div className="rounded-lg bg-[#f3f4f6] p-2">
+                <div className="rounded-lg bg-[#f3f4f6] px-1 py-2 sm:p-2">
                   <div className="font-mono text-sm sm:text-base font-black text-ink-strong">394</div>
-                  <div className="text-[0.65rem] font-bold text-ink-muted">Mitra Industri</div>
+                  <div className="text-[0.62rem] sm:text-[0.65rem] font-bold text-ink-muted">Mitra Industri</div>
                 </div>
-                <div className="rounded-lg bg-[#f3f4f6] p-2">
+                <div className="rounded-lg bg-[#f3f4f6] px-1 py-2 sm:p-2">
                   <div className="font-mono text-sm sm:text-base font-black text-ink-strong">167</div>
-                  <div className="text-[0.65rem] font-bold text-ink-muted">MOU Aktif</div>
+                  <div className="text-[0.62rem] sm:text-[0.65rem] font-bold text-ink-muted">MOU Aktif</div>
                 </div>
               </div>
 
               <div className="mt-3 flex items-center justify-between">
-                <span className="text-xs font-semibold text-ink-muted">Bursa Kerja Khusus (BKK) SMEKDA</span>
+                <span className="text-xs font-semibold text-ink-muted">Bursa Kerja Khusus (BKK)</span>
                 <a
                   href={school.urls.bkk}
                   target="_blank"
