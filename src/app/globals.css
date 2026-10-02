@@ -40,6 +40,19 @@ html {
   scroll-padding-top: 6rem;
 }
 
+/* Skala desktop compact proporsional (setara 80%-85% browser zoom) */
+@media (min-width: 1024px) {
+  html {
+    font-size: 82.5%;
+  }
+}
+
+@media (min-width: 1536px) {
+  html {
+    font-size: 85%;
+  }
+}
+
 html.menu-open {
   overflow: hidden;
 }

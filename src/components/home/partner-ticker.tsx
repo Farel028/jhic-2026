@@ -30,7 +30,7 @@ export function PartnerTicker() {
   return (
     <section
       aria-label="Mitra kerja sama SMK Negeri 2 Surabaya"
-      className="bg-white pb-20 sm:pb-24 lg:pb-28"
+      className="border-b border-ink/10 bg-[#f3f4f6] pb-20 sm:pb-24 lg:pb-28"
     >
       <div className="mx-auto w-full max-w-site px-5 sm:px-8 lg:px-10">
         <p className="text-center text-sm font-extrabold leading-6 text-ink-strong">

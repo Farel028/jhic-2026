@@ -7,7 +7,7 @@ export function AlumniOutcome() {
   return (
     <section
       aria-labelledby="alumni-outcome-title"
-      className="bg-white px-5 pb-8 pt-20 sm:px-8 sm:pb-10 sm:pt-24 lg:px-10 lg:pb-12 lg:pt-28"
+      className="bg-[#f3f4f6] px-5 pb-8 pt-20 sm:px-8 sm:pb-10 sm:pt-24 lg:px-10 lg:pb-12 lg:pt-28"
     >
       <div className="mx-auto grid w-full max-w-site gap-12 lg:grid-cols-[0.74fr_1.26fr] lg:items-start lg:gap-24">
         <div>
@@ -58,7 +58,7 @@ export function AdmissionCta() {
   return (
     <section
       aria-labelledby="admission-cta-title"
-      className="border-t-[0.5rem] border-accent-strong bg-[#f1f0ea] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20"
+      className="border-t-[0.5rem] border-accent-strong bg-[#f3f4f6] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20"
     >
       <div className="mx-auto grid w-full max-w-site gap-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
         <div>
