@@ -4,7 +4,7 @@ import { ArrowRightIcon } from "@/components/ui/icons";
 
 export function VirtualTourCta() {
   return (
-    <section className="relative min-h-[calc(100svh-4.75rem)] overflow-hidden bg-ink-strong lg:min-h-[calc(100svh-5.25rem)]" aria-labelledby="virtual-tour-cta-title">
+    <section id="virtual-tour" className="relative min-h-[calc(100svh-4.75rem)] overflow-hidden bg-ink-strong scroll-mt-20 lg:min-h-[calc(100svh-5.25rem)]" aria-labelledby="virtual-tour-cta-title">
       <video
         autoPlay
         muted

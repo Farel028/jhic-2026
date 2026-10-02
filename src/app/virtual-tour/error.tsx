@@ -6,7 +6,7 @@ export default function VirtualTourError({ reset }: { error: Error & { digest?: 
   return (
     <main id="konten-utama" className="relative grid min-h-dvh flex-1 place-items-center bg-ink-strong px-5 text-center text-white">
       <Link
-        href="/"
+        href="/#virtual-tour"
         prefetch={false}
         className="absolute left-5 top-5 inline-flex min-h-11 items-center gap-2 rounded-full bg-white/10 px-4 text-sm font-extrabold text-white transition-colors hover:bg-white/18 sm:left-8"
       >
