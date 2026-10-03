@@ -2,29 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@/components/ui/icons";
 import { school } from "@/config/school";
-import { featuredPartners } from "@/data/partners";
-
-function PartnerItems({ hidden = false }: { hidden?: boolean }) {
-  return (
-    <ul className="ticker-track-list" aria-hidden={hidden || undefined}>
-      {featuredPartners.map((partner) => (
-        <li key={partner.name} className="flex items-center whitespace-nowrap">
-          <span className="flex h-20 w-36 items-center justify-center px-5 sm:h-24 sm:w-44 sm:px-7">
-            <Image
-              src={partner.logo.src}
-              alt={partner.name}
-              width={partner.logo.width}
-              height={partner.logo.height}
-              sizes="(max-width: 639px) 6rem, 7.5rem"
-              className="max-h-10 w-auto max-w-24 object-contain sm:max-h-12 sm:max-w-30"
-            />
-          </span>
-          <span aria-hidden="true" className="h-5 w-px bg-ink/20" />
-        </li>
-      ))}
-    </ul>
-  );
-}
+import { PartnerTicker } from "@/components/home/partner-ticker";
 
 export function WhyChooseUs() {
   return (
@@ -174,25 +152,8 @@ export function WhyChooseUs() {
           </div>
         </div>
 
-        {/* Carousel Mitra Industri BUMN & Multinasional (Loss/Tanpa Card Border) */}
-        <div className="mt-14 pt-4">
-          <p className="text-center text-base sm:text-lg font-extrabold text-ink-strong">
-            SMK Negeri 2 Surabaya bekerja sama dengan
-          </p>
-
-          <div className="mt-6 border-y border-ink/10">
-            <div className="ticker-viewport">
-              <div
-                className="ticker-track"
-                tabIndex={0}
-                aria-label="Daftar mitra industri kerja sama"
-              >
-                <PartnerItems />
-                <PartnerItems hidden />
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Carousel Mitra Industri BUMN & Multinasional dengan Pop-up Detail */}
+        <PartnerTicker />
       </div>
     </section>
   );
