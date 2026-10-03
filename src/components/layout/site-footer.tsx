@@ -47,6 +47,7 @@ const navigationLinks = {
   jelajahi: [
     { label: "Beranda", href: "/" },
     { label: "Profil Sekolah", href: "/tentang/profil" },
+    { label: "Peta Sekolah 3D", href: "/peta-sekolah" },
     { label: "Kompetensi Keahlian (Jurusan)", href: "/#jurusan" },
     { label: "Ekstrakurikuler", href: "/siswa/ekstrakurikuler" },
     { label: "Karya Siswa", href: "/siswa/karya" },
@@ -56,13 +57,13 @@ const navigationLinks = {
   ],
   layanan: [
     { label: "Pendaftaran SPMB", href: "/informasi/spmb", highlighted: true },
+    { label: "BKK dan Karier", href: "/informasi/bkk" },
+    { label: "Informasi PKL & Magang", href: "/informasi/pkl" },
+    { label: "Produk BLUD Siswa", href: "/produk" },
     { label: "Virtual Tour 360°", href: "/virtual-tour" },
     { label: "SIAKAD", href: school.urls.siakad, external: true },
     { label: "E-Learning", href: school.urls.elearning, external: true },
-    { label: "BKK SMEKDA", href: school.urls.bkk, external: true },
-    { label: "e-PKL", href: school.urls.pkl, external: true },
     { label: "e-Presensi", href: school.urls.presensi, external: true },
-    { label: "e-Library", href: school.urls.library, external: true },
     { label: "CBT SMEKDA", href: school.urls.cbt, external: true },
   ],
 } as const;
