@@ -101,6 +101,66 @@ const responseGuides: Array<{
       text: "Kegiatan terbaru sekolah dapat kamu lihat pada halaman Berita.",
       action: { label: "Lihat berita", href: "/berita" },
     },
+    {
+      keywords: ["produk", "blud", "jasa", "servis", "pesan"],
+      text: "Katalog produk dan jasa unit sekolah ada pada halaman Produk BLUD.",
+      action: { label: "Lihat produk", href: "/produk" },
+    },
+    {
+      keywords: ["bkk", "loker", "lowongan", "lamar", "rekrutmen"],
+      text: "Informasi lowongan, alur melamar, dan kontak BKK tersedia pada halaman BKK dan Karier.",
+      action: { label: "Buka BKK", href: "/informasi/bkk" },
+    },
+    {
+      keywords: ["pkl", "magang", "prakerin", "jurnal"],
+      text: "Tahapan, dokumen contoh, dan tautan portal e-PKL tersedia pada halaman PKL.",
+      action: { label: "Buka info PKL", href: "/informasi/pkl" },
+    },
+    {
+      keywords: ["kerja", "karier", "karir", "wirausaha"],
+      text: "Jalur lulusan dan layanan karier dibahas pada halaman BKK dan Karier serta Alumni.",
+      action: { label: "Buka BKK", href: "/informasi/bkk" },
+    },
+    {
+      keywords: ["lulusan", "alumni", "tracer"],
+      text: "Rekam jejak lulusan terbaik dan informasi alumni tersedia pada halaman terkait.",
+      action: { label: "Lihat lulusan terbaik", href: "/siswa/lulusan-terbaik" },
+    },
+    {
+      keywords: ["karya", "proyek", "kreasi"],
+      text: "Karya dan proyek siswa dapat kamu lihat pada halaman Karya Siswa.",
+      action: { label: "Lihat karya", href: "/siswa/karya" },
+    },
+    {
+      keywords: ["sejarah", "berdiri", "didirikan"],
+      text: "Perjalanan sekolah dari 1912 sampai sekarang ada pada halaman Sejarah.",
+      action: { label: "Lihat sejarah", href: "/tentang/sejarah" },
+    },
+    {
+      keywords: ["profil", "kepala sekolah", "visi", "misi"],
+      text: "Profil, identitas, dan pimpinan sekolah ada pada halaman Profil.",
+      action: { label: "Lihat profil", href: "/tentang/profil" },
+    },
+    {
+      keywords: ["kurikulum", "pelajaran", "belajar", "materi"],
+      text: "Sistem pembelajaran dan kurikulum dijelaskan pada halaman Kurikulum.",
+      action: { label: "Lihat kurikulum", href: "/tentang/kurikulum" },
+    },
+    {
+      keywords: ["peta", "denah", "lokasi", "alamat", "rute", "gedung"],
+      text: "Denah dan lokasi sekolah bisa kamu jelajahi pada halaman Peta Sekolah.",
+      action: { label: "Buka peta", href: "/peta-sekolah" },
+    },
+    {
+      keywords: ["kontak", "telepon", "email", "hubungi", "nomor"],
+      text: "Kontak resmi sekolah ada pada halaman Profil, bagian informasi kontak.",
+      action: { label: "Lihat kontak", href: "/tentang/profil" },
+    },
+    {
+      keywords: ["harga", "biaya", "beli", "bayar"],
+      text: "Harga tiap layanan tercantum pada katalog dan halaman detail produk.",
+      action: { label: "Lihat produk", href: "/produk" },
+    },
   ];
 
 const availableUniformList: PandaUniform[] = [
@@ -148,7 +208,7 @@ function getPandaResponse(value: string, id: number): ChatMessage {
   return {
     id,
     author: "panda",
-    text: "Fitur AI belum terhubung. Aku bisa bantu membuka jurusan, SPMB, prestasi, fasilitas, berita, atau virtual tour.",
+    text: "Fitur AI belum terhubung. Aku bisa bantu membuka jurusan, SPMB, produk BLUD, BKK, PKL, lulusan, karya, prestasi, profil, kurikulum, peta, fasilitas, berita, atau virtual tour.",
     time: getJakartaTime(),
     action: { label: "Lihat jurusan", href: "/#jurusan" },
   };
