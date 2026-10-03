@@ -83,7 +83,7 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
     roof.position.set(x-centerX,base,z-centerZ);roofGroup.add(roof);
   }
   // Open-sided aula: schematic posts support the shared roof, not solid walls.
-  for(const x of [730,762,792]) for(const z of [551,636]) {
+  for(const x of [656,686,718]) for(const z of [450,535]) {
     const post=box(x,z,5,5,28,'#64594e',3);
     roofGroup.attach(post);
   }
