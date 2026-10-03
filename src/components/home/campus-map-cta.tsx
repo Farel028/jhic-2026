@@ -26,7 +26,7 @@ export function CampusMapCta() {
             aria-label="Buka peta 3D dari denah arsitektur sekolah"
             className="group block overflow-hidden rounded-2xl border border-ink/15 bg-white p-3 sm:p-5 shadow-xs transition-all hover:border-primary-strong/50 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-strong"
           >
-            <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full overflow-hidden rounded-xl border border-ink/10 bg-[#f8fafc]">
+            <div className="relative aspect-[3/4] sm:aspect-[4/5] max-h-[34rem] w-full overflow-hidden rounded-xl border border-ink/10 bg-[#f8fafc]">
               <Image
                 src="/images/school/denah-arsitektur.png"
                 alt="Denah Arsitektur Resmi SMK Negeri 2 Surabaya: pemetaan zonasi bengkel, ruang teori, administrasi, dan fasilitas sekolah."

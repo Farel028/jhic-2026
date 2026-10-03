@@ -50,7 +50,7 @@ export default function CampusMap() {
         </div>
         <div className={styles.viewport}>
           <div ref={host} className={styles.canvas} style={{visibility:original||status==='unavailable'?'hidden':'visible'}} data-testid="school-map-canvas"/>
-          {(original||status==='unavailable')&&<div className={styles.original}><Image src={PLAN.source} alt="Denah Arsitektur SMKN 2 Surabaya: denah lengkap zonasi kejuruan, ruang teori, dan fasilitas sekolah." width={1448} height={1086} sizes="(max-width: 900px) 100vw, 75vw" priority/><a href={PLAN.source} target="_blank" rel="noreferrer">Buka denah arsitektur ukuran penuh</a></div>}
+          {(original||status==='unavailable')&&<div className={styles.original}><Image src={PLAN.source} alt="Denah Arsitektur SMKN 2 Surabaya: denah lengkap zonasi kejuruan, ruang teori, dan fasilitas sekolah." width={1086} height={1448} sizes="(max-width: 900px) 100vw, 75vw" priority/><a href={PLAN.source} target="_blank" rel="noreferrer">Buka denah arsitektur ukuran penuh</a></div>}
           {status==='loading'&&!original&&<div className={styles.loading} role="status"><div/><strong>Menyiapkan peta 3D…</strong><span>Daftar ruang sudah dapat digunakan.</span></div>}
           {status==='unavailable'&&<p className={styles.fallback} role="status">Tampilan 3D tidak tersedia pada perangkat ini. Gunakan denah asli dan daftar ruang di bawah/samping.</p>}
           {!original&&status==='ready'&&<span className={styles.orientation}>Arah Utara (U) ↑</span>}
