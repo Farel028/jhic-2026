@@ -62,7 +62,7 @@ export async function InstagramSection() {
                             <svg
                               viewBox="0 0 20 20"
                               fill="currentColor"
-                              className="size-24"
+                              className="size-16 sm:size-24"
                             >
                               <path d="M6.5 4.8a1 1 0 0 1 1.52-.85l6.4 4.2a1 1 0 0 1 0 1.7l-6.4 4.2a1 1 0 0 1-1.52-.85V4.8Z" />
                             </svg>
