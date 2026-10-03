@@ -205,15 +205,15 @@ export function MajorExplorer() {
                     {/* Judul & Action */}
                     <div className="mt-1 flex items-end justify-between gap-2.5 px-0.5 pb-0.5">
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-sm font-black leading-tight tracking-[-0.02em] text-ink-strong transition-colors group-hover:text-primary sm:text-[0.95rem]">
+                        <h3 className="text-sm font-black leading-tight tracking-[-0.02em] text-ink-strong sm:text-[0.95rem]">
                           {major.name}
                         </h3>
                         <p className="mt-0.5 truncate text-[0.68rem] font-semibold text-ink-strong/75">
                           {major.focus.slice(0, 3).join(" • ")}
                         </p>
                       </div>
-                      <span className="inline-flex size-6.5 shrink-0 items-center justify-center border border-ink-strong/25 bg-white text-ink-strong shadow-xs transition-colors group-hover:bg-ink-strong group-hover:text-white">
-                        <ChevronRightIcon className="size-3" />
+                      <span className="inline-flex size-7 shrink-0 items-center justify-center text-ink-strong transition-transform group-hover:translate-x-0.5">
+                        <ChevronRightIcon className="size-4" />
                       </span>
                     </div>
                   </div>
