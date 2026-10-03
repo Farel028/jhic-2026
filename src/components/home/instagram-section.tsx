@@ -54,9 +54,30 @@ export async function InstagramSection() {
                           sizes="(max-width: 639px) calc(50vw - 1.625rem), (max-width: 1023px) calc(50vw - 2.5rem), 25vw"
                           className="object-cover transition-transform duration-300 group-hover:scale-[1.025] group-focus-visible:scale-[1.025] motion-reduce:transition-none"
                         />
-                        <span className="absolute right-2 top-2 rounded-full bg-ink-strong/90 px-2.5 py-1 text-xs font-bold text-white sm:right-3 sm:top-3">
-                          {mediaLabels[post.mediaType]}
-                        </span>
+                        {post.mediaType === "video" ? (
+                          <span
+                            aria-hidden="true"
+                            className="pointer-events-none absolute inset-0 flex items-center justify-center text-white drop-shadow-[0_2px_5px_rgba(0,0,0,0.45)] transition-transform duration-300 group-hover:scale-105 group-focus-visible:scale-105"
+                          >
+                            <svg
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                              className="size-16 sm:size-24"
+                            >
+                              <path d="M6.5 4.8a1 1 0 0 1 1.52-.85l6.4 4.2a1 1 0 0 1 0 1.7l-6.4 4.2a1 1 0 0 1-1.52-.85V4.8Z" />
+                            </svg>
+                          </span>
+                        ) : null}
+                        {post.mediaType === "carousel" ? (
+                          <span
+                            aria-hidden="true"
+                            className="pointer-events-none absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]"
+                          >
+                            <span className="size-1.5 rounded-full bg-white" />
+                            <span className="size-1.5 rounded-full bg-white/75" />
+                            <span className="size-1.5 rounded-full bg-white/75" />
+                          </span>
+                        ) : null}
                       </div>
                       <span className="mt-2 block text-xs font-semibold text-ink-muted sm:text-sm">
                         {dateLabel ?? "Lihat unggahan"}

@@ -127,9 +127,9 @@ export default function Home() {
 
       <section id="jurusan" className="border-b border-ink/10 bg-white px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
-          <div className="grid items-end gap-7 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="grid gap-7 lg:items-center lg:grid-cols-[1.2fr_0.8fr]">
             <div>
-              <h2 className="max-w-4xl text-[clamp(2rem,3.8vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-ink-strong">11 Jurusan</h2>
+              <h2 className="max-w-4xl text-[clamp(2rem,3.8vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-ink-strong">Temukan jurusan yang cocok untukmu</h2>
             </div>
             <p className="max-w-xl text-base font-medium leading-7 text-ink-muted lg:justify-self-end lg:text-lg">Pilih bidang yang ingin kamu pelajari lebih jauh.</p>
           </div>

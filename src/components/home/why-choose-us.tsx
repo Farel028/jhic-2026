@@ -9,24 +9,17 @@ function PartnerItems({ hidden = false }: { hidden?: boolean }) {
     <ul className="ticker-track-list" aria-hidden={hidden || undefined}>
       {featuredPartners.map((partner) => (
         <li key={partner.name} className="flex items-center whitespace-nowrap">
-          <div
-            className="group relative flex h-20 w-40 sm:h-28 sm:w-64 items-center justify-center px-4 sm:px-8 transition-all duration-300 hover:scale-110 cursor-pointer"
-          >
-            {/* Halo background timbul saat hover */}
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-2 rounded-2xl bg-white/80 opacity-0 shadow-[0_12px_28px_rgba(11,31,51,0.12)] transition-all duration-300 group-hover:opacity-100 group-hover:-translate-y-1.5"
-            />
+          <span className="flex h-20 w-36 items-center justify-center px-5 sm:h-24 sm:w-44 sm:px-7">
             <Image
               src={partner.logo.src}
               alt={partner.name}
               width={partner.logo.width}
               height={partner.logo.height}
-              sizes="(max-width: 639px) 7.5rem, 12rem"
-              className="relative z-10 max-h-12 w-auto max-w-28 sm:max-h-20 sm:max-w-44 object-contain filter grayscale-[0.2] transition-all duration-300 group-hover:grayscale-0 group-hover:scale-105"
+              sizes="(max-width: 639px) 6rem, 7.5rem"
+              className="max-h-10 w-auto max-w-24 object-contain sm:max-h-12 sm:max-w-30"
             />
-          </div>
-          <span aria-hidden="true" className="h-6 sm:h-8 w-px bg-ink/15" />
+          </span>
+          <span aria-hidden="true" className="h-5 w-px bg-ink/20" />
         </li>
       ))}
     </ul>
@@ -74,7 +67,7 @@ export function WhyChooseUs() {
               <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
                 Bengkel Standar Pabrik Manufaktur
               </h3>
-              <p className="mt-2 max-w-xl text-sm text-white/85 leading-relaxed">
+              <p className="mt-2 max-w-xl text-base text-white/85 leading-relaxed">
                 Peralatan mesin CNC presisi, otomasi PLC, dan workshop otomotif standar dealer resmi. Siswa berlatih dengan alat yang sama seperti di lini produksi industri.
               </p>
             </div>
@@ -89,35 +82,35 @@ export function WhyChooseUs() {
               <h3 className="mt-3 text-lg sm:text-xl font-extrabold text-ink-strong leading-snug">
                 Terserap Kerja & Lolos Perguruan Tinggi Negeri
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+              <p className="mt-2 text-base leading-relaxed text-ink-muted">
                 Mayoritas lulusan sudah menandatangani kontrak kerja industri atau diterima di kampus negeri sebelum wisuda kelulusan.
               </p>
             </div>
 
             {/* BKK Mini Outcome Stats Bar */}
             <div className="mt-6 border-t border-ink/10 pt-4">
-              <div className="grid grid-cols-3 gap-1.5 sm:gap-2 py-1 text-center">
-                <div className="rounded-lg bg-[#f3f4f6] px-1 py-2 sm:p-2">
-                  <div className="font-mono text-sm sm:text-base font-black text-ink-strong">6.932</div>
-                  <div className="text-[0.62rem] sm:text-[0.65rem] font-bold text-ink-muted">Alumni BKK</div>
+              <div className="grid grid-cols-3 divide-x divide-ink/10 border-y border-ink/10 py-3 text-center">
+                <div className="px-2 first:pl-0 last:pr-0">
+                  <div className="font-mono text-base sm:text-lg font-black text-ink-strong">6.932</div>
+                  <div className="text-sm font-bold text-ink-muted">Alumni BKK</div>
                 </div>
-                <div className="rounded-lg bg-[#f3f4f6] px-1 py-2 sm:p-2">
-                  <div className="font-mono text-sm sm:text-base font-black text-ink-strong">394</div>
-                  <div className="text-[0.62rem] sm:text-[0.65rem] font-bold text-ink-muted">Mitra Industri</div>
+                <div className="px-2 first:pl-0 last:pr-0">
+                  <div className="font-mono text-base sm:text-lg font-black text-ink-strong">394</div>
+                  <div className="text-sm font-bold text-ink-muted">Mitra Industri</div>
                 </div>
-                <div className="rounded-lg bg-[#f3f4f6] px-1 py-2 sm:p-2">
-                  <div className="font-mono text-sm sm:text-base font-black text-ink-strong">167</div>
-                  <div className="text-[0.62rem] sm:text-[0.65rem] font-bold text-ink-muted">MOU Aktif</div>
+                <div className="px-2 first:pl-0 last:pr-0">
+                  <div className="font-mono text-base sm:text-lg font-black text-ink-strong">167</div>
+                  <div className="text-sm font-bold text-ink-muted">MOU Aktif</div>
                 </div>
               </div>
 
               <div className="mt-3 flex items-center justify-between">
-                <span className="text-xs font-semibold text-ink-muted">Bursa Kerja Khusus (BKK)</span>
+                <span className="text-base font-semibold text-ink-muted">Bursa Kerja Khusus (BKK)</span>
                 <a
                   href={school.urls.bkk}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-xs font-bold text-primary-strong hover:underline"
+                  className="inline-flex items-center gap-1 text-sm font-bold text-primary-strong hover:underline"
                 >
                   Portal BKK
                   <ArrowUpRightIcon className="size-3.5" />
@@ -135,7 +128,7 @@ export function WhyChooseUs() {
               <h3 className="mt-2 text-lg font-extrabold text-ink-strong">
                 114+ Tahun Tradisi Teknik
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+              <p className="mt-2 text-base leading-relaxed text-ink-muted">
                 Sekolah teknik tertua di Surabaya dengan Akreditasi A Unggul, mencetak perintis industri dirgantara dan teknisi andal nasional.
               </p>
             </div>
@@ -150,7 +143,7 @@ export function WhyChooseUs() {
               <h3 className="mt-2 text-lg font-extrabold text-ink-strong">
                 Ijazah Resmi & Sertifikat Profesi
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+              <p className="mt-2 text-base leading-relaxed text-ink-muted">
                 Setiap lulusan dibekali Sertifikat Kompetensi Kerja dari LSP-P1 BNSP yang diakui oleh asosiasi industri di seluruh Indonesia.
               </p>
             </div>
@@ -174,7 +167,7 @@ export function WhyChooseUs() {
               <h3 className="text-lg sm:text-xl font-extrabold text-white leading-tight">
                 11 Jurusan
               </h3>
-              <p className="mt-1 text-xs sm:text-sm text-white/85">
+              <p className="mt-1 text-sm sm:text-base text-white/85">
                 Pilihan kejuruan teknik dan kreatif terlengkap di Jawa Timur.
               </p>
             </div>
@@ -183,8 +176,8 @@ export function WhyChooseUs() {
 
         {/* Carousel Mitra Industri BUMN & Multinasional (Loss/Tanpa Card Border) */}
         <div className="mt-14 pt-4">
-          <p className="text-center text-xs sm:text-sm font-extrabold text-ink-strong">
-            Program Kelas Industri & Rekrutmen Bersama Mitra Terkemuka
+          <p className="text-center text-base sm:text-lg font-extrabold text-ink-strong">
+            SMK Negeri 2 Surabaya bekerja sama dengan
           </p>
 
           <div className="mt-6 border-y border-ink/10">

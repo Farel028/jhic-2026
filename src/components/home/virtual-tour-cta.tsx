@@ -25,9 +25,9 @@ export function VirtualTourCta() {
           SMEKDA Tour
         </h2>
         <p className="mt-3 text-sm font-semibold text-white/80 sm:text-base">Yuk, lihat suasana sekolah lebih dekat.</p>
-        <Link href="/virtual-tour" className="mt-5 inline-flex min-h-14 items-center gap-4 rounded-full border border-white/45 bg-white/10 py-1.5 pl-5 pr-1.5 text-sm font-black text-white shadow-[0_14px_38px_rgba(0,0,0,0.24)] backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-white/70 hover:bg-white/18">
+        <Link href="/virtual-tour" className="mt-5 inline-flex min-h-14 items-center gap-4 rounded-full border border-white/35 bg-ink-strong/85 py-1.5 pl-5 pr-1.5 text-sm font-black text-white transition-colors hover:border-white/60 hover:bg-ink-strong">
           Mulai Virtual Tour
-          <span className="grid size-10 place-items-center rounded-full bg-white text-ink-strong shadow-md">
+          <span className="grid size-10 place-items-center rounded-full bg-accent-strong text-ink-strong">
             <ArrowRightIcon className="size-4" />
           </span>
         </Link>
