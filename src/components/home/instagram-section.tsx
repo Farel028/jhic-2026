@@ -68,6 +68,16 @@ export async function InstagramSection() {
                             </svg>
                           </span>
                         ) : null}
+                        {post.mediaType === "carousel" ? (
+                          <span
+                            aria-hidden="true"
+                            className="pointer-events-none absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]"
+                          >
+                            <span className="size-1.5 rounded-full bg-white" />
+                            <span className="size-1.5 rounded-full bg-white/75" />
+                            <span className="size-1.5 rounded-full bg-white/75" />
+                          </span>
+                        ) : null}
                       </div>
                       <span className="mt-2 block text-xs font-semibold text-ink-muted sm:text-sm">
                         {dateLabel ?? "Lihat unggahan"}
