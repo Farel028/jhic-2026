@@ -50,16 +50,16 @@ export default function CampusMap() {
         </div>
         <div className={styles.viewport}>
           <div ref={host} className={styles.canvas} style={{visibility:original||status==='unavailable'?'hidden':'visible'}} data-testid="school-map-canvas"/>
-          {(original||status==='unavailable')&&<div className={styles.original}><Image src={PLAN.source} alt="Denah Arsitektur SMKN 2 Surabaya: denah lengkap zonasi kejuruan, ruang teori, dan fasilitas sekolah." width={1448} height={1086} sizes="(max-width: 900px) 100vw, 75vw" priority/><a href={PLAN.source} target="_blank" rel="noreferrer">Buka denah arsitektur ukuran penuh</a></div>}
+          {(original||status==='unavailable')&&<div className={styles.original}><Image src={PLAN.source} alt="Denah Arsitektur SMKN 2 Surabaya: denah lengkap zonasi kejuruan, ruang teori, dan fasilitas sekolah." width={PLAN.width} height={PLAN.height} sizes="(max-width: 900px) 100vw, 75vw" priority/><a href={PLAN.source} target="_blank" rel="noreferrer">Buka denah arsitektur ukuran penuh</a></div>}
           {status==='loading'&&!original&&<div className={styles.loading} role="status"><div/><strong>Menyiapkan peta 3D…</strong><span>Daftar ruang sudah dapat digunakan.</span></div>}
           {status==='unavailable'&&<p className={styles.fallback} role="status">Tampilan 3D tidak tersedia pada perangkat ini. Gunakan denah asli dan daftar ruang di bawah/samping.</p>}
-          {!original&&status==='ready'&&<span className={styles.orientation}>Jl. Tentara Genie Pelajar (Depan) ↓</span>}
+          {!original&&<span className={styles.orientation}>Jl. Tentara Genie Pelajar (Luar / Depan) ↓</span>}
         </div>
         <div className={styles.help}>
           <p>Seret untuk memutar. Gulir atau cubit untuk zoom. Klik kanan + seret atau dua jari untuk menggeser.</p>
           <details><summary>Kontrol keyboard & catatan model</summary><p>Gunakan Tab dan Enter untuk memilih ruang di daftar. Tombol berikut menggeser peta tanpa mouse.</p><div className={styles.controls}>
             {([['Kiri',-80,0],['Kanan',80,0],['Atas',0,-80],['Bawah',0,80]] as const).map(([name,x,z])=><button key={name} type="button" disabled={status!=='ready'||original} onClick={()=>engine.current?.pan(x,z)}>Geser {name.toLowerCase()}</button>)}
-          </div><p>Koordinat dinding dan sudut mengikuti cetak biru master HD (5792 × 4344 piksel) dengan penyesuaian ortogonal presisi.</p><p>Orientasi muka gerbang utama (Jl. Tentara Genie Pelajar) berada di sisi bawah peta.</p></details>
+          </div><p>Koordinat dinding dan sudut mengikuti denah master Pelatihan.new (1920 × 1080 piksel) dengan zonasi warna lengkap.</p><p>Jalur aspal bawah di denah adalah sirkulasi halaman sekolah. Jalan raya utama (Jl. Tentara Genie Pelajar) berada di sisi luar gerbang depan (bawah).</p></details>
         </div>
       </div>
       <aside className={styles.sidebar} aria-label="Pencarian dan informasi ruang">

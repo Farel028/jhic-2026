@@ -14,7 +14,7 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
   canvas.setAttribute('aria-label', 'Peta sekolah tiga dimensi. Gunakan daftar ruang untuk navigasi dengan keyboard.');
   host.appendChild(canvas);
   const scene = new THREE.Scene();
-  const camera = new THREE.OrthographicCamera(-850,850,650,-650,1,10000);
+  const camera = new THREE.OrthographicCamera(-1080,1080,640,-640,1,10000);
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = false; // On-demand rendering; reduced motion is instant too.
   controls.minZoom = .45;
@@ -42,17 +42,29 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
     return mesh;
   }
 
-  // Base plinth / perimeter ground slab
-  const groundGeom = new THREE.BoxGeometry(PLAN.width + 40, 2, PLAN.height + 40);
+  // Base plinth / perimeter ground slab (extended slightly at south for Jl. Tentara Genie Pelajar)
+  const groundGeom = new THREE.BoxGeometry(PLAN.width + 40, 2, PLAN.height + 90);
   const groundMat = new THREE.MeshStandardMaterial({ color: '#f1f5f9', roughness: 0.95 });
   const ground = new THREE.Mesh(groundGeom, groundMat);
-  ground.position.set(0, -1, 0);
+  ground.position.set(0, -1, 25);
   scene.add(ground);
   const groundEdges = new THREE.LineSegments(
     new THREE.EdgesGeometry(groundGeom),
     new THREE.LineBasicMaterial({ color: '#94a3b8', transparent: true, opacity: 0.4 })
   );
   ground.add(groundEdges);
+
+  // External public road: Jl. Tentara Genie Pelajar (Frontage Luar Selatan)
+  const publicRoad = box(0, PLAN.height + 4, PLAN.width, 42, 1.8, '#334155');
+  const publicRoadEdges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(publicRoad.geometry),
+    new THREE.LineBasicMaterial({ color: '#1e293b', transparent: true, opacity: 0.5 })
+  );
+  publicRoad.add(publicRoadEdges);
+
+  // Akses Gerbang Depan Masuk Sekolah
+  const gateDropoff = box(PLAN.width / 2 - 100, PLAN.height - 20, 200, 26, 2.5, '#cbd5e1');
+  gateDropoff.add(new THREE.LineSegments(new THREE.EdgesGeometry(gateDropoff.geometry), new THREE.LineBasicMaterial({ color: '#64748b', transparent: true, opacity: 0.4 })));
 
   // Paved walkways with crisp architectural borders
   for (const [x,z,w,d] of paths) {
