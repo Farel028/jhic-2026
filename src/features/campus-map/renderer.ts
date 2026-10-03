@@ -14,7 +14,7 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
   canvas.setAttribute('aria-label', 'Peta sekolah tiga dimensi. Gunakan daftar ruang untuk navigasi dengan keyboard.');
   host.appendChild(canvas);
   const scene = new THREE.Scene();
-  const camera = new THREE.OrthographicCamera(-750,750,450,-450,1,6000);
+  const camera = new THREE.OrthographicCamera(-800,800,950,-950,1,10000);
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = false; // On-demand rendering; reduced motion is instant too.
   controls.minZoom = .45;
@@ -83,14 +83,13 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
     roof.position.set(x-centerX,base,z-centerZ);roofGroup.add(roof);
   }
   // Open-sided aula: schematic posts support the shared roof, not solid walls.
-  // Exact column counts/positions are not documented by the source.
-  for(const x of [608,753]) for(const z of [63,145,208]) {
+  for(const x of [450,535]) for(const z of [730,762,792]) {
     const post=box(x,z,5,5,28,'#64594e',3);
     roofGroup.attach(post);
   }
   for(const r of hallRoof)hip(r.x,r.z,r.w,r.d,r.base,r.rise,r.topW,r.topD);
   // Gazebo roofs stay in the same visibility group as the halls.
-  for(const r of rooms.filter(r=>r.category==='gazebo')) hip(r.x+r.w/2,r.z+r.d/2,r.w+4,r.d+4,r.h+2,13,3,3);
+  for(const r of rooms.filter(r=>(r.category as string)==='gazebo')) hip(r.x+r.w/2,r.z+r.d/2,r.w+4,r.d+4,r.h+2,13,3,3);
   scene.add(roofGroup);
   let disposed=false;
   let state:MapState={selected:null,visible:rooms.map(r=>r.id),roofs:true,labels:true};
@@ -107,7 +106,7 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
       mesh.material.emissive.set(id===next.selected?'#6b5522':'#000000');
       mesh.material.emissiveIntensity=.22;
       const sprite=labels.get(id)!;
-      sprite.visible=next.labels&&visible.has(id)&&(!next.roofs||!['panggung','aula-luar','aula-dalam'].includes(id));
+      sprite.visible=next.labels&&visible.has(id)&&(!next.roofs||!['panggung-aula','aula-luar','aula-dalam'].includes(id));
     }
     roofGroup.visible=next.roofs;
     selectedOutline.visible=!!next.selected;
@@ -116,7 +115,7 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
   }
   function view(top:boolean){
     controls.target.set(0,0,0);
-    camera.position.set(top?0:250,top?1500:850,top?.01:700);
+    camera.position.set(top?0:350,top?2200:1350,top?.01:1100);
     camera.up.set(0,1,0);camera.zoom=1;camera.lookAt(controls.target);camera.updateProjectionMatrix();controls.update();resize();
   }
   function resize(){

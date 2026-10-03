@@ -50,22 +50,22 @@ export default function CampusMap() {
         </div>
         <div className={styles.viewport}>
           <div ref={host} className={styles.canvas} style={{visibility:original||status==='unavailable'?'hidden':'visible'}} data-testid="school-map-canvas"/>
-          {(original||status==='unavailable')&&<div className={styles.original}><Image src={PLAN.source} alt="Denah sumber sekolah: sayap Animasi dan RPL di kiri, aula di tengah, DBIP dan TKP di kanan." width={1333} height={595} sizes="(max-width: 900px) 100vw, 75vw" priority/><a href={PLAN.source} target="_blank" rel="noreferrer">Buka gambar ukuran penuh</a></div>}
+          {(original||status==='unavailable')&&<div className={styles.original}><Image src={PLAN.source} alt="Denah Arsitektur SMKN 2 Surabaya: denah lengkap zonasi kejuruan, ruang teori, dan fasilitas sekolah." width={1086} height={1448} sizes="(max-width: 900px) 100vw, 75vw" priority/><a href={PLAN.source} target="_blank" rel="noreferrer">Buka denah arsitektur ukuran penuh</a></div>}
           {status==='loading'&&!original&&<div className={styles.loading} role="status"><div/><strong>Menyiapkan peta 3D…</strong><span>Daftar ruang sudah dapat digunakan.</span></div>}
           {status==='unavailable'&&<p className={styles.fallback} role="status">Tampilan 3D tidak tersedia pada perangkat ini. Gunakan denah asli dan daftar ruang di bawah/samping.</p>}
-          {!original&&status==='ready'&&<span className={styles.orientation}>Atas gambar sumber ↑</span>}
+          {!original&&status==='ready'&&<span className={styles.orientation}>Arah Utara (U) ↑</span>}
         </div>
         <div className={styles.help}>
           <p>Seret untuk memutar. Gulir atau cubit untuk zoom. Klik kanan + seret atau dua jari untuk menggeser.</p>
           <details><summary>Kontrol keyboard & catatan model</summary><p>Gunakan Tab dan Enter untuk memilih ruang di daftar. Tombol berikut menggeser peta tanpa mouse.</p><div className={styles.controls}>
             {([['Kiri',-80,0],['Kanan',80,0],['Atas',0,-80],['Bawah',0,80]] as const).map(([name,x,z])=><button key={name} type="button" disabled={status!=='ready'||original} onClick={()=>engine.current?.pan(x,z)}>Geser {name.toLowerCase()}</button>)}
-          </div><p>Koordinat mengikuti gambar 1333 × 595 piksel, bukan skala meter. Tinggi blok dan bentuk atap bersifat ilustratif. Atap joglo Aula Luar menyambung ke Aula Dalam. Matikan Atap untuk melihat label aula.</p><p>Orientasi mengikuti gambar; arah utara belum diketahui. Data kapasitas tidak tersedia.</p></details>
+          </div><p>Koordinat mengikuti denah arsitektur resmi 1086 × 1448 piksel. Tinggi blok dan bentuk atap joglo bersifat proporsional/ilustratif.</p><p>Orientasi Utara mengarah ke atas denah sesuai kompas arsitektural.</p></details>
         </div>
       </div>
       <aside className={styles.sidebar} aria-label="Pencarian dan informasi ruang">
         <div className={styles.search}>
           <label htmlFor="map-search">Cari ruang atau area</label>
-          <input id="map-search" type="search" placeholder="Misalnya R. 08, aula, kamar mandi" value={query} onChange={e=>changeQuery(e.target.value)}/>
+          <input id="map-search" type="search" placeholder="Misalnya Bengkel Mesin, Lab RPL, Aula, Mushola" value={query} onChange={e=>changeQuery(e.target.value)}/>
           <label htmlFor="map-category">Kategori</label>
           <select id="map-category" value={category} onChange={e=>changeCategory(e.target.value as Category|'all')}><option value="all">Semua kategori</option>{Object.entries(categories).map(([id,c])=><option key={id} value={id}>{c.name}</option>)}</select>
         </div>
@@ -80,6 +80,6 @@ export default function CampusMap() {
       </aside>
     </div>
     <div className={styles.legend} aria-label="Legenda warna">{Object.entries(categories).map(([id,c])=><button key={id} type="button" aria-pressed={category===id} onClick={()=>changeCategory(category===id?'all':id as Category)}><i style={{background:id==='toilet'?'linear-gradient(#5c91ea,#ed78b8)':c.color}}/>{c.name}</button>)}</div>
-    <p className={styles.source}>Sumber: Screenshot 2026-09-12 090628.png (denah yang diberikan pengguna). Kode R. 08 dan R. BK yang berulang dipertahankan. Label “Jurnal…” dan blok biru tanpa label belum dikonfirmasi.</p>
+    <p className={styles.source}>Sumber: Denah Arsitektur SMKN 2 Surabaya (Jl. Tentara Genie Pelajar No. 26). Dipetakan ke dalam model 3D Three.js.</p>
   </section>;
 }
