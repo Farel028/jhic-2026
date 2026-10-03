@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { categories, hallRoof, paths, PLAN, rooms } from '@/data/campus-map';
+import { categories, hallRoof, paths, PLAN, rooms, specialFeatures } from '@/data/campus-map';
 
 export type MapState = { selected: string | null; visible: string[]; roofs: boolean; labels: boolean };
 export type MapEngine = { update: (state: MapState) => void; view: (top: boolean) => void; zoom: (factor: number) => void; pan: (x: number, z: number) => void; dispose: () => void };
@@ -8,7 +8,7 @@ export type MapEngine = { update: (state: MapState) => void; view: (top: boolean
 export function createMap(host: HTMLElement, onSelect: (id: string) => void, onLost: () => void): MapEngine {
   const renderer = new THREE.WebGLRenderer({antialias: true, alpha: false});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setClearColor('#edf1f2');
+  renderer.setClearColor('#f8fafc');
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   const canvas = renderer.domElement;
   canvas.setAttribute('aria-label', 'Peta sekolah tiga dimensi. Gunakan daftar ruang untuk navigasi dengan keyboard.');
@@ -21,24 +21,61 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
   controls.maxZoom = 7;
   controls.maxPolarAngle = Math.PI / 2.08;
   controls.screenSpacePanning = true;
-  scene.add(new THREE.HemisphereLight('#ffffff','#c0c6cd',2.2));
-  const sun = new THREE.DirectionalLight('#fff5e6',2.2);
-  sun.position.set(-400,900,500);
+  scene.add(new THREE.HemisphereLight('#ffffff','#cbd5e1',2.4));
+  const sun = new THREE.DirectionalLight('#fffaf0',2.2);
+  sun.position.set(500,1400,700);
   scene.add(sun);
+  const fillLight = new THREE.DirectionalLight('#e2e8f0',1.0);
+  fillLight.position.set(-600,800,-500);
+  scene.add(fillLight);
+
   const centerX = PLAN.width/2, centerZ = PLAN.height/2;
   const meshes = new Map<string, THREE.Mesh<THREE.BoxGeometry, THREE.MeshStandardMaterial>>();
   const labels = new Map<string, THREE.Sprite>();
   const roofGroup = new THREE.Group();
-  const disposables: THREE.Texture[] = [];
-  const material = (color: string) => new THREE.MeshStandardMaterial({color,roughness: .88});
+  const disposables: (THREE.Texture | THREE.BufferGeometry | THREE.Material)[] = [];
+  const material = (color: string) => new THREE.MeshStandardMaterial({color,roughness: .85});
   function box(x: number,z: number,w: number,d: number,h: number,color: string,y=0) {
     const mesh = new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material(color));
     mesh.position.set(x+w/2-centerX,y+h/2,z+d/2-centerZ);
     scene.add(mesh);
     return mesh;
   }
-  // Only traced paths are paved; blank source margins remain empty.
-  for (const [x,z,w,d] of paths) box(x,z,w,d,2,'#b6bdc8');
+
+  // Base plinth / perimeter ground slab
+  const groundGeom = new THREE.BoxGeometry(PLAN.width + 40, 2, PLAN.height + 40);
+  const groundMat = new THREE.MeshStandardMaterial({ color: '#f1f5f9', roughness: 0.95 });
+  const ground = new THREE.Mesh(groundGeom, groundMat);
+  ground.position.set(0, -1, 0);
+  scene.add(ground);
+  const groundEdges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(groundGeom),
+    new THREE.LineBasicMaterial({ color: '#94a3b8', transparent: true, opacity: 0.4 })
+  );
+  ground.add(groundEdges);
+
+  // Paved walkways with crisp architectural borders
+  for (const [x,z,w,d] of paths) {
+    const pMesh = box(x,z,w,d,2.5,'#cbd5e1');
+    const pEdges = new THREE.LineSegments(
+      new THREE.EdgesGeometry(pMesh.geometry),
+      new THREE.LineBasicMaterial({ color: '#64748b', transparent: true, opacity: 0.35 })
+    );
+    pMesh.add(pEdges);
+  }
+
+  // Special Feature: Kolam Ikan TI COM
+  const pondGeom = new THREE.CylinderGeometry(specialFeatures.kolam.radius, specialFeatures.kolam.radius, 4, 32);
+  const pondMat = new THREE.MeshStandardMaterial({ color: '#38bdf8', roughness: 0.15, metalness: 0.3 });
+  const pond = new THREE.Mesh(pondGeom, pondMat);
+  pond.position.set(specialFeatures.kolam.x - centerX, 2, specialFeatures.kolam.z - centerZ);
+  scene.add(pond);
+
+  // Special Feature: Mihrab Mushola
+  const mihrabMesh = box(specialFeatures.mihrab.x, specialFeatures.mihrab.z, specialFeatures.mihrab.w, specialFeatures.mihrab.d, specialFeatures.mihrab.h, categories.fasilitas.color);
+  const mihrabEdges = new THREE.LineSegments(new THREE.EdgesGeometry(mihrabMesh.geometry), new THREE.LineBasicMaterial({ color: '#0f172a', transparent: true, opacity: 0.35 }));
+  mihrabMesh.add(mihrabEdges);
+
   const gradientCanvas = document.createElement('canvas');
   gradientCanvas.width=64; gradientCanvas.height=64;
   const gc=gradientCanvas.getContext('2d')!;
@@ -48,13 +85,20 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
   const bathroomTexture=new THREE.CanvasTexture(gradientCanvas);
   bathroomTexture.colorSpace=THREE.SRGBColorSpace;
   disposables.push(bathroomTexture);
+
   for (const r of rooms) {
-    const mesh=box(r.x,r.z,r.w-.8,r.d-.8,r.h,categories[r.category].color);
+    const mesh=box(r.x,r.z,r.w-.6,r.d-.6,r.h,categories[r.category].color);
     mesh.userData.roomId=r.id;
     if(r.category==='toilet') {mesh.material.color.set('#ffffff');mesh.material.map=bathroomTexture;}
     meshes.set(r.id,mesh);
-    const edges=new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry),new THREE.LineBasicMaterial({color:'#203348',transparent:true,opacity:.2}));
+
+    // Sharp architectural edges with high sensitivity
+    const edges=new THREE.LineSegments(
+      new THREE.EdgesGeometry(mesh.geometry, 25),
+      new THREE.LineBasicMaterial({color:'#0f172a',transparent:true,opacity:.38})
+    );
     mesh.add(edges);
+
     const labelCanvas=document.createElement('canvas');
     labelCanvas.width=512; labelCanvas.height=96;
     const ctx=labelCanvas.getContext('2d')!;
@@ -70,8 +114,8 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
     sprite.scale.set(width,width*96/512,1);sprite.renderOrder=5;
     scene.add(sprite);labels.set(r.id,sprite);
   }
-  // A single shared hip-roof skirt spans both aula footprints. The stepped
-  // central crown over Aula Luar expresses joglo form without a detached roof.
+
+  // Multi-tier traditional Joglo roof
   function hip(x: number,z: number,w: number,d: number,base: number,rise: number,topW: number,topD: number) {
     const vertices:number[]=[];
     const lower=[[-w/2,0,-d/2],[w/2,0,-d/2],[w/2,0,d/2],[-w/2,0,d/2]];
@@ -80,15 +124,19 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
     vertices.push(...upper[0],...upper[2],...upper[1],...upper[0],...upper[3],...upper[2]);
     const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));geometry.computeVertexNormals();
     const roof=new THREE.Mesh(geometry,new THREE.MeshStandardMaterial({color:'#64594e',roughness:.95,side:THREE.DoubleSide}));
-    roof.position.set(x-centerX,base,z-centerZ);roofGroup.add(roof);
+    roof.position.set(x-centerX,base,z-centerZ);
+    const roofEdges = new THREE.LineSegments(new THREE.EdgesGeometry(geometry, 20), new THREE.LineBasicMaterial({ color: '#27272a', transparent: true, opacity: 0.5 }));
+    roof.add(roofEdges);
+    roofGroup.add(roof);
   }
-  // Open-sided aula: schematic posts support the shared roof, not solid walls.
+
+  // Open-sided aula: schematic structural posts
   for(const x of [656,686,718]) for(const z of [450,535]) {
     const post=box(x,z,5,5,28,'#64594e',3);
     roofGroup.attach(post);
   }
   for(const r of hallRoof)hip(r.x,r.z,r.w,r.d,r.base,r.rise,r.topW,r.topD);
-  // Gazebo roofs stay in the same visibility group as the halls.
+  // Gazebo roofs
   for(const r of rooms.filter(r=>(r.category as string)==='gazebo')) hip(r.x+r.w/2,r.z+r.d/2,r.w+4,r.d+4,r.h+2,13,3,3);
   scene.add(roofGroup);
   let disposed=false;
