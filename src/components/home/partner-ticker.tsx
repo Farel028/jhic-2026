@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { featuredPartners } from "@/data/partners";
 
 function PartnerItems({ hidden = false }: { hidden?: boolean }) {
@@ -9,16 +10,22 @@ function PartnerItems({ hidden = false }: { hidden?: boolean }) {
           key={partner.name}
           className="flex items-center whitespace-nowrap"
         >
-          <span className="flex h-20 w-36 items-center justify-center px-5 sm:h-24 sm:w-44 sm:px-7">
+          <Link
+            href="/informasi/pkl"
+            tabIndex={hidden ? -1 : undefined}
+            aria-hidden={hidden || undefined}
+            aria-label={`${partner.name} - Mitra Kerja Sama SMKN 2 Surabaya`}
+            className="group flex h-20 w-36 cursor-pointer items-center justify-center px-5 transition-transform duration-200 ease-out hover:-translate-y-1.5 hover:scale-115 active:scale-95 sm:h-24 sm:w-44 sm:px-7"
+          >
             <Image
               src={partner.logo.src}
               alt={partner.name}
               width={partner.logo.width}
               height={partner.logo.height}
               sizes="(max-width: 639px) 6rem, 7.5rem"
-              className="max-h-10 w-auto max-w-24 object-contain sm:max-h-12 sm:max-w-30"
+              className="max-h-10 w-auto max-w-24 object-contain transition-all duration-200 group-hover:brightness-105 group-hover:drop-shadow-md sm:max-h-12 sm:max-w-30"
             />
-          </span>
+          </Link>
           <span aria-hidden="true" className="h-5 w-px bg-ink/20" />
         </li>
       ))}
