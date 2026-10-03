@@ -19,27 +19,27 @@ const jhicPartners = [
   {
     src: "/images/partners/jhic-2.0.png",
     alt: "Jagoan Hosting Innovation Competition 2026",
-    className: "h-8 sm:h-9 md:h-10 w-auto object-contain",
+    className: "h-7 sm:h-8 md:h-9 lg:h-10 w-auto object-contain",
   },
   {
     src: "/images/partners/jagoanhosting-white.png",
     alt: "Jagoan Hosting",
-    className: "h-5 sm:h-6 md:h-7 w-auto object-contain",
+    className: "h-5 sm:h-5.5 md:h-6 lg:h-7 w-auto object-contain",
   },
   {
     src: "/images/partners/garudaspark-white.png",
     alt: "Garuda Spark Innovation Hub",
-    className: "h-7 sm:h-8 md:h-9 w-auto object-contain",
+    className: "h-6.5 sm:h-7.5 md:h-8 lg:h-9 w-auto object-contain",
   },
   {
     src: "/images/partners/komdigi-white.png",
     alt: "Kementerian Komunikasi dan Digital",
-    className: "h-7 sm:h-8 md:h-9 w-auto object-contain",
+    className: "h-6.5 sm:h-7.5 md:h-8 lg:h-9 w-auto object-contain",
   },
   {
     src: "/images/partners/ngalup-white.png",
     alt: "Ngalup.co",
-    className: "h-5 sm:h-5.5 md:h-6 w-auto object-contain",
+    className: "h-4.5 sm:h-5 md:h-5.5 lg:h-6 w-auto object-contain",
   },
 ] as const;
 
@@ -229,30 +229,44 @@ export function SiteFooter() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-            <p className="mt-3 text-xs leading-relaxed text-white/70 sm:mt-3.5 sm:text-sm">
-              {school.address.street}, {school.address.district}, Kota {school.address.city}, {school.address.province}
-            </p>
           </div>
         </div>
 
-        {/* Baris Logo Mitra: Bersih, Rapi & Terpusat (Simetris & Responsif di Semua Layar) */}
+        {/* Baris Logo Mitra: Bersih & Terpusat (Simetris 3+2 di Mobile, 1 Baris di Layar Lebar) */}
         <div className="border-t border-white/15 py-8 sm:py-10">
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-12 sm:gap-y-6 lg:gap-x-14">
-            {jhicPartners.map((partner) => (
-              <Image
-                key={partner.src}
-                src={partner.src}
-                alt={partner.alt}
-                width={240}
-                height={80}
-                className={`${partner.className} opacity-80 transition-all duration-200 hover:scale-105 hover:opacity-100`}
-              />
-            ))}
+          <div className="mx-auto flex max-w-4xl flex-col items-center justify-center gap-5 sm:gap-6 md:flex-row md:flex-wrap md:gap-x-10 lg:gap-x-12">
+            {/* Baris 1 di mobile (3 logo) */}
+            <div className="flex items-center justify-center gap-x-6 sm:gap-x-8 md:contents">
+              {jhicPartners.slice(0, 3).map((partner) => (
+                <Image
+                  key={partner.src}
+                  src={partner.src}
+                  alt={partner.alt}
+                  width={240}
+                  height={80}
+                  className={`${partner.className} opacity-80 transition-all duration-200 hover:scale-105 hover:opacity-100`}
+                />
+              ))}
+            </div>
+
+            {/* Baris 2 di mobile (2 logo di tengah) */}
+            <div className="flex items-center justify-center gap-x-7 sm:gap-x-9 md:contents">
+              {jhicPartners.slice(3).map((partner) => (
+                <Image
+                  key={partner.src}
+                  src={partner.src}
+                  alt={partner.alt}
+                  width={240}
+                  height={80}
+                  className={`${partner.className} opacity-80 transition-all duration-200 hover:scale-105 hover:opacity-100`}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Footer Bottom Bar: Bersih & Terpusat */}
-        <div className="border-t border-white/10 py-5 text-center text-xs text-white/50 sm:py-6 sm:text-sm">
+        {/* Footer Bottom Bar: Bersih, Terpusat & Ruang Aman Tombol Floating di Mobile */}
+        <div className="border-t border-white/10 pt-5 pb-20 text-center text-xs text-white/50 sm:py-6 sm:text-sm">
           <p>© {currentYear} {school.name}. Semua hak dilindungi.</p>
         </div>
       </div>
