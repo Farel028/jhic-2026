@@ -1,4 +1,4 @@
-export const PLAN = { width: 1448, height: 1086, source: '/images/school/denah-arsitektur-landscape.png' } as const;
+export const PLAN = { width: 1448, height: 1086, source: '/images/school/denah-arsitektur-timur-bawah.png' } as const;
 
 export const categories = {
   bengkel: { name: 'Bengkel Kejuruan', color: '#f59e0b' },

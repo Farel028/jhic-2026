@@ -28,7 +28,7 @@ export function CampusMapCta() {
           >
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-ink/10 bg-[#f8fafc]">
               <Image
-                src="/images/school/denah-arsitektur-landscape.png"
+                src="/images/school/denah-arsitektur-timur-bawah.png"
                 alt="Denah Arsitektur Resmi SMK Negeri 2 Surabaya: pemetaan zonasi bengkel, ruang teori, administrasi, dan fasilitas sekolah."
                 fill
                 sizes="(max-width: 1023px) 90vw, 55vw"
