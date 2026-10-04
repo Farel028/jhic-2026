@@ -74,7 +74,7 @@ export default async function ExtracurricularPage({
         ]}
       />
 
-      <section className="border-b border-ink/10 bg-[#f1f0ea] px-5 py-12 text-ink-strong sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-12 text-ink-strong sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
           <nav aria-label="Breadcrumb" className="text-xs font-extrabold uppercase tracking-[0.12em] text-ink-muted">
             <ol className="flex flex-wrap items-center gap-2">
@@ -113,7 +113,7 @@ export default async function ExtracurricularPage({
 
             <dl className="grid gap-3 rounded-2xl border border-ink/10 bg-white p-5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] sm:grid-cols-2 sm:p-6">
               {infoLabels.map((label) => (
-                <div key={label} className="rounded-xl bg-[#f1f0ea] px-4 py-3">
+                <div key={label} className="rounded-xl bg-[#f3f4f6] px-4 py-3">
                   <dt className="text-[0.65rem] font-extrabold uppercase tracking-[0.14em] text-ink-muted">
                     {label}
                   </dt>
@@ -178,7 +178,7 @@ export default async function ExtracurricularPage({
                 ))}
               </ul>
             ) : (
-              <p className="mt-8 rounded-2xl bg-[#f1f0ea] px-5 py-6 text-base font-medium leading-7 text-ink-muted">
+              <p className="mt-8 rounded-2xl bg-[#f3f4f6] px-5 py-6 text-base font-medium leading-7 text-ink-muted">
                 Belum ada prestasi terverifikasi yang ditampilkan untuk {item.name}.
                 Prestasi baru akan ditambahkan setelah ada sumber artikel atau
                 dokumen resmi sekolah.

@@ -65,7 +65,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         ]}
       />
 
-      <section className="border-b border-ink/10 bg-[#f1f0ea] px-5 py-12 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-12 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
           <nav aria-label="Breadcrumb" className="text-xs font-extrabold uppercase tracking-[0.12em] text-ink-muted">
             <ol className="flex flex-wrap items-center gap-2">
@@ -150,7 +150,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </div>
       </section>
 
-      <section className="border-t border-ink/10 bg-[#f1f0ea] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+      <section className="border-t border-ink/10 bg-[#f3f4f6] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-site">
           <div className="grid items-end gap-7 lg:grid-cols-[1.2fr_0.8fr]">
             <h2 className="max-w-4xl text-[clamp(2rem,3.8vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-ink-strong">

@@ -28,7 +28,7 @@ export default function PklPage() {
         ]}
       />
 
-      <section className="border-b border-ink/10 bg-[#f1f0ea] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
           <nav aria-label="Breadcrumb" className="text-xs font-extrabold uppercase tracking-[0.12em] text-ink-muted">
             <ol className="flex flex-wrap items-center gap-2">
@@ -95,7 +95,7 @@ export default function PklPage() {
         </div>
       </section>
 
-      <section id="tahapan" aria-labelledby="heading-tahapan-alur" className="border-b border-ink/10 bg-[#f1f0ea] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+      <section id="tahapan" aria-labelledby="heading-tahapan-alur" className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto grid w-full max-w-site gap-8 lg:grid-cols-[0.36fr_0.64fr] lg:gap-20">
           <div>
             <p className="eyebrow">Tahapan</p>
@@ -140,7 +140,7 @@ export default function PklPage() {
         </div>
       </section>
 
-      <section className="bg-[#f1f0ea] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+      <section className="bg-[#f3f4f6] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-site">
           <div className="max-w-3xl">
             <p className="eyebrow">Portal resmi</p>
@@ -196,7 +196,7 @@ export default function PklPage() {
         </div>
       </section>
 
-      <section className="bg-[#f1f0ea] px-5 py-14 sm:px-8 sm:py-16 lg:px-10">
+      <section className="bg-[#f3f4f6] px-5 py-14 sm:px-8 sm:py-16 lg:px-10">
         <div className="mx-auto flex w-full max-w-site flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-ink">

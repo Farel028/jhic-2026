@@ -28,7 +28,7 @@ export default function StudentExtracurricularPage() {
         ]}
       />
 
-      <section className="border-b border-ink/10 bg-[#f1f0ea] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
           <StudentBreadcrumb current="Ekstrakurikuler" />
           <div className="mt-12 grid gap-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-20">

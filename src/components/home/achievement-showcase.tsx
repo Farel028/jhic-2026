@@ -49,7 +49,7 @@ export function AchievementShowcase() {
           {visiblePosters.map((poster) => (
             <li key={poster.src} className="snap-start">
               <Link href="/siswa/prestasi" className="group block">
-                <figure className="relative aspect-[4/5] overflow-hidden rounded-xl bg-[#e3e1d9]">
+                <figure className="relative aspect-[4/5] overflow-hidden rounded-xl bg-[#f3f4f6]">
                   <Image
                     src={poster.src}
                     alt={poster.alt}

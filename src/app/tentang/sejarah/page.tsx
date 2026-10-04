@@ -34,7 +34,7 @@ export default function HistoryPage() {
         ]}
       />
 
-      <section className="border-b border-ink/10 bg-[#f1f0ea] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
           <AboutBreadcrumb current="Sejarah" />
           <div className="mt-12 grid gap-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-20">
@@ -77,7 +77,7 @@ export default function HistoryPage() {
         </div>
       </section>
 
-      <section className="border-y border-ink/10 bg-[#f1f0ea] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+      <section className="border-y border-ink/10 bg-[#f3f4f6] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-site">
           <div className="grid gap-6 lg:grid-cols-[0.36fr_0.64fr] lg:gap-20">
             <div>
@@ -138,7 +138,7 @@ export default function HistoryPage() {
         </div>
       </section>
 
-      <section id="alumni" className="scroll-mt-24 border-y border-ink/10 bg-[#f1f0ea] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+      <section id="alumni" className="scroll-mt-24 border-y border-ink/10 bg-[#f3f4f6] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-site">
           <div className="grid gap-8 lg:grid-cols-[0.36fr_0.64fr] lg:gap-20">
             <div>

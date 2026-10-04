@@ -73,7 +73,7 @@ export default async function MajorPage({ params }: MajorPageProps) {
     RPL: { tint: "bg-[#d4ecfa]", accentText: "text-[#0a5a94]" },
   };
   const heroTheme = majorHeroThemes[major.code] ?? {
-    tint: "bg-[#f1f0ea]",
+    tint: "bg-[#f3f4f6]",
     accentText: "text-primary-strong",
   };
   // CTA bawah memakai warna jurusan berikutnya (bukan jurusan saat ini)

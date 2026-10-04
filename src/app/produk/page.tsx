@@ -28,7 +28,7 @@ export default function ProductsPage() {
         ]}
       />
 
-      <section className="border-b border-ink/10 bg-[#f1f0ea] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
           <nav aria-label="Breadcrumb" className="text-xs font-extrabold uppercase tracking-[0.12em] text-ink-muted">
             <ol className="flex flex-wrap items-center gap-2">
@@ -58,7 +58,7 @@ export default function ProductsPage() {
             {products.map((product) => (
               <li key={product.slug} className="border border-ink/15 bg-white transition-colors hover:border-primary-strong">
                 <Link href={`/produk/${product.slug}`} className="group block">
-                  <div className="relative aspect-[4/3] overflow-hidden border-b border-ink/15 bg-[#f1f0ea]">
+                  <div className="relative aspect-[4/3] overflow-hidden border-b border-ink/15 bg-[#f3f4f6]">
                     <Image
                       src={product.image.src}
                       alt={product.image.alt}

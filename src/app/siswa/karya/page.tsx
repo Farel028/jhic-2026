@@ -30,7 +30,7 @@ export default function StudentWorksPage() {
         ]}
       />
 
-      <section className="border-b border-ink/10 bg-[#f1f0ea] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
           <StudentBreadcrumb current="Karya Siswa" />
           <div className="mt-12 grid gap-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-20">
@@ -90,7 +90,7 @@ export default function StudentWorksPage() {
         </div>
       </section>
 
-      <section className="border-t border-ink/10 bg-[#f1f0ea] px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
+      <section className="border-t border-ink/10 bg-[#f3f4f6] px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
         <div className="mx-auto flex w-full max-w-site flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
           <p className="max-w-xl text-base font-extrabold leading-7 tracking-[-0.015em] text-ink-strong sm:text-lg">
             Proses yang baik juga membuka jalan menuju pencapaian.

@@ -29,7 +29,7 @@ export function PracticeShowcase() {
                   href={item.href}
                   className="group grid grid-cols-[7.5rem_1fr] items-start gap-4 sm:block"
                 >
-                  <figure className="relative aspect-[4/3] overflow-hidden bg-[#e3e1d9]">
+                  <figure className="relative aspect-[4/3] overflow-hidden bg-[#f3f4f6]">
                     <Image
                       src={item.image.src}
                       alt={item.image.alt}
