@@ -42,11 +42,11 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
     return mesh;
   }
 
-  // Base plinth / perimeter ground slab (extended slightly at south for Jl. Tentara Genie Pelajar)
-  const groundGeom = new THREE.BoxGeometry(PLAN.width + 40, 2, PLAN.height + 90);
+  // Base plinth / perimeter ground slab (extended south for river and Jl. Tentara Genie Pelajar)
+  const groundGeom = new THREE.BoxGeometry(PLAN.width + 60, 2, PLAN.height + 170);
   const groundMat = new THREE.MeshStandardMaterial({ color: '#f1f5f9', roughness: 0.95 });
   const ground = new THREE.Mesh(groundGeom, groundMat);
-  ground.position.set(0, -1, 25);
+  ground.position.set(0, -1, 65);
   scene.add(ground);
   const groundEdges = new THREE.LineSegments(
     new THREE.EdgesGeometry(groundGeom),
@@ -54,17 +54,60 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
   );
   ground.add(groundEdges);
 
-  // External public road: Jl. Tentara Genie Pelajar (Frontage Luar Selatan)
-  const publicRoad = box(0, PLAN.height + 4, PLAN.width, 42, 1.8, '#334155');
+  // ==========================================
+  // FITUR NYATA: SUNGAI / KALI & JEMBATAN DEPAN SEKOLAH
+  // ==========================================
+  // 1. Sungai / Kali (Wide open water canal running along the front of the school)
+  const riverMesh = box(-20, 1045, PLAN.width + 40, 75, 2.2, '#0284c7');
+  const riverEdges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(riverMesh.geometry),
+    new THREE.LineBasicMaterial({ color: '#38bdf8', transparent: true, opacity: 0.6 })
+  );
+  riverMesh.add(riverEdges);
+
+  // Tanggul & Pembatas Beton Sungai (North & South canal embankments)
+  const bankNorth = box(-20, 1040, PLAN.width + 40, 5, 3.8, '#94a3b8');
+  bankNorth.add(new THREE.LineSegments(new THREE.EdgesGeometry(bankNorth.geometry), new THREE.LineBasicMaterial({ color: '#64748b', transparent: true, opacity: 0.45 })));
+  const bankSouth = box(-20, 1120, PLAN.width + 40, 5, 3.8, '#94a3b8');
+  bankSouth.add(new THREE.LineSegments(new THREE.EdgesGeometry(bankSouth.geometry), new THREE.LineBasicMaterial({ color: '#64748b', transparent: true, opacity: 0.45 })));
+
+  // Trotoar pejalan kaki di tepi selatan sungai
+  const riverSidewalk = box(-20, 1125, PLAN.width + 40, 8, 2.6, '#cbd5e1');
+  riverSidewalk.add(new THREE.LineSegments(new THREE.EdgesGeometry(riverSidewalk.geometry), new THREE.LineBasicMaterial({ color: '#94a3b8', transparent: true, opacity: 0.35 })));
+
+  // 2. Jembatan Gerbang Utama (Main Entrance Bridge over the river to Pos Satpam)
+  const bridgeMain = box(470, 1037, 180, 88, 4.6, '#e2e8f0');
+  bridgeMain.add(new THREE.LineSegments(new THREE.EdgesGeometry(bridgeMain.geometry), new THREE.LineBasicMaterial({ color: '#64748b', transparent: true, opacity: 0.5 })));
+  // Railing jembatan utama barat & timur
+  const railWest = box(469, 1039, 5, 84, 9.5, '#334155', 2.0);
+  railWest.add(new THREE.LineSegments(new THREE.EdgesGeometry(railWest.geometry), new THREE.LineBasicMaterial({ color: '#0f172a', transparent: true, opacity: 0.6 })));
+  const railEast = box(646, 1039, 5, 84, 9.5, '#334155', 2.0);
+  railEast.add(new THREE.LineSegments(new THREE.EdgesGeometry(railEast.geometry), new THREE.LineBasicMaterial({ color: '#0f172a', transparent: true, opacity: 0.6 })));
+
+  // Pilar Gapura Gerbang Utama Masuk Sekolah
+  const pillarWest = box(472, 1032, 12, 12, 26, '#1e293b');
+  pillarWest.add(new THREE.LineSegments(new THREE.EdgesGeometry(pillarWest.geometry), new THREE.LineBasicMaterial({ color: '#d97706', transparent: true, opacity: 0.7 })));
+  const pillarEast = box(636, 1032, 12, 12, 26, '#1e293b');
+  pillarEast.add(new THREE.LineSegments(new THREE.EdgesGeometry(pillarEast.geometry), new THREE.LineBasicMaterial({ color: '#d97706', transparent: true, opacity: 0.7 })));
+
+  // 3. Jembatan Akses Timur (Secondary Bridge for eastern access & Parkir Timur)
+  const bridgeEast = box(1630, 1037, 110, 88, 4.4, '#e2e8f0');
+  bridgeEast.add(new THREE.LineSegments(new THREE.EdgesGeometry(bridgeEast.geometry), new THREE.LineBasicMaterial({ color: '#64748b', transparent: true, opacity: 0.5 })));
+  const railEastW = box(1630, 1039, 4.5, 84, 8.5, '#334155', 2.0);
+  const railEastE = box(1735.5, 1039, 4.5, 84, 8.5, '#334155', 2.0);
+
+  // 4. Jalan Raya Publik Luar: Jl. Tentara Genie Pelajar (Frontage Selatan)
+  const publicRoad = box(-20, 1133, PLAN.width + 40, 65, 2.4, '#334155');
   const publicRoadEdges = new THREE.LineSegments(
     new THREE.EdgesGeometry(publicRoad.geometry),
-    new THREE.LineBasicMaterial({ color: '#1e293b', transparent: true, opacity: 0.5 })
+    new THREE.LineBasicMaterial({ color: '#1e293b', transparent: true, opacity: 0.6 })
   );
   publicRoad.add(publicRoadEdges);
 
-  // Akses Gerbang Depan Masuk Sekolah
-  const gateDropoff = box(PLAN.width / 2 - 100, PLAN.height - 20, 200, 26, 2.5, '#cbd5e1');
-  gateDropoff.add(new THREE.LineSegments(new THREE.EdgesGeometry(gateDropoff.geometry), new THREE.LineBasicMaterial({ color: '#64748b', transparent: true, opacity: 0.4 })));
+  // Marka Jalan Putih Putus-putus Jl. Tentara Genie Pelajar
+  for (let rx = 20; rx < PLAN.width - 20; rx += 80) {
+    box(rx, 1164, 45, 3.0, 2.6, '#f8fafc');
+  }
 
   // Paved walkways with crisp architectural borders
   for (const [x,z,w,d] of paths) {
@@ -174,8 +217,8 @@ export function createMap(host: HTMLElement, onSelect: (id: string) => void, onL
     render();
   }
   function view(top:boolean){
-    controls.target.set(0,0,0);
-    camera.position.set(top?0:300,top?2200:1350,top?.01:950);
+    controls.target.set(0,0,35);
+    camera.position.set(top?0:300,top?2200:1350,top?35.01:985);
     camera.up.set(0,1,0);camera.zoom=1;camera.lookAt(controls.target);camera.updateProjectionMatrix();controls.update();resize();
   }
   function resize(){

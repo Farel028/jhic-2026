@@ -144,6 +144,9 @@ export const rooms: MapRoom[] = [
   room('pos-satpam-selatan', 'Pos Satpam Gerbang Depan', 'administrasi', 562, 981, 37, 54, 'Selatan Barat Daya', 'Pos keamanan dan kontrol akses gerbang depan'),
   room('p-guru', 'Pos Pengawas & Piket Guru', 'administrasi', 542, 711, 85, 80, 'Pusat Barat', 'Ruang kerja piket dan pengawas guru'),
   room('rbk-timur', 'Ruang BK Samping Guru', 'administrasi', 540, 797, 64, 44, 'Pusat Barat', 'Layanan bimbingan konseling siswa'),
+  room('sungai-depan', 'Sungai & Saluran Air Depan', 'fasilitas', 0, 1041, 1920, 34, 'Frontage Depan', 'Aliran kali pembatas Jl. Tentara Genie Pelajar dengan kompleks sekolah'),
+  room('jembatan-utama', 'Jembatan Gerbang Utama', 'fasilitas', 480, 1037, 160, 42, 'Gerbang Depan', 'Jembatan beton berpagar melintasi kali ke gerbang utama sekolah'),
+  room('jembatan-timur', 'Jembatan Akses Timur', 'fasilitas', 1640, 1037, 90, 42, 'Gerbang Timur', 'Jembatan penghubung melintasi kali ke area timur sekolah'),
 ];
 
 export const hallRoof = [
@@ -176,8 +179,8 @@ export const paths = [
   [150, 940, 450, 41],
   // 3. Akses paving penghubung antara Parkir Kelas 11 dan Pos Satpam
   [541, 981, 21, 54],
-  // 4. Plaza pedestrian paving bertitik di depan gerbang selatan (lebar 49px sesuai Canva)
-  [150, 1035, 450, 49],
+  // 4. Plaza pedestrian paving bertitik di dalam gerbang selatan (depan kelas & parkir)
+  [150, 981, 410, 54],
   // Koridor vertikal internal lainnya
   [742, 10, 28, 1050],
   [943, 10, 28, 1050],
