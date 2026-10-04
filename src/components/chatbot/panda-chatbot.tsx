@@ -173,7 +173,7 @@ function MascotStage({ uniform }: { uniform: PandaUniform }) {
         <LazyMascotVideo
           src={uniform.src}
           alt={`Pando memakai ${uniform.uniformLabel.toLocaleLowerCase("id-ID")}`}
-          className="h-full max-h-full w-full -translate-y-[18%]"
+          className="h-[118%] max-h-none w-full translate-y-[9%]"
           fit="contain"
         />
       </div>
@@ -395,7 +395,7 @@ export function PandaChatbot() {
             <div className="min-h-0 flex-1 flex flex-col sm:grid sm:grid-cols-[minmax(15rem,0.85fr)_minmax(22rem,1.25fr)] sm:grid-rows-1"
             >
               <MascotStage uniform={uniform} />
-              <div className="relative flex min-h-0 items-start justify-center overflow-hidden bg-[#f8f7f4] sm:hidden">
+              <div className="relative flex min-h-0 shrink-0 grow-0 items-start justify-center overflow-hidden bg-[#f8f7f4] sm:hidden" style={{ flexBasis: "40%" }}>
                   <LazyMascotVideo
                     src={uniform.src}
                     alt={`Pando memakai ${uniform.uniformLabel.toLocaleLowerCase("id-ID")}`}
@@ -404,7 +404,7 @@ export function PandaChatbot() {
                   />
                 </div>
 
-              <div className="panda-chat-surface min-h-0 flex flex-1 flex-col bg-[#fdfcfb]">
+              <div className="panda-chat-surface flex min-h-0 flex-col bg-[#fdfcfb] sm:flex-1" style={{ flex: "1 1 60%" }}>
                 <div
                   className="min-h-0 flex-1 overflow-y-auto px-3 py-4 sm:px-5 sm:py-5"
                   aria-live="polite"
@@ -432,6 +432,7 @@ export function PandaChatbot() {
                           {message.action ? (
                             <Link
                               href={message.action.href}
+                              onClick={() => setIsOpen(false)}
                               className={`mt-3 inline-flex min-h-9 items-center rounded-lg px-3.5 text-xs font-bold transition-colors ${message.author === "user"
                                 ? "bg-white/15 text-white hover:bg-white/25"
                                 : "bg-[#0b2447] text-white hover:bg-[#081a33]"
