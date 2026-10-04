@@ -60,3 +60,10 @@ docs/
 
 build
 build.zip
+
+# AI agent workspaces & local tools
+.agents/
+.claude/
+.opencode/
+agent/
+skills-lock.json
