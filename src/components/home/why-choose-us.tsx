@@ -9,7 +9,7 @@ export function WhyChooseUs() {
     <section
       id="keunggulan"
       aria-labelledby="keunggulan-heading"
-      className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-14 sm:px-8 sm:py-18 lg:px-10 lg:py-20"
+      className="border-b border-ink/10 bg-white px-5 py-14 sm:px-8 sm:py-18 lg:px-10 lg:py-20"
     >
       <div className="mx-auto w-full max-w-site">
         {/* Header Bersih & Langsung ke Poin */}

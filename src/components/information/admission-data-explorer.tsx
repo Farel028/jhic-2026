@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { ArrowUpRightIcon } from "@/components/ui/icons";
 import { admissionSnapshots } from "@/data/admission-statistics";
+import { majorCatalog } from "@/data/majors";
 
 function formatScore(value: number) {
   return value.toLocaleString("id-ID", {
@@ -12,7 +13,7 @@ function formatScore(value: number) {
 }
 
 export function AdmissionDataExplorer() {
-  const [activeYear, setActiveYear] = useState<"2025" | "2026">("2025");
+  const [activeYear, setActiveYear] = useState<"2025" | "2026">("2026");
   const snapshot = admissionSnapshots.find((item) => item.year === activeYear) ?? admissionSnapshots[1];
 
   const summary = useMemo(() => {
@@ -22,6 +23,26 @@ export function AdmissionDataExplorer() {
       quota: snapshot.programs.reduce((total, item) => total + item.academicQuota, 0),
       highest: Math.max(...snapshot.programs.map((item) => item.highestScore)),
       lowest: Math.min(...snapshot.programs.map((item) => item.lowestScore)),
+    };
+  }, [snapshot]);
+
+  const quotaChart = useMemo(() => {
+    if (snapshot.programs.length === 0) return null;
+
+    const maxQuota = Math.max(...snapshot.programs.map((item) => item.academicQuota));
+    const columns = snapshot.programs.map((item, index) => {
+      const code = majorCatalog.find((major) => major.name === item.program)?.code ?? String(index + 1);
+      return {
+        ...item,
+        code,
+        height: Math.max(8, Math.round((item.academicQuota / maxQuota) * 100)),
+        isMax: item.academicQuota === maxQuota,
+      };
+    });
+    return {
+      columns,
+      maxQuota,
+      maxCodes: columns.filter((column) => column.isMax).map((column) => column.code),
     };
   }, [snapshot]);
 
@@ -80,6 +101,44 @@ export function AdmissionDataExplorer() {
           </dl>
 
           <div className="mt-10">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-primary-strong">
+                  SPMB {snapshot.year}
+                </p>
+                <h2 className="mt-2 text-2xl font-extrabold tracking-[-0.025em] text-ink-strong">
+                  Grafik daya tampung
+                </h2>
+              </div>
+            </div>
+
+            <figure
+              className="mt-6 border-y border-ink/15 py-6"
+              role="img"
+              aria-label={`Grafik batang daya tampung SPMB ${snapshot.year}. Pagu terbesar ${quotaChart ? quotaChart.maxQuota : ""} kursi pada ${quotaChart ? quotaChart.maxCodes.join(", ") : ""}.`}
+            >
+              <div className="flex items-end justify-center gap-2 overflow-x-auto pb-1 sm:gap-3">
+                {quotaChart?.columns.map((column) => (
+                  <div key={column.program} className="flex w-14 shrink-0 flex-col items-center gap-2 sm:w-16">
+                    <span className="text-sm font-extrabold tabular-nums text-ink-strong">
+                      {column.academicQuota}
+                    </span>
+                    <span className="flex h-44 w-full items-end bg-ink/10 sm:h-52" aria-hidden="true">
+                      <span
+                        className={`block w-full ${column.isMax ? "bg-accent-strong" : "bg-primary-strong"}`}
+                        style={{ height: `${column.height}%` }}
+                      />
+                    </span>
+                    <span className="text-[0.65rem] font-extrabold tracking-[0.08em] text-ink-muted">
+                      {column.code}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </figure>
+          </div>
+
+          <div className="mt-12">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-primary-strong">

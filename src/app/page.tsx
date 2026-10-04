@@ -6,6 +6,7 @@ import { MajorExplorer } from "@/components/home/major-explorer";
 import { AdmissionCta } from "@/components/home/outcomes-stories";
 import { PracticeShowcase } from "@/components/home/practice-showcase";
 import { SchoolIntroduction } from "@/components/home/school-introduction";
+import { VisionMission } from "@/components/home/vision-mission";
 import { WhyChooseUs } from "@/components/home/why-choose-us";
 import { VirtualTourCta } from "@/components/home/virtual-tour-cta";
 import { CampusMapCta } from "@/components/home/campus-map-cta";
@@ -123,9 +124,11 @@ export default function Home() {
 
       <SchoolIntroduction />
 
+      <VisionMission />
+
       <WhyChooseUs />
 
-      <section id="jurusan" className="border-b border-ink/10 bg-white px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section id="jurusan" className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
           <div className="grid gap-7 lg:items-center lg:grid-cols-[1.2fr_0.8fr]">
             <div>

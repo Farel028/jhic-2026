@@ -20,17 +20,30 @@ export type AdmissionSnapshot = {
 export const admissionSnapshots: readonly AdmissionSnapshot[] = [
   {
     year: "2026",
-    status: "awaiting",
-    statusLabel: "Menunggu rekap sekolah",
+    status: "available",
+    statusLabel: "Data contoh (prototype)",
     description:
-      "Rangkaian SPMB Jawa Timur 2026 telah selesai, tetapi rekap final khusus SMKN 2 Surabaya belum tersedia dalam sumber publik yang dapat diverifikasi.",
+      "Data contoh untuk prototype. Angka di bawah bukan hasil resmi SPMB 2026.",
     scoreMethod:
       "Untuk lulusan 2026, nilai kemampuan akademik menggunakan 60% rerata rapor dan 40% rerata TKA.",
-    sourceLabel: "Ketentuan resmi SPMB Jatim 2026",
-    sourceUrl: "https://spmbjatim.net/informasi/ketentuan/index.html?jalur=akademik",
+    sourceLabel: "Portal SPMB Jatim",
+    sourceUrl: "https://spmbjatim.net",
     verificationNote:
-      "Data akan ditampilkan setelah jumlah diterima, daftar ulang, dan rentang nilai per program dikonfirmasi sekolah.",
-    programs: [],
+      "Seluruh angka 2026 di bawah adalah contoh untuk prototype. Minta rekap resmi ke sekolah sebelum dipublikasikan. Nilai historis bukan passing grade untuk tahun berikutnya.",
+    // Semua programs 2026 di bawah ini contoh untuk prototype.
+    programs: [
+      { program: "Animasi", academicQuota: 44, highestScore: 90.88, lowestScore: 89.31 },
+      { program: "Desain Pemodelan dan Informasi Bangunan", academicQuota: 44, highestScore: 91.25, lowestScore: 89.5 },
+      { program: "Rekayasa Perangkat Lunak", academicQuota: 68, highestScore: 91.12, lowestScore: 90.2 },
+      { program: "Teknik Audio Video", academicQuota: 44, highestScore: 90.18, lowestScore: 89.1 },
+      { program: "Teknik Elektronika Industri", academicQuota: 22, highestScore: 90.71, lowestScore: 89.25 },
+      { program: "Teknik Instalasi Tenaga Listrik", academicQuota: 68, highestScore: 90.66, lowestScore: 89.22 },
+      { program: "Teknik Kendaraan Ringan", academicQuota: 44, highestScore: 91.0, lowestScore: 89.7 },
+      { program: "Teknik Komputer dan Jaringan", academicQuota: 44, highestScore: 91.15, lowestScore: 89.8 },
+      { program: "Teknik Konstruksi dan Perumahan", academicQuota: 44, highestScore: 90.12, lowestScore: 89.08 },
+      { program: "Teknik Pemesinan", academicQuota: 68, highestScore: 91.2, lowestScore: 89.02 },
+      { program: "Teknik Sepeda Motor", academicQuota: 44, highestScore: 90.6, lowestScore: 89.18 },
+    ],
   },
   {
     year: "2025",

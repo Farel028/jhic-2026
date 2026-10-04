@@ -9,7 +9,6 @@ type AdmissionTrack = {
   id: string;
   name: string;
   quotaPercent: string;
-  quotaDescription: string;
   targetGroup: string;
   rules: string[];
   documents: string[];
@@ -20,7 +19,6 @@ const admissionTracks: AdmissionTrack[] = [
     id: "akademik",
     name: "Prestasi Nilai Akademik",
     quotaPercent: "65%",
-    quotaDescription: "Porsi kuota terbesar untuk jenjang SMK Negeri di Jawa Timur",
     targetGroup: "Lulusan SMP atau MTs berdasarkan nilai gabungan prestasi akademik",
     rules: [
       "Penilaian dihitung dari 60% rerata nilai rapor semester 1 sampai 5 ditambah 40% nilai TKA atau indeks akreditasi sekolah asal.",
@@ -39,7 +37,6 @@ const admissionTracks: AdmissionTrack[] = [
     id: "afirmasi",
     name: "Jalur Afirmasi",
     quotaPercent: "15%",
-    quotaDescription: "Keluarga ekonomi tidak mampu, anak buruh, dan disabilitas",
     targetGroup: "Calon murid dari keluarga ekonomi rentan serta penyandang disabilitas mandiri",
     rules: [
       "Alokasi terdiri dari kuota keluarga tidak mampu (10%), anak buruh (2%), dan penyandang disabilitas fisik ringan (3%).",
@@ -57,7 +54,6 @@ const admissionTracks: AdmissionTrack[] = [
     id: "domisili",
     name: "Jalur Domisili SMK",
     quotaPercent: "10%",
-    quotaDescription: "Jarak terdekat tempat tinggal ke lingkungan sekolah",
     targetGroup: "Calon murid yang bertempat tinggal di sekitar lokasi SMKN 2 Surabaya",
     rules: [
       "Berbeda dengan jenjang SMA yang memiliki kuota zonasi 50%, kuota domisili SMK adalah 10% karena memprioritaskan peminatan vokasi.",
@@ -74,7 +70,6 @@ const admissionTracks: AdmissionTrack[] = [
     id: "perpindahan",
     name: "Perpindahan Tugas Orang Tua",
     quotaPercent: "5%",
-    quotaDescription: "Mutasi kedinasan orang tua dan anak pendidik atau tenaga kependidikan",
     targetGroup: "Calon murid yang mengikuti mutasi kerja kedinasan orang tua atau anak kandung pegawai sekolah",
     rules: [
       "Berlaku bagi perpindahan kerja kedinasan orang tua antar kabupaten, kota, atau provinsi pada instansi pemerintah, BUMN, BUMD, atau TNI/Polri.",
@@ -90,7 +85,6 @@ const admissionTracks: AdmissionTrack[] = [
     id: "lomba",
     name: "Prestasi Hasil Lomba",
     quotaPercent: "5%",
-    quotaDescription: "Kejuaraan akademik, olahraga, seni, sains, dan hafiz Al-Qur'an",
     targetGroup: "Siswa berprestasi kejuaraan tingkat kota, provinsi, nasional, maupun internasional",
     rules: [
       "Sertifikat atau piagam kejuaraan diperoleh selama menempuh pendidikan di jenjang SMP atau MTs dalam 3 tahun terakhir.",
@@ -315,6 +309,49 @@ export function AdmissionHub() {
           </p>
         </div>
 
+        <figure className="grid gap-8 border-b border-ink/15 py-8 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-12">
+          <div
+            className="relative size-44 shrink-0 sm:size-52"
+            role="img"
+            aria-label="Komposisi kuota: akademik 65 persen, afirmasi 15 persen, domisili 10 persen, perpindahan tugas 5 persen, lomba 5 persen"
+          >
+            <div
+              className="absolute inset-0 rounded-full"
+              aria-hidden="true"
+              style={{
+                background:
+                  "conic-gradient(#084f7a 0 65%, #5aa9e6 0 80%, #ffca0a 0 90%, #102a43 0 95%, #7fc8f8 0 100%)",
+              }}
+            />
+            <div className="absolute inset-[26%] rounded-full bg-white" aria-hidden="true" />
+            <p className="absolute inset-0 grid place-items-center text-center" aria-hidden="true">
+              <span className="text-2xl font-black tracking-tight text-ink-strong sm:text-3xl">
+                5
+                <span className="block text-xs font-bold text-ink-muted">jalur</span>
+              </span>
+            </p>
+          </div>
+          <div>
+            <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-primary-strong">
+              Komposisi kuota
+            </p>
+            <ul className="mt-4 grid gap-x-8 gap-y-2 sm:grid-cols-2">
+              {[
+                { id: "akademik", label: "Akademik 65%", swatch: "bg-primary-strong" },
+                { id: "afirmasi", label: "Afirmasi 15%", swatch: "bg-primary" },
+                { id: "domisili", label: "Domisili 10%", swatch: "bg-accent-strong" },
+                { id: "perpindahan", label: "Perpindahan tugas 5%", swatch: "bg-ink" },
+                { id: "lomba", label: "Lomba 5%", swatch: "bg-secondary" },
+              ].map((item) => (
+                <li key={item.id} className="flex items-center gap-3 text-sm font-bold text-ink-strong">
+                  <span className={`size-4 shrink-0 border border-ink/20 ${item.swatch}`} aria-hidden="true" />
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </figure>
+
         <div className="divide-y divide-ink/15 border-b border-ink/15">
           {admissionTracks.map((track) => (
             <article key={track.id} className="py-10 first:pt-8 last:pb-12">
@@ -325,7 +362,6 @@ export function AdmissionHub() {
                 <h3 className="mt-1 text-2xl font-extrabold tracking-tight text-ink-strong">
                   {track.name}
                 </h3>
-                <p className="mt-1 text-sm text-ink-muted">{track.quotaDescription}</p>
               </div>
 
               <div className="mt-6 grid gap-8 lg:grid-cols-2">

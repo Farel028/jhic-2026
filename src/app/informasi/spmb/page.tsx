@@ -87,9 +87,6 @@ export default function AdmissionPage() {
               >
                 Arsip Daya Tampung & Rentang Nilai
               </h2>
-              <p className="mt-3 max-w-3xl text-base font-medium leading-7 text-ink-muted">
-                Statistik daya tampung dan sebaran nilai penerimaan periode sebelumnya.
-              </p>
             </div>
 
             <div className="mt-8">

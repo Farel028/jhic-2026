@@ -41,6 +41,16 @@ export const schoolIdentity = [
 export const schoolVision =
   "Menjadi pusat pendidikan menengah kejuruan terdepan yang menghasilkan lulusan unggul di bidang teknologi dan seni, mahir, kreatif, inovatif, dan berkarakter mulia, siap bersaing dalam industri global.";
 
+// DRAF elaborasi dari kata kunci visi (mahir, kreatif, inovatif,
+// berkarakter, siap bersaing). Minta konfirmasi teks misi resmi sekolah
+// sebelum halaman ini dianggap final.
+export const schoolMission = [
+  "Menyelenggarakan pembelajaran vokasi yang mahir dan mutakhir di bidang teknologi dan seni.",
+  "Menumbuhkan kreativitas dan inovasi melalui karya, praktik, dan kemitraan industri.",
+  "Membentuk karakter mulia: disiplin, jujur, dan beretos kerja.",
+  "Menyiapkan lulusan yang siap bersaing di industri global.",
+] as const;
+
 export const historyTimeline = [
   {
     period: "1912–1913",
