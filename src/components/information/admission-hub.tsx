@@ -720,7 +720,7 @@ export function AdmissionHub() {
                 rel="noreferrer"
                 className="inline-flex min-h-10 items-center gap-1.5 border border-white bg-white px-3.5 text-xs font-bold text-ink-strong hover:bg-white/90"
               >
-                Peta Lokasi Kampus
+                Peta Lokasi Sekolah
                 <ArrowUpRightIcon className="size-3" />
               </a>
               <Link
