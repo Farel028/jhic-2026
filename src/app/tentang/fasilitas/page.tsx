@@ -1,53 +1,24 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { AboutBreadcrumb } from "@/components/about/about-breadcrumb";
+import { FacilityShowcase } from "@/components/home/facility-showcase";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ArrowRightIcon } from "@/components/ui/icons";
-import { facilityImages } from "@/data/about";
+import { facilityStats, initialFacilities } from "@/data/facilities";
 import { withPageTwitter } from "@/lib/metadata";
 
 export const metadata: Metadata = withPageTwitter({
   title: "Fasilitas Sekolah",
   description:
-    "Gambaran ringkas fasilitas belajar SMK Negeri 2 Surabaya, termasuk ruang praktik, bengkel, dan Teaching Factory.",
+    "Katalog sarana dan prasarana penunjang pembelajaran, laboratorium teknis, bengkel kejuruan, dan Teaching Factory di SMK Negeri 2 Surabaya.",
   alternates: { canonical: "/tentang/fasilitas" },
   openGraph: {
     title: "Fasilitas SMK Negeri 2 Surabaya",
     description:
-      "Ruang belajar dan praktik yang mendukung pendidikan vokasi di SMK Negeri 2 Surabaya.",
+      "Ruang belajar modern, laboratorium, dan bengkel praktik berstandar industri di SMK Negeri 2 Surabaya.",
     url: "/tentang/fasilitas",
   },
 });
-
-const facilityGallery = [
-  facilityImages.automotiveWorkshop,
-  facilityImages.electricityLab,
-  facilityImages.teachingFactory,
-] as const;
-
-const facilityGroups = [
-  {
-    title: "Ruang belajar",
-    description:
-      "Ruang untuk pembelajaran umum, diskusi, dan kegiatan kelas sehari-hari.",
-  },
-  {
-    title: "Laboratorium & ruang praktik",
-    description:
-      "Tempat murid melatih keterampilan teknis dengan perangkat sesuai bidang keahlian.",
-  },
-  {
-    title: "Bengkel & Teaching Factory",
-    description:
-      "Lingkungan praktik yang mendekatkan proses belajar dengan standar kerja dan layanan nyata.",
-  },
-  {
-    title: "Ruang bersama",
-    description:
-      "Perpustakaan, aula, dan area kegiatan yang mendukung literasi serta kebersamaan warga sekolah.",
-  },
-] as const;
 
 export default function FacilitiesPage() {
   return (
@@ -60,106 +31,63 @@ export default function FacilitiesPage() {
         ]}
       />
 
+      {/* Hero Header */}
       <section className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
           <AboutBreadcrumb current="Fasilitas" />
-          <div className="mt-12 grid gap-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-20">
-            <h1 className="max-w-4xl text-[clamp(2.25rem,4.5vw,4rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-ink-strong">
-              Fasilitas Sekolah
-            </h1>
-            <p className="max-w-xl text-base font-medium leading-7 text-ink-muted sm:text-lg sm:leading-8">
-              Ruang belajar, laboratorium, dan bengkel menjadi tempat murid
-              mengubah pengetahuan menjadi keterampilan.
-            </p>
-          </div>
-          <Link href="/peta-sekolah" className="mt-8 inline-flex min-h-12 items-center gap-4 rounded-xl bg-ink-strong px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-primary-strong focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-strong">
-            Temukan fasilitas di peta 3D <ArrowRightIcon className="size-4" />
-          </Link>
-        </div>
-      </section>
-
-      <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-        <div className="mx-auto grid w-full max-w-site gap-10 lg:grid-cols-[0.36fr_0.64fr] lg:gap-20">
-          <div>
-            <p className="eyebrow">Lingkungan belajar</p>
-            <h2 className="mt-5 max-w-xl text-[clamp(1.75rem,3vw,2.5rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink-strong">
-              Ruang yang mendukung proses.
-            </h2>
-            <p className="mt-5 max-w-md text-sm font-medium leading-6 text-ink-muted">
-              Fasilitas digunakan sebagai bagian dari pembelajaran, latihan, dan
-              kegiatan warga sekolah.
-            </p>
-          </div>
-
-          <div className="grid gap-5 sm:grid-cols-2">
-            {facilityGallery.map((image, index) => (
-              <figure
-                key={image.src}
-                className={index === 0 ? "sm:col-span-2" : undefined}
-              >
-                <div
-                  className={`relative overflow-hidden bg-secondary/20 ${
-                    index === 0 ? "aspect-[16/8]" : "aspect-[4/3]"
-                  }`}
+          <div className="mt-12 grid gap-7 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-20">
+            <div>
+              <p className="eyebrow">Sarana & Prasarana Vokasi</p>
+              <h1 className="mt-4 max-w-4xl text-[clamp(2.25rem,4.5vw,4rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-ink-strong">
+                Fasilitas Penunjang Pembelajaran
+              </h1>
+            </div>
+            <div>
+              <p className="max-w-xl text-base font-medium leading-7 text-ink-muted sm:text-lg sm:leading-8">
+                Ruang belajar teori, laboratorium komputer, bengkel praktik, dan
+                Teaching Factory yang dirancang untuk mendukung pembelajaran
+                berbasis industri terkini.
+              </p>
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/peta-sekolah"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-ink-strong px-5 py-2.5 text-xs font-bold text-white transition-colors hover:bg-primary-strong focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-strong"
                 >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    sizes={
-                      index === 0
-                        ? "(max-width: 1024px) 90vw, 58vw"
-                        : "(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 28vw"
-                    }
-                    className="object-cover"
-                  />
-                </div>
-                <figcaption className="mt-3 text-xs font-medium leading-5 text-ink-muted">
-                  {image.caption}
-                </figcaption>
-              </figure>
+                  Lihat Denah di Peta 3D <ArrowRightIcon className="size-3.5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Stats Bar */}
+          <div className="mt-12 grid grid-cols-2 gap-4 border-t border-ink/10 pt-8 sm:grid-cols-4 sm:gap-6">
+            {facilityStats.map((stat) => (
+              <div key={stat.label} className="flex flex-col">
+                <span className="text-2xl font-black tracking-tight text-ink-strong sm:text-3xl">
+                  {stat.value}
+                </span>
+                <span className="mt-1 text-xs font-semibold text-ink-muted">
+                  {stat.label}
+                </span>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-y border-ink/10 bg-[#f3f4f6] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-        <div className="mx-auto grid w-full max-w-site gap-8 lg:grid-cols-[0.36fr_0.64fr] lg:gap-20">
-          <div>
-            <p className="eyebrow">Fungsi ruang</p>
-            <h2 className="mt-5 max-w-xl text-[clamp(1.75rem,3vw,2.5rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-ink-strong">
-              Belajar membutuhkan ruang yang berbeda.
+      {/* Explorer / Catalog Section */}
+      <section className="bg-white px-5 py-14 sm:px-8 sm:py-18 lg:px-10 lg:py-20">
+        <div className="mx-auto w-full max-w-site">
+          <div className="mb-8">
+            <h2 className="text-xl font-extrabold tracking-tight text-ink-strong sm:text-2xl">
+              Katalog Fasilitas Kampus
             </h2>
+            <p className="mt-1 text-xs font-medium text-ink-muted sm:text-sm">
+              Cari dan filter fasilitas berdasarkan kategori untuk melihat sarana pendukung pembelajaran di SMK Negeri 2 Surabaya.
+            </p>
           </div>
-          <ul className="border-t border-ink/15">
-            {facilityGroups.map((facility) => (
-              <li
-                key={facility.title}
-                className="grid gap-2 border-b border-ink/15 py-5 sm:grid-cols-[0.38fr_0.62fr] sm:gap-8 sm:py-6"
-              >
-                <h3 className="text-base font-extrabold leading-6 text-ink-strong sm:text-lg">
-                  {facility.title}
-                </h3>
-                <p className="text-sm font-medium leading-6 text-ink-muted">
-                  {facility.description}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
 
-      <section className="bg-white px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
-        <div className="mx-auto flex w-full max-w-site flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
-          <p className="max-w-xl text-base font-extrabold leading-7 tracking-[-0.015em] text-ink-strong sm:text-lg">
-            Lihat lingkungan sekolah secara langsung melalui SMEKDA Tour.
-          </p>
-          <Link
-            href="/virtual-tour"
-            className="inline-flex items-center gap-3 text-sm font-extrabold text-ink-strong underline decoration-primary decoration-2 underline-offset-8"
-          >
-            Mulai virtual tour <ArrowRightIcon className="size-4" />
-          </Link>
+          <FacilityShowcase initialItems={initialFacilities} showPageLink={false} />
         </div>
       </section>
     </main>
