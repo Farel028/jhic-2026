@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
-import { PrototypeNote } from "@/components/prototype/prototype-note";
 import { ArrowRightIcon } from "@/components/ui/icons";
 import {
   bkkContact,
@@ -10,7 +9,6 @@ import {
   bkkStats,
   bkkStatsSource,
   bkkVideos,
-  sampleVacancies,
 } from "@/data/bkk";
 import { withPageTwitter } from "@/lib/metadata";
 
@@ -30,12 +28,12 @@ const bkkAudiences = [
 export const metadata: Metadata = withPageTwitter({
   title: "BKK dan Karier",
   description:
-    "Layanan Bursa Kerja Khusus SMK Negeri 2 Surabaya: informasi lowongan, alur pendaftaran, pertanyaan umum, dan kontak. Halaman prototype.",
+    "Layanan Bursa Kerja Khusus SMK Negeri 2 Surabaya: informasi lowongan, alur pendaftaran, pertanyaan umum, dan kontak.",
   alternates: { canonical: "/informasi/bkk" },
   openGraph: {
     title: "BKK dan Karier SMK Negeri 2 Surabaya",
     description:
-      "Contoh hub karier internal: layanan BKK, alur melamar, lowongan contoh, FAQ, dan kontak.",
+      "Layanan BKK, alur melamar, statistik, pertanyaan umum, dan kontak.",
     url: "/informasi/bkk",
   },
 });
@@ -78,7 +76,7 @@ export default function BkkPage() {
               rel="noreferrer"
               className="inline-flex min-h-12 items-center justify-center gap-2 border border-primary-strong bg-primary-strong px-6 text-sm font-bold text-white transition-colors hover:bg-[#063c5d]"
             >
-              Buka portal BKK asli
+              Buka portal BKK
               <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <line x1="7" y1="17" x2="17" y2="7" />
                 <polyline points="7 7 17 7 17 17" />
@@ -90,12 +88,6 @@ export default function BkkPage() {
             >
               Cara melamar
             </a>
-          </div>
-          <div className="mt-8 max-w-3xl">
-            <PrototypeNote>
-              Halaman prototype. Angka statistik merujuk laman BKK, sedangkan
-              daftar lowongan di bawah adalah contoh, bukan lowongan sungguhan.
-            </PrototypeNote>
           </div>
         </div>
       </section>
@@ -145,52 +137,11 @@ export default function BkkPage() {
         </div>
       </section>
 
-      <section className="border-b border-ink/10 bg-[#f1f0ea] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-        <div className="mx-auto w-full max-w-site">
-          <p className="eyebrow">Lowongan contoh</p>
-          <h2 className="mt-4 max-w-3xl text-[clamp(2rem,3.5vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.025em] text-ink-strong">
-            Contoh tampilan loker
-          </h2>
-          <ul className="mt-8 border-t border-ink/15">
-            {sampleVacancies.map((vacancy) => (
-              <li key={vacancy.code} className="grid gap-2 border-b border-ink/15 py-5 sm:grid-cols-[5rem_1fr] sm:gap-6 sm:py-6">
-                <span className="text-xs font-extrabold tabular-nums tracking-[0.12em] text-primary-strong">
-                  {vacancy.code}
-                </span>
-                <span>
-                  <span className="block text-lg font-bold leading-7 tracking-[-0.015em] text-ink-strong">
-                    {vacancy.title}
-                    <span className="ml-3 inline-block border border-ink/20 px-2 py-0.5 align-middle text-[0.65rem] font-extrabold uppercase tracking-[0.12em] text-ink-muted">
-                      Contoh
-                    </span>
-                  </span>
-                  <span className="mt-1 block text-sm font-medium leading-6 text-ink-muted">
-                    {vacancy.company} · {vacancy.requirement}
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-6 max-w-3xl text-sm leading-6 text-ink-muted">
-            Lowongan sungguhan ada di portal resmi BKK. Lamaran dikirim lewat
-            sana agar tercatat.
-          </p>
-          <a
-            href={bkkContact.portal}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-6 inline-flex min-h-11 items-center gap-3 border-b-2 border-ink-strong text-sm font-extrabold text-ink-strong transition-colors hover:border-primary-strong hover:text-primary-strong"
-          >
-            {bkkContact.portalLabel} <ArrowRightIcon className="size-4" />
-          </a>
-        </div>
-      </section>
-
       <section className="border-b border-ink/10 bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto w-full max-w-site">
           <p className="eyebrow">Keterserapan</p>
           <h2 className="mt-4 max-w-3xl text-[clamp(2rem,3.5vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.025em] text-ink-strong">
-            Angka per laman BKK
+            Statistik BKK
           </h2>
           <div className="mt-8 grid gap-px border border-ink/15 bg-ink/15 sm:grid-cols-3">
             {bkkStats.map((stat) => (
@@ -201,7 +152,7 @@ export default function BkkPage() {
               </div>
             ))}
           </div>
-          <p className="mt-6 max-w-3xl border-l-4 border-accent-strong pl-5 text-sm font-medium leading-6 text-ink-muted">
+          <p className="mt-6 max-w-3xl text-sm font-medium leading-6 text-ink-muted">
             {bkkStatsSource}
           </p>
         </div>
@@ -264,8 +215,8 @@ export default function BkkPage() {
               Praktik Kerja Lapangan
             </h2>
             <p className="mt-6 max-w-xl text-base font-medium leading-7 text-ink-muted">
-              Tahapan, dokumen contoh, dan tautan portal e-PKL untuk siswa yang
-              menjalani praktik.
+              Tahapan PKL dan tautan portal e-PKL untuk siswa yang menjalani
+              praktik.
             </p>
             <Link href="/informasi/pkl" className="mt-6 inline-flex min-h-11 items-center gap-3 border-b-2 border-ink-strong text-sm font-extrabold text-ink-strong transition-colors hover:border-primary-strong hover:text-primary-strong">
               Buka info PKL <ArrowRightIcon className="size-4" />

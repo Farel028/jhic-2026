@@ -146,7 +146,7 @@ export function WhyChooseUs() {
                 11 Jurusan
               </h3>
               <p className="mt-1 text-sm sm:text-base text-white/85">
-                Pilihan kejuruan teknik dan kreatif terlengkap di Jawa Timur.
+                Pilihan kejuruan teknik dan kreatif di SMK Negeri 2 Surabaya.
               </p>
             </div>
           </div>

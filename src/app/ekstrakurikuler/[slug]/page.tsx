@@ -155,9 +155,8 @@ export default async function ExtracurricularPage({
                 </li>
               ))}
             </ol>
-            <p className="mt-7 max-w-3xl border-l-4 border-accent-strong pl-5 text-sm font-medium leading-6 text-ink-muted">
-              Materi di atas adalah kerangka awal dari tim web dan perlu dikonfirmasi
-              dengan pembina masing-masing ekskul sebelum dianggap resmi.
+            <p className="mt-7 max-w-3xl text-sm font-medium leading-6 text-ink-muted">
+              Kegiatan dapat menyesuaikan program kerja dan arahan pembina.
             </p>
           </div>
         </div>

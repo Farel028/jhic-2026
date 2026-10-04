@@ -145,15 +145,6 @@ export default async function MajorPage({ params }: MajorPageProps) {
             <p className="max-w-3xl text-lg font-medium leading-8 text-ink-muted sm:text-xl sm:leading-9">
               {major.overview}
             </p>
-            {major.sourceNote ? (
-              <p className="mt-7 max-w-3xl border-l-4 border-accent-strong pl-5 text-sm font-medium leading-6 text-ink-muted">
-                {major.sourceNote}
-              </p>
-            ) : (
-              <p className="mt-7 text-sm leading-6 text-ink-muted">
-                Isi diringkas dari banner profil jurusan yang dipublikasikan sekolah.
-              </p>
-            )}
           </div>
         </div>
       </section>
@@ -188,7 +179,7 @@ export default async function MajorPage({ params }: MajorPageProps) {
               ))}
             </ul>
             <p className="mt-6 text-sm leading-6 text-ink-muted">
-              Daftar ini merupakan contoh arah karier, bukan jaminan penempatan kerja.
+              Peluang kerja bergantung pada kompetensi, pengalaman, dan kebutuhan industri.
             </p>
           </div>
         </div>

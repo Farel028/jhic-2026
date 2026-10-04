@@ -54,14 +54,6 @@ export const pklRoles = [
   },
 ] as const;
 
-// Daftar contoh untuk prototype, bukan daftar resmi sekolah.
-export const pklDocuments = [
-  "Surat pengantar PKL dari sekolah (contoh)",
-  "Jurnal harian kegiatan (contoh)",
-  "Lembar monitoring pembimbing (contoh)",
-  "Laporan akhir dan materi sidang (contoh)",
-] as const;
-
 export const pklFaq = [
   {
     question: "Kapan PKL dilaksanakan?",

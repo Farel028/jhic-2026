@@ -41,9 +41,9 @@ export function SchoolIntroduction() {
             </h2>
             <div className="mt-7 max-w-xl space-y-5 text-base font-medium leading-8 text-ink-muted sm:text-lg">
               <p>
-                Selamat datang di website resmi {school.shortName}. Website ini
-                kami hadirkan sebagai ruang informasi sekaligus penghubung bagi
-                murid, orang tua, alumni, mitra, dan masyarakat.
+                Selamat datang di website resmi {school.shortName}. Website ini kami
+                hadirkan sebagai ruang informasi sekaligus penghubung bagi murid,
+                orang tua, alumni, mitra, dan masyarakat.
               </p>
               <p>
                 Melalui pendidikan vokasi yang berakar pada praktik, karya, dan

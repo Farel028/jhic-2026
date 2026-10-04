@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
-import { PrototypeNote } from "@/components/prototype/prototype-note";
 import { ArrowRightIcon } from "@/components/ui/icons";
-import { pklBenefits, pklContact, pklDocuments, pklFaq, pklRoles, pklStages } from "@/data/pkl";
+import { pklBenefits, pklContact, pklFaq, pklRoles, pklStages } from "@/data/pkl";
 import { withPageTwitter } from "@/lib/metadata";
 
 export const metadata: Metadata = withPageTwitter({
-  title: "PKL (Prototype)",
+  title: "PKL",
   description:
-    "Contoh hub Praktik Kerja Lapangan SMK Negeri 2 Surabaya: tahapan, dokumen contoh, dan tautan portal e-PKL.",
+    "Informasi Praktik Kerja Lapangan SMK Negeri 2 Surabaya: tahapan, peran, dan tautan portal e-PKL.",
   alternates: { canonical: "/informasi/pkl" },
   openGraph: {
-    title: "PKL SMK Negeri 2 Surabaya (Prototype)",
+    title: "PKL SMK Negeri 2 Surabaya",
     description:
-      "Contoh halaman PKL: tahapan, dokumen contoh, dan tautan portal e-PKL.",
+      "Tahapan, peran, dan tautan portal e-PKL untuk siswa SMK Negeri 2 Surabaya.",
     url: "/informasi/pkl",
   },
 });
@@ -69,12 +68,6 @@ export default function PklPage() {
             >
               Lihat tahapan
             </a>
-          </div>
-          <div className="mt-8 max-w-3xl">
-            <PrototypeNote>
-              Halaman prototype. Tahapan bersifat umum dan daftar dokumen adalah
-              contoh, bukan ketentuan resmi.
-            </PrototypeNote>
           </div>
         </div>
       </section>
@@ -148,30 +141,15 @@ export default function PklPage() {
       </section>
 
       <section className="bg-[#f1f0ea] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-        <div className="mx-auto grid w-full max-w-site gap-8 lg:grid-cols-2 lg:gap-20">
-          <div>
-            <p className="eyebrow">Dokumen contoh</p>
-            <h2 className="mt-4 text-[clamp(2rem,3.5vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.025em] text-ink-strong">
-              Berkas yang disiapkan
-            </h2>
-            <ul className="mt-8 border-t border-ink/15">
-              {pklDocuments.map((document, index) => (
-                <li key={document} className="grid grid-cols-[2rem_1fr] gap-4 border-b border-ink/15 py-5 sm:py-6">
-                  <span className="pt-1 text-xs font-extrabold tabular-nums text-primary-strong">{String(index + 1).padStart(2, "0")}</span>
-                  <span className="text-lg font-bold leading-7 tracking-[-0.015em] text-ink-strong">{document}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="lg:border-l lg:border-ink/15 lg:pl-20">
+        <div className="mx-auto w-full max-w-site">
+          <div className="max-w-3xl">
             <p className="eyebrow">Portal resmi</p>
             <h2 className="mt-4 text-[clamp(2rem,3.5vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.025em] text-ink-strong">
               e-PKL
             </h2>
             <p className="mt-6 max-w-xl text-base font-medium leading-7 text-ink-muted">
-              Pengisian jurnal dan monitoring berjalan di portal e-PKL. Panduan
-              pengisian tersedia dalam video berikut.
+              Pengisian jurnal, monitoring, dan informasi angkatan berjalan
+              tersedia di portal e-PKL.
             </p>
             <div className="mt-6 flex flex-wrap gap-x-6 gap-y-4">
               <a

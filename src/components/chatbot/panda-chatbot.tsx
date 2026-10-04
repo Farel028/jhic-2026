@@ -113,7 +113,7 @@ const responseGuides: Array<{
     },
     {
       keywords: ["pkl", "magang", "prakerin", "jurnal"],
-      text: "Tahapan, dokumen contoh, dan tautan portal e-PKL tersedia pada halaman PKL.",
+      text: "Tahapan PKL dan tautan portal e-PKL tersedia pada halaman PKL.",
       action: { label: "Buka info PKL", href: "/informasi/pkl" },
     },
     {

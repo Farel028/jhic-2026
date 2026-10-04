@@ -3,7 +3,7 @@ import { school } from "@/config/school";
 export const bkkFlow = [
   {
     title: "Buka informasi lowongan",
-    description: "Pilih lowongan yang sesuai kompetensi pada daftar di bawah.",
+    description: "Pilih lowongan yang sesuai kompetensi melalui portal BKK.",
   },
   {
     title: "Siapkan berkas",
@@ -29,28 +29,6 @@ export const bkkStats = [
 
 export const bkkStatsSource =
   "Angka per laman BKK SMKN 2 Surabaya. Konfirmasi ke kontak BKK untuk data terbaru.";
-
-// Lowongan contoh untuk prototype. Bukan lowongan sungguhan.
-export const sampleVacancies = [
-  {
-    code: "LKR-01",
-    title: "Operator Produksi",
-    company: "PT Contoh Manufaktur (contoh)",
-    requirement: "Lulusan TPM atau TEI, bersedia shift.",
-  },
-  {
-    code: "LKR-02",
-    title: "Teknisi Jaringan",
-    company: "PT Contoh Jaringan (contoh)",
-    requirement: "Lulusan TKJ, memahami dasar TCP/IP.",
-  },
-  {
-    code: "LKR-03",
-    title: "Mekanik Junior",
-    company: "Bengkel Contoh Motor (contoh)",
-    requirement: "Lulusan TSM atau TKR, membawa peralatan dasar.",
-  },
-] as const;
 
 export const bkkFaq = [
   {
