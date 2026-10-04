@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { AchievementShowcase } from "@/components/home/achievement-showcase";
 import { InstagramSection } from "@/components/home/instagram-section";
 import { MajorExplorer } from "@/components/home/major-explorer";
+import { FacilityShowcase } from "@/components/home/facility-showcase";
+import { initialFacilities } from "@/data/facilities";
 import { AdmissionCta } from "@/components/home/outcomes-stories";
 import { PracticeShowcase } from "@/components/home/practice-showcase";
 import { SchoolIntroduction } from "@/components/home/school-introduction";
@@ -137,6 +139,23 @@ export default function Home() {
             <p className="max-w-xl text-base font-medium leading-7 text-ink-muted lg:justify-self-end lg:text-lg">Pilih bidang yang ingin kamu pelajari lebih jauh.</p>
           </div>
           <MajorExplorer />
+        </div>
+      </section>
+
+      {/* Fasilitas Penunjang Pembelajaran */}
+      <section id="fasilitas" className="border-b border-ink/10 bg-white px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+        <div className="mx-auto w-full max-w-site">
+          <div>
+            <h2 className="max-w-4xl text-[clamp(2rem,3.8vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-ink-strong">
+              Fasilitas Penunjang Pembelajaran
+            </h2>
+          </div>
+          <FacilityShowcase
+            initialItems={initialFacilities}
+            limit={4}
+            enablePagination={false}
+            showCategoryFilter={false}
+          />
         </div>
       </section>
 
