@@ -48,7 +48,7 @@ export default function CurriculumPage() {
         ]}
       />
 
-      <section className="border-b border-ink/10 bg-[#f1f0ea] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
           <AboutBreadcrumb current="Kurikulum" />
           <div className="mt-12 grid gap-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-20">
@@ -78,7 +78,7 @@ export default function CurriculumPage() {
               kerja.
             </p>
             <p>
-              Cara belajar dapat berbeda pada setiap program keahlian, tetapi
+              Cara belajar dapat berbeda pada setiap jurusan, tetapi
               tujuannya sama: membangun kompetensi, tanggung jawab, dan kesiapan
               menentukan langkah setelah lulus.
             </p>
@@ -86,7 +86,7 @@ export default function CurriculumPage() {
         </div>
       </section>
 
-      <section className="border-y border-ink/10 bg-[#f1f0ea] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+      <section className="border-y border-ink/10 bg-[#f3f4f6] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto grid w-full max-w-site gap-8 lg:grid-cols-[0.36fr_0.64fr] lg:gap-20">
           <div>
             <p className="eyebrow">Siklus belajar</p>
@@ -144,13 +144,13 @@ export default function CurriculumPage() {
       <section className="border-t border-ink/10 bg-white px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
         <div className="mx-auto flex w-full max-w-site flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
           <p className="max-w-xl text-base font-extrabold leading-7 tracking-[-0.015em] text-ink-strong sm:text-lg">
-            Setiap program keahlian menerapkan pembelajaran sesuai bidangnya.
+            Setiap jurusan menerapkan pembelajaran sesuai bidangnya.
           </p>
           <Link
             href="/#jurusan"
             className="inline-flex items-center gap-3 text-sm font-extrabold text-ink-strong underline decoration-primary decoration-2 underline-offset-8"
           >
-            Lihat program keahlian <ArrowRightIcon className="size-4" />
+            Lihat jurusan <ArrowRightIcon className="size-4" />
           </Link>
         </div>
       </section>

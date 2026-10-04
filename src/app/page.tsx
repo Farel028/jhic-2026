@@ -1,13 +1,12 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { AchievementShowcase } from "@/components/home/achievement-showcase";
-import { ExtracurricularShowcase } from "@/components/home/extracurricular-showcase";
 import { InstagramSection } from "@/components/home/instagram-section";
 import { MajorExplorer } from "@/components/home/major-explorer";
-import { AdmissionCta, AlumniOutcome } from "@/components/home/outcomes-stories";
-import { PartnerTicker } from "@/components/home/partner-ticker";
+import { AdmissionCta } from "@/components/home/outcomes-stories";
 import { PracticeShowcase } from "@/components/home/practice-showcase";
 import { SchoolIntroduction } from "@/components/home/school-introduction";
+import { WhyChooseUs } from "@/components/home/why-choose-us";
 import { VirtualTourCta } from "@/components/home/virtual-tour-cta";
 import { CampusMapCta } from "@/components/home/campus-map-cta";
 import { SchoolJsonLd } from "@/components/seo/school-json-ld";
@@ -25,7 +24,7 @@ export default function Home() {
   return (
     <main id="konten-utama" className="flex-1">
       <SchoolJsonLd />
-      <section className="relative isolate overflow-hidden bg-[#faf8f5] px-4 pt-6 sm:px-8 sm:pt-8 lg:px-10 lg:pt-10">
+      <section className="relative isolate overflow-hidden bg-[#f3f4f6] px-4 pt-6 sm:px-8 sm:pt-8 lg:px-10 lg:pt-10">
         {/* Subtle Architectural Drafting Grid */}
         <div
           aria-hidden="true"
@@ -106,7 +105,7 @@ export default function Home() {
             />
             <Image
               src="/images/school/11-jurusan.webp"
-              alt="Sebelas siswa SMK Negeri 2 Surabaya mengenakan seragam praktik dari berbagai program keahlian"
+              alt="Sebelas siswa SMK Negeri 2 Surabaya mengenakan seragam praktik dari berbagai jurusan"
               width={2163}
               height={727}
               sizes="(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc(100vw - 4rem), (max-width: 1103px) calc(100vw - 5rem), (max-width: 1279px) 1024px, (max-width: 1535px) 1088px, 1152px"
@@ -124,11 +123,13 @@ export default function Home() {
 
       <SchoolIntroduction />
 
-      <section id="jurusan" className="border-b border-ink/10 bg-white px-5 py-20 sm:px-8 sm:py-24 lg:px-10 lg:py-28">
+      <WhyChooseUs />
+
+      <section id="jurusan" className="border-b border-ink/10 bg-white px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
-          <div className="grid items-end gap-7 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="grid gap-7 lg:items-center lg:grid-cols-[1.2fr_0.8fr]">
             <div>
-              <h2 className="max-w-4xl text-[clamp(2rem,3.8vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-ink-strong">11 Program Keahlian</h2>
+              <h2 className="max-w-4xl text-[clamp(2rem,3.8vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-ink-strong">Temukan jurusan yang cocok untukmu</h2>
             </div>
             <p className="max-w-xl text-base font-medium leading-7 text-ink-muted lg:justify-self-end lg:text-lg">Pilih bidang yang ingin kamu pelajari lebih jauh.</p>
           </div>
@@ -136,11 +137,8 @@ export default function Home() {
         </div>
       </section>
 
-      <ExtracurricularShowcase />
       <AchievementShowcase />
       <PracticeShowcase />
-      <AlumniOutcome />
-      <PartnerTicker />
       <VirtualTourCta />
       <CampusMapCta />
       <InstagramSection />

@@ -89,7 +89,7 @@ export function NewsroomFilter() {
                   aria-label={`Baca berita: ${item.title}`}
                   className="group block"
                 >
-                  <figure className="relative aspect-[4/3] overflow-hidden bg-[#ecebe5]">
+                  <figure className="relative aspect-[4/3] overflow-hidden bg-[#f3f4f6]">
                     <Image
                       src={item.image.src}
                       alt={item.image.alt}

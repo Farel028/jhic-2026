@@ -26,98 +26,109 @@ const majorThemes: Record<string, MajorTheme> = {
   RPL: { paper: "bg-[#a7f3d0]", border: "border-[#059669]", accentText: "text-[#065f46]" },
 };
 
-const rotations = ["-rotate-[1.2deg]", "rotate-[1deg]", "-rotate-[0.7deg]", "rotate-[1.3deg]"] as const;
-
 export function MajorExplorer() {
   const trackRef = useRef<HTMLUListElement>(null);
-  const cardRefs = useRef<(HTMLLIElement | null)[]>([]);
-  const animationFrameRef = useRef<number | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const dragStartRef = useRef<{
+    isDown: boolean;
+    startX: number;
+    scrollLeft: number;
+    hasMoved: boolean;
+  }>({
+    isDown: false,
+    startX: 0,
+    scrollLeft: 0,
+    hasMoved: false,
+  });
 
   const scrollLeft = () => {
-    const track = trackRef.current;
-    if (!track) return;
-    track.scrollBy({ left: -360, behavior: "smooth" });
+    trackRef.current?.scrollBy({ left: -280, behavior: "smooth" });
   };
 
   const scrollRight = () => {
-    const track = trackRef.current;
-    if (!track) return;
-    track.scrollBy({ left: 360, behavior: "smooth" });
+    trackRef.current?.scrollBy({ left: 280, behavior: "smooth" });
   };
 
-  const updateActiveIndex = () => {
+  const checkScroll = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 15);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 15);
+  };
+
+  const handleMouseDown = (e: React.MouseEvent) => {
     const track = trackRef.current;
     if (!track) return;
+    dragStartRef.current = {
+      isDown: true,
+      startX: e.pageX - track.offsetLeft,
+      scrollLeft: track.scrollLeft,
+      hasMoved: false,
+    };
+    setIsDragging(true);
+  };
 
-    // Update scroll reach status for button states
-    setCanScrollLeft(track.scrollLeft > 10);
-    setCanScrollRight(track.scrollLeft + track.clientWidth < track.scrollWidth - 10);
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!dragStartRef.current.isDown) return;
+    const track = trackRef.current;
+    if (!track) return;
+    const x = e.pageX - track.offsetLeft;
+    const walk = (x - dragStartRef.current.startX) * 1.3;
+    if (Math.abs(walk) > 4) {
+      dragStartRef.current.hasMoved = true;
+    }
+    track.scrollLeft = dragStartRef.current.scrollLeft - walk;
+  };
 
-    const trackCenter = track.scrollLeft + track.clientWidth / 2;
-    let closestIndex = 0;
-    let closestDistance = Number.POSITIVE_INFINITY;
+  const handleMouseUp = () => {
+    dragStartRef.current.isDown = false;
+    setIsDragging(false);
+  };
 
-    cardRefs.current.forEach((card, index) => {
-      if (!card) return;
-      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-      const distance = Math.abs(trackCenter - cardCenter);
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = index;
-      }
-    });
+  const handleMouseLeave = () => {
+    dragStartRef.current.isDown = false;
+    setIsDragging(false);
+  };
 
-    setActiveIndex((currentIndex) =>
-      currentIndex === closestIndex ? currentIndex : closestIndex,
-    );
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (dragStartRef.current.hasMoved) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
   };
 
   useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    updateActiveIndex();
-    const resizeObserver = new ResizeObserver(updateActiveIndex);
-    resizeObserver.observe(track);
-
+    const el = trackRef.current;
+    if (!el) return;
+    checkScroll();
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll, { passive: true });
     return () => {
-      resizeObserver.disconnect();
-      if (animationFrameRef.current !== null) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
     };
   }, []);
 
-  const handleScroll = () => {
-    if (animationFrameRef.current !== null) return;
-
-    animationFrameRef.current = requestAnimationFrame(() => {
-      updateActiveIndex();
-      animationFrameRef.current = null;
-    });
-  };
-
   return (
     <div
-      className="relative mt-9"
+      className="relative mt-8"
       role="region"
       aria-roledescription="carousel"
-      aria-label="Program keahlian SMK Negeri 2 Surabaya"
+      aria-label="Jurusan SMK Negeri 2 Surabaya"
     >
-      {/* Navigasi Carousel Arrow Kanan */}
+      {/* Navigasi Carousel Arrow */}
       <div className="mb-4 flex items-center justify-end gap-2">
         <button
           type="button"
           onClick={scrollLeft}
           disabled={!canScrollLeft}
           aria-label="Geser ke kiri"
-          className="group relative flex size-10 sm:size-11 items-center justify-center rounded-xl border border-ink/15 bg-white text-ink-strong shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all hover:border-primary hover:bg-primary hover:text-white hover:shadow-md active:scale-95 disabled:pointer-events-none disabled:opacity-35 focus-visible:outline-2 focus-visible:outline-primary"
+          className="group relative flex size-10 items-center justify-center rounded-xl border border-ink/15 bg-white text-ink-strong shadow-xs transition-all hover:border-ink-strong hover:bg-neutral-50 active:scale-95 disabled:pointer-events-none disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-primary"
         >
-          <svg viewBox="0 0 24 24" fill="none" className="size-5 transition-transform group-hover:-translate-x-0.5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" className="size-5 transition-transform group-hover:-translate-x-0.5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M15 19l-7-7 7-7" />
           </svg>
         </button>
@@ -126,75 +137,92 @@ export function MajorExplorer() {
           onClick={scrollRight}
           disabled={!canScrollRight}
           aria-label="Geser ke kanan"
-          className="group relative flex size-10 sm:size-11 items-center justify-center rounded-xl border border-ink/15 bg-white text-ink-strong shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all hover:border-primary hover:bg-primary hover:text-white hover:shadow-md active:scale-95 disabled:pointer-events-none disabled:opacity-35 focus-visible:outline-2 focus-visible:outline-primary"
+          className="group relative flex size-10 items-center justify-center rounded-xl border border-ink/15 bg-white text-ink-strong shadow-xs transition-all hover:border-ink-strong hover:bg-neutral-50 active:scale-95 disabled:pointer-events-none disabled:opacity-30 focus-visible:outline-2 focus-visible:outline-primary"
         >
-          <svg viewBox="0 0 24 24" fill="none" className="size-5 transition-transform group-hover:translate-x-0.5" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" className="size-5 transition-transform group-hover:translate-x-0.5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 5l7 7-7 7" />
           </svg>
         </button>
       </div>
 
-      <ul
-        ref={trackRef}
-        onScroll={handleScroll}
-        className="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-2 pb-5 pt-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-5 lg:gap-6"
-      >
-        {majorDetails.map((major, index) => {
-          const theme = majorThemes[major.code] ?? majorThemes.RPL;
-          const isActive = activeIndex === index;
+      {/* Area kartu jurusan */}
+      <div className="relative pt-2">
+        <ul
+          ref={trackRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          className={`flex gap-3.5 sm:gap-4 lg:gap-4.5 overflow-x-auto overscroll-x-contain px-2 pb-6 pt-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
+            isDragging
+              ? "cursor-grabbing select-none scroll-auto"
+              : "cursor-grab snap-x snap-mandatory"
+          }`}
+        >
+          {majorDetails.map((major, index) => {
+            const theme = majorThemes[major.code] ?? majorThemes.RPL;
 
-          return (
-            <li
-              key={major.slug}
-              ref={(element) => {
-                cardRefs.current[index] = element;
-              }}
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${index + 1} dari ${majorDetails.length}: ${major.name}`}
-              className={`w-[74vw] max-w-[19rem] shrink-0 snap-center transition-transform duration-300 ease-out sm:w-[17rem] lg:w-[19rem] ${
-                isActive
-                  ? "relative z-10 -translate-y-1 rotate-0 scale-[1.015]"
-                  : rotations[index % rotations.length]
-              }`}
-            >
-              <Link href={`/jurusan/${major.slug}`} className="group block">
-                <div className={`rounded-xl border-2 p-3 shadow-[0_10px_24px_rgba(11,31,51,0.12)] ${theme.paper} ${theme.border}`}>
-                  <div className="flex items-center justify-between border-b border-ink/15 px-1 pb-2.5" aria-hidden="true">
-                    {Array.from({ length: 5 }).map((_, holeIndex) => (
-                      <span key={holeIndex} className="size-3 rounded-full border border-ink/20 bg-white/80 shadow-inner" />
-                    ))}
-                  </div>
-
-                  <div className="relative mt-3 aspect-[3/4] overflow-hidden bg-white">
-                    <Image
-                      src={`/images/school/${major.code.toLowerCase()}-home.webp`}
-                      alt={`Poster jurusan ${major.name}`}
-                      fill
-                      loading="lazy"
-                      sizes="(max-width: 639px) 74vw, (max-width: 1023px) 17rem, 19rem"
-                      className="select-none object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02] group-focus-visible:scale-[1.02] motion-reduce:transition-none"
-                      draggable={false}
-                    />
-                  </div>
-
-                  <div className="flex min-h-24 items-start justify-between gap-4 px-1 pb-1 pt-4">
+            return (
+              <li
+                key={major.slug}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${index + 1} dari ${majorDetails.length}: ${major.name}`}
+                className="w-[68vw] max-w-[15.5rem] shrink-0 snap-center sm:w-[14.5rem] lg:w-[15rem] xl:w-[15.5rem]"
+              >
+                <Link
+                  href={`/jurusan/${major.slug}`}
+                  onClick={handleCardClick}
+                  draggable={false}
+                  className="group block h-full select-none"
+                >
+                  {/* Kartu Jurusan Solid Kotak Tegas */}
+                  <div
+                    className={`relative flex h-full flex-col justify-between border border-ink-strong/20 p-3 shadow-[0_4px_16px_rgba(11,31,51,0.06)] transition-all duration-300 ease-out group-hover:-translate-y-1.5 group-hover:shadow-[0_12px_28px_rgba(11,31,51,0.12)] ${theme.paper}`}
+                  >
                     <div>
-                      <p className={`text-[0.65rem] font-extrabold uppercase tracking-[0.12em] ${theme.accentText}`}>
-                        {major.group}
-                      </p>
-                      <h3 className="mt-2 text-base font-extrabold leading-6 tracking-[-0.02em] text-ink-strong sm:text-lg">
-                        {major.name}
-                      </h3>
+                      {/* Poster Karya Siswa Asli (3/4 Aspect) */}
+                      <div className="relative aspect-[3/4] w-full overflow-hidden border border-ink-strong/15 bg-white shadow-xs">
+                        <Image
+                          src={`/images/school/${major.code.toLowerCase()}-home.webp`}
+                          alt={`Poster jurusan ${major.name}`}
+                          fill
+                          loading="lazy"
+                          sizes="(max-width: 639px) 68vw, (max-width: 1023px) 14.5rem, 15.5rem"
+                          className="select-none object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+                          draggable={false}
+                        />
+                      </div>
+
+                      {/* Rumpun Keahlian di Bawah Poster */}
+                      <div className="mt-2.5 px-0.5">
+                        <span className={`text-[0.65rem] font-bold uppercase tracking-wider ${theme.accentText}`}>
+                          {major.group}
+                        </span>
+                      </div>
                     </div>
-                    <ChevronRightIcon className={`mt-1 size-5 shrink-0 transition-transform group-hover:translate-x-1 ${theme.accentText}`} />
+
+                    {/* Judul & Action */}
+                    <div className="mt-1 flex items-end justify-between gap-2.5 px-0.5 pb-0.5">
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-sm font-black leading-tight tracking-[-0.02em] text-ink-strong sm:text-[0.95rem]">
+                          {major.name}
+                        </h3>
+                        <p className="mt-0.5 truncate text-[0.68rem] font-semibold text-ink-strong/75">
+                          {major.focus.slice(0, 3).join(" • ")}
+                        </p>
+                      </div>
+                      <span className="inline-flex size-7 shrink-0 items-center justify-center text-ink-strong transition-transform group-hover:translate-x-0.5">
+                        <ChevronRightIcon className="size-4" />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 }

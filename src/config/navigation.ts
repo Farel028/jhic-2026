@@ -1,4 +1,3 @@
-import { extracurricularCatalog } from "@/data/extracurriculars";
 import { majorCatalog } from "@/data/majors";
 
 export type NavigationLink = {
@@ -21,6 +20,7 @@ export const primaryNavigation: readonly NavigationItem[] = [
       { label: "Sejarah", href: "/tentang/sejarah" },
       { label: "Kurikulum & Pembelajaran", href: "/tentang/kurikulum" },
       { label: "Fasilitas", href: "/tentang/fasilitas" },
+      { label: "Berita", href: "/berita" },
     ],
   },
   {
@@ -35,25 +35,34 @@ export const primaryNavigation: readonly NavigationItem[] = [
   {
     label: "Siswa",
     children: [
+      { label: "Ekstrakurikuler", href: "/siswa/ekstrakurikuler" },
       { label: "Prestasi", href: "/siswa/prestasi" },
       { label: "Karya Siswa", href: "/siswa/karya" },
+      { label: "Lulusan Terbaik", href: "/siswa/lulusan-terbaik" },
       { label: "Alumni", href: "/siswa/alumni" },
-      { label: "Ekstrakurikuler", href: "/#ekstrakurikuler" },
-      ...extracurricularCatalog.map((item) => ({
-        label: item.name,
-        href: `/ekstrakurikuler/${item.slug}`,
-      })),
     ],
   },
-  { label: "Berita", href: "/berita" },
-  { label: "Peta Sekolah", href: "/peta-sekolah" },
-  { label: "Virtual Tour", href: "/virtual-tour" },
+  {
+    label: "Layanan",
+    children: [
+      { label: "BKK dan Karier", href: "/informasi/bkk" },
+      { label: "PKL", href: "/informasi/pkl" },
+      { label: "Produk BLUD", href: "/produk" },
+    ],
+  },
+  {
+    label: "Jelajahi Sekolah",
+    children: [
+      { label: "Virtual Tour 360°", href: "/virtual-tour" },
+      { label: "Peta Sekolah 3D", href: "/peta-sekolah" },
+    ],
+  },
 ] as const;
 
 export const footerNavigation = {
   jelajahi: [
-    { label: "Program keahlian", href: "/#jurusan" },
-    { label: "Ekstrakurikuler", href: "/#ekstrakurikuler" },
+    { label: "Jurusan", href: "/#jurusan" },
+    { label: "Ekstrakurikuler", href: "/siswa/ekstrakurikuler" },
     { label: "Karya siswa", href: "/siswa/karya" },
     { label: "Prestasi", href: "/siswa/prestasi" },
     { label: "Alumni", href: "/siswa/alumni" },
@@ -61,6 +70,9 @@ export const footerNavigation = {
   ],
   informasi: [
     { label: "Info SPMB", href: "/informasi/spmb" },
+    { label: "BKK dan Karier", href: "/informasi/bkk" },
+    { label: "PKL", href: "/informasi/pkl" },
+    { label: "Produk BLUD", href: "/produk" },
     { label: "Profil sekolah", href: "/tentang/profil" },
     { label: "Fasilitas", href: "/tentang/fasilitas" },
     { label: "Peta Sekolah", href: "/peta-sekolah" },

@@ -136,7 +136,7 @@ export default async function StoryPage({ params }: StoryPageProps) {
         </div>
       </article>
 
-      <section className="border-t border-ink/10 bg-[#f1f0ea] px-5 py-10 sm:px-8 sm:py-12 lg:px-10">
+      <section className="border-t border-ink/10 bg-[#f3f4f6] px-5 py-10 sm:px-8 sm:py-12 lg:px-10">
         <div className="mx-auto flex w-full max-w-4xl flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-primary-strong">Berita berikutnya</p>

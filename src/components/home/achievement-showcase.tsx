@@ -30,7 +30,7 @@ export function AchievementShowcase() {
   return (
     <section
       aria-labelledby="prestasi-siswa"
-      className="border-b border-ink/10 bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24"
+      className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24"
     >
       <div className="mx-auto w-full max-w-site">
         <div className="grid items-end gap-4 border-b border-ink/15 pb-7 md:grid-cols-[1fr_auto] md:gap-10">
@@ -49,7 +49,7 @@ export function AchievementShowcase() {
           {visiblePosters.map((poster) => (
             <li key={poster.src} className="snap-start">
               <Link href="/siswa/prestasi" className="group block">
-                <figure className="relative aspect-[4/5] overflow-hidden rounded-xl bg-[#e3e1d9]">
+                <figure className="relative aspect-[4/5] overflow-hidden rounded-xl bg-[#f3f4f6]">
                   <Image
                     src={poster.src}
                     alt={poster.alt}

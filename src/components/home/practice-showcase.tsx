@@ -29,7 +29,7 @@ export function PracticeShowcase() {
                   href={item.href}
                   className="group grid grid-cols-[7.5rem_1fr] items-start gap-4 sm:block"
                 >
-                  <figure className="relative aspect-[4/3] overflow-hidden bg-[#e3e1d9]">
+                  <figure className="relative aspect-[4/3] overflow-hidden bg-[#f3f4f6]">
                     <Image
                       src={item.image.src}
                       alt={item.image.alt}
@@ -41,14 +41,14 @@ export function PracticeShowcase() {
                   </figure>
 
                   <div className="sm:mt-4">
-                    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.7rem] font-bold leading-5 text-ink-muted">
+                    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-bold leading-5 text-ink-muted sm:text-sm">
                       <span className="text-primary-strong">
                         {item.categoryLabel}
                       </span>
                       <span aria-hidden="true">/</span>
                       <time>{item.date}</time>
                     </p>
-                    <h3 className="mt-2 text-base font-extrabold leading-6 tracking-[-0.02em] text-ink-strong transition-colors group-hover:text-primary-strong sm:text-lg">
+                    <h3 className="mt-5 text-base font-extrabold leading-6 tracking-[-0.02em] text-ink-strong transition-colors group-hover:text-primary-strong sm:text-lg">
                       {item.title}
                     </h3>
                   </div>

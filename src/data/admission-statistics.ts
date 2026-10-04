@@ -37,7 +37,7 @@ export const admissionSnapshots: readonly AdmissionSnapshot[] = [
     status: "available",
     statusLabel: "Arsip sementara",
     description:
-      "Rentang nilai dan pagu jalur nilai prestasi akademik per program keahlian pada SPMB 2025.",
+      "Rentang nilai dan pagu jalur nilai prestasi akademik per jurusan pada SPMB 2025.",
     scoreMethod:
       "Nilai pada tabel hanya mewakili jalur nilai prestasi akademik dan tidak dapat disamakan dengan seluruh jalur penerimaan.",
     sourceLabel: "Rekap publik SPMB 2025",

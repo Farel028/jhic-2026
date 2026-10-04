@@ -12,7 +12,7 @@ export function SchoolIntroduction() {
           <div className="relative order-1 mx-auto h-[25rem] w-full max-w-[35rem] self-end sm:h-[34rem] lg:h-[39rem]">
             <div
               aria-hidden="true"
-              className="absolute inset-x-[8%] bottom-0 top-[14%] rounded-t-[12rem] bg-[#e3e1d9]"
+              className="absolute inset-x-[8%] bottom-0 top-[14%] rounded-t-[12rem] bg-[#f3f4f6] border border-ink/10"
             />
             <Image
               src={school.principal.image.src}
@@ -41,9 +41,9 @@ export function SchoolIntroduction() {
             </h2>
             <div className="mt-7 max-w-xl space-y-5 text-base font-medium leading-8 text-ink-muted sm:text-lg">
               <p>
-                Selamat datang di website resmi {school.shortName}. Website ini
-                kami hadirkan sebagai ruang informasi sekaligus penghubung bagi
-                murid, orang tua, alumni, mitra, dan masyarakat.
+                Selamat datang di website resmi {school.shortName}. Website ini kami
+                hadirkan sebagai ruang informasi sekaligus penghubung bagi murid,
+                orang tua, alumni, mitra, dan masyarakat.
               </p>
               <p>
                 Melalui pendidikan vokasi yang berakar pada praktik, karya, dan

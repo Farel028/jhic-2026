@@ -49,7 +49,7 @@ export default function ProfilePage() {
         ]}
       />
 
-      <section className="border-b border-ink/10 bg-[#f1f0ea] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
           <AboutBreadcrumb current="Profil" />
           <div className="mt-12 grid gap-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-20">
@@ -81,7 +81,7 @@ export default function ProfilePage() {
               </p>
               <p>
                 Lebih dari satu abad kemudian, fungsi pendidikannya tetap hidup
-                melalui 11 program keahlian di bidang teknologi, seni,
+                melalui 11 jurusan di bidang teknologi, seni,
                 konstruksi, elektronika, manufaktur, dan otomotif.
               </p>
             </div>
@@ -89,7 +89,7 @@ export default function ProfilePage() {
               href="/#jurusan"
               className="mt-7 inline-flex items-center gap-3 text-sm font-extrabold text-ink-strong underline decoration-primary decoration-2 underline-offset-8"
             >
-              Lihat program keahlian <ArrowRightIcon className="size-4" />
+              Lihat jurusan <ArrowRightIcon className="size-4" />
             </Link>
           </div>
 
@@ -104,7 +104,7 @@ export default function ProfilePage() {
         </div>
       </section>
 
-      <section id="visi-misi" className="border-y border-ink/10 bg-[#f1f0ea] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+      <section id="visi-misi" className="border-y border-ink/10 bg-[#f3f4f6] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="mx-auto grid w-full max-w-site gap-6 lg:grid-cols-[0.3fr_0.7fr] lg:gap-16">
           <p className="eyebrow">Visi sekolah</p>
           <p className="max-w-5xl text-[clamp(1.5rem,2.7vw,2.3rem)] font-extrabold leading-[1.28] tracking-[-0.025em] text-ink-strong">

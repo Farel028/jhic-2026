@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRightIcon } from "@/components/ui/icons";
 import { StudentMedia } from "@/components/students/student-media";
 import { studentAchievements } from "@/data/students";
 
@@ -60,9 +59,6 @@ export function AchievementGallery() {
               <h2 className="mt-5 text-2xl font-black leading-tight tracking-[-0.04em] text-ink-strong">{achievement.title}</h2>
               <p className="mt-3 text-sm font-extrabold text-primary-strong">{achievement.people}</p>
               <p className="mt-4 text-sm leading-6 text-ink-muted">{achievement.description}</p>
-              <a href={achievement.sourceUrl} rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-ink-strong underline decoration-primary decoration-2 underline-offset-8">
-                Baca sumber <ArrowUpRightIcon className="size-4" />
-              </a>
             </div>
           </article>
         ))}

@@ -21,7 +21,6 @@ export type MajorDetail = {
     src: string;
     alt: string;
   };
-  sourceNote?: string;
 };
 
 export type MajorPreview = Pick<
@@ -296,8 +295,6 @@ export const majorDetails: readonly MajorDetail[] = [
       src: "/images/school/teaching-factory-motor.webp",
       alt: "Ruang praktik layanan sepeda motor SMK Negeri 2 Surabaya",
     },
-    sourceNote:
-      "Banner TSM pada arsip sekolah memuat materi TKR. Ringkasan TSM pada halaman ini disajikan sebagai orientasi umum bidang dan perlu dikonfirmasi kembali dengan tim jurusan.",
   },
   {
     slug: "teknik-komputer-dan-jaringan",

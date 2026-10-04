@@ -12,7 +12,7 @@ export function SiteHeader() {
         <DesktopNavigation />
 
         <div className="ml-auto flex items-center gap-2 lg:ml-0">
-          <Link href="/informasi/spmb" className="hidden min-h-11 items-center rounded-xl bg-accent-strong px-5 text-[0.82rem] font-extrabold text-ink-strong transition-colors hover:bg-accent lg:inline-flex">
+          <Link href="/informasi/spmb" className="hidden min-h-11 items-center rounded-xl bg-accent-strong px-5 text-[0.95rem] font-extrabold text-ink-strong transition-colors hover:bg-accent lg:inline-flex">
             Info SPMB
           </Link>
           <MobileMenu />

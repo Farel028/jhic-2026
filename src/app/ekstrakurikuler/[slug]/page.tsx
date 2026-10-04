@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
@@ -68,39 +69,51 @@ export default async function ExtracurricularPage({
       <BreadcrumbJsonLd
         items={[
           { name: "Beranda", path: "/" },
-          { name: "Ekstrakurikuler", path: "/#ekstrakurikuler" },
+          { name: "Ekstrakurikuler", path: "/siswa/ekstrakurikuler" },
           { name: item.name, path: `/ekstrakurikuler/${item.slug}` },
         ]}
       />
 
-      <section className="border-b border-ink/10 bg-[#f1f0ea] px-5 py-12 text-ink-strong sm:px-8 sm:py-16 lg:px-10 lg:py-20">
+      <section className="border-b border-ink/10 bg-[#f3f4f6] px-5 py-12 text-ink-strong sm:px-8 sm:py-16 lg:px-10 lg:py-20">
         <div className="mx-auto w-full max-w-site">
           <nav aria-label="Breadcrumb" className="text-xs font-extrabold uppercase tracking-[0.12em] text-ink-muted">
             <ol className="flex flex-wrap items-center gap-2">
               <li><Link href="/" className="transition-colors hover:text-primary-strong">Beranda</Link></li>
               <li aria-hidden="true">/</li>
-              <li><Link href="/#ekstrakurikuler" className="transition-colors hover:text-primary-strong">Ekstrakurikuler</Link></li>
+              <li><Link href="/siswa/ekstrakurikuler" className="transition-colors hover:text-primary-strong">Ekstrakurikuler</Link></li>
               <li aria-hidden="true">/</li>
               <li aria-current="page" className="text-ink-strong">{item.short}</li>
             </ol>
           </nav>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
-            <div>
-              <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary-strong">
-                {item.category} · {item.short}
-              </p>
-              <h1 className="mt-4 text-[clamp(2.4rem,4.8vw,3.75rem)] font-extrabold leading-[1.02] tracking-[-0.035em]">
-                {item.name}
-              </h1>
-              <p className="mt-6 max-w-xl text-base font-medium leading-7 text-ink-muted sm:text-lg sm:leading-8">
-                {item.description}
-              </p>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+              <div className="relative flex size-24 sm:size-28 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-ink/15 bg-white p-2 shadow-xs">
+                <Image
+                  src={`/images/ekskul/${item.slug}.jpg`}
+                  alt={`Logo ${item.name}`}
+                  width={112}
+                  height={112}
+                  className="size-full rounded-xl object-cover"
+                  priority
+                />
+              </div>
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-primary-strong">
+                  {item.category} · {item.short}
+                </p>
+                <h1 className="mt-2 text-[clamp(2.2rem,4.4vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.035em]">
+                  {item.name}
+                </h1>
+                <p className="mt-4 max-w-xl text-base font-medium leading-7 text-ink-muted">
+                  {item.description}
+                </p>
+              </div>
             </div>
 
             <dl className="grid gap-3 rounded-2xl border border-ink/10 bg-white p-5 shadow-[0_2px_8px_rgba(0,0,0,0.04)] sm:grid-cols-2 sm:p-6">
               {infoLabels.map((label) => (
-                <div key={label} className="rounded-xl bg-[#f1f0ea] px-4 py-3">
+                <div key={label} className="rounded-xl bg-[#f3f4f6] px-4 py-3">
                   <dt className="text-[0.65rem] font-extrabold uppercase tracking-[0.14em] text-ink-muted">
                     {label}
                   </dt>
@@ -142,9 +155,8 @@ export default async function ExtracurricularPage({
                 </li>
               ))}
             </ol>
-            <p className="mt-7 max-w-3xl border-l-4 border-accent-strong pl-5 text-sm font-medium leading-6 text-ink-muted">
-              Materi di atas adalah kerangka awal dari tim web dan perlu dikonfirmasi
-              dengan pembina masing-masing ekskul sebelum dianggap resmi.
+            <p className="mt-7 max-w-3xl text-sm font-medium leading-6 text-ink-muted">
+              Kegiatan dapat menyesuaikan program kerja dan arahan pembina.
             </p>
           </div>
         </div>
@@ -166,7 +178,7 @@ export default async function ExtracurricularPage({
                 ))}
               </ul>
             ) : (
-              <p className="mt-8 rounded-2xl bg-[#f1f0ea] px-5 py-6 text-base font-medium leading-7 text-ink-muted">
+              <p className="mt-8 rounded-2xl bg-[#f3f4f6] px-5 py-6 text-base font-medium leading-7 text-ink-muted">
                 Belum ada prestasi terverifikasi yang ditampilkan untuk {item.name}.
                 Prestasi baru akan ditambahkan setelah ada sumber artikel atau
                 dokumen resmi sekolah.
@@ -193,7 +205,7 @@ export default async function ExtracurricularPage({
                 {item.instagram} <ArrowRightIcon className="size-4" />
               </a>
               <Link
-                href="/#ekstrakurikuler"
+                href="/siswa/ekstrakurikuler"
                 className="inline-flex min-h-11 items-center text-sm font-extrabold text-ink-strong underline decoration-accent-strong decoration-2 underline-offset-8"
               >
                 Semua ekstrakurikuler
