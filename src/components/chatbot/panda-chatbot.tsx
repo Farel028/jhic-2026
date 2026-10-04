@@ -166,26 +166,14 @@ function PandoIcon({ className = "h-8 w-12" }: { className?: string }) {
   );
 }
 
-function ExpandIcon({ expanded }: { expanded: boolean }) {
-  return expanded ? (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="size-5">
-      <path d="M9 4v5H4m11-5v5h5M9 20v-5H4m11 5v-5h5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  ) : (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="size-5">
-      <path d="M9 4H4v5m11-5h5v5M9 20H4v-5m11 5h5v-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 function MascotStage({ uniform }: { uniform: PandaUniform }) {
   return (
-    <div className="relative hidden flex-col justify-center overflow-hidden border-r border-ink/10 bg-[#f8f7f4] p-4 sm:flex sm:h-full sm:p-5">
-      <div className="relative my-auto flex h-72 sm:h-[26rem] w-full items-end justify-center overflow-hidden scale-110 sm:scale-125 origin-bottom">
+    <div className="relative hidden min-h-0 flex-col justify-end overflow-hidden border-r border-ink/10 bg-[#f8f7f4] sm:flex sm:h-full sm:p-0">
+      <div className="relative flex h-full min-h-0 w-full items-end justify-center overflow-hidden">
         <LazyMascotVideo
           src={uniform.src}
           alt={`Pando memakai ${uniform.uniformLabel.toLocaleLowerCase("id-ID")}`}
-          className="size-full object-bottom"
+          className="h-full max-h-full w-full -translate-y-[18%]"
           fit="contain"
         />
       </div>
@@ -253,7 +241,6 @@ export function PandaChatbot() {
   const messageEndRef = useRef<HTMLDivElement>(null);
   const nextMessageIdRef = useRef(2);
   const [isOpen, setIsOpen] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [uniform, setUniform] = useState<PandaUniform>(defaultUniform);
@@ -378,10 +365,7 @@ export function PandaChatbot() {
             id={panelId}
             role="region"
             aria-labelledby={`${panelId}-title`}
-            className={`panda-chatbot-panel flex h-[min(40rem,calc(100dvh-5.25rem))] w-[min(26rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-2xl border border-ink/15 bg-white text-ink-strong shadow-[0_16px_40px_rgba(11,36,71,0.16)] sm:h-[min(40rem,calc(100dvh-5.25rem))] max-sm:max-h-[calc(100dvh-4.5rem)] max-sm:w-[calc(100vw-1.5rem)] max-sm:rounded-xl ${isExpanded
-                ? "sm:h-[min(43rem,calc(100dvh-2.5rem))] sm:w-[min(52rem,calc(100vw-2.5rem))]"
-                : ""
-                }`}
+            className="panda-chatbot-panel flex h-[min(40rem,calc(100dvh-5.25rem))] w-[min(26rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-2xl border border-ink/15 bg-white text-ink-strong shadow-[0_16px_40px_rgba(11,36,71,0.16)] sm:h-[min(43rem,calc(100dvh-2.5rem))] sm:w-[min(52rem,calc(100vw-2.5rem))] max-sm:max-h-[calc(100dvh-4.5rem)] max-sm:w-[calc(100vw-1.5rem)] max-sm:rounded-xl"
           >
             <header className="relative flex min-h-[3.75rem] shrink-0 items-center gap-2.5 border-b border-ink/10 bg-[#faf9f6] px-3 sm:min-h-[4.25rem] sm:gap-3 sm:px-5">
               <PandoIcon className="h-8 w-10 shrink-0 sm:h-9 sm:w-12" />
@@ -396,15 +380,6 @@ export function PandaChatbot() {
               <div className="flex items-center gap-1.5">
                 <button
                   type="button"
-                  onClick={() => setIsExpanded((current) => !current)}
-                  className="hidden size-9 place-items-center rounded-lg border border-ink/10 text-ink-muted transition-colors hover:bg-black/5 hover:text-ink-strong sm:grid"
-                  aria-label={isExpanded ? "Kecilkan panel Pando" : "Perbesar panel Pando"}
-                  title={isExpanded ? "Kecilkan panel" : "Perbesar panel"}
-                >
-                  <ExpandIcon expanded={isExpanded} />
-                </button>
-                <button
-                  type="button"
                   onClick={closePanel}
                   className="grid size-9 place-items-center rounded-lg border border-ink/10 text-ink-muted transition-colors hover:bg-black/5 hover:text-ink-strong"
                   aria-label="Tutup Pando"
@@ -417,15 +392,10 @@ export function PandaChatbot() {
               </div>
             </header>
 
-            <div
-              className={`min-h-0 flex-1 ${isExpanded
-                ? "flex flex-col sm:grid sm:grid-cols-[minmax(15rem,0.85fr)_minmax(22rem,1.25fr)]"
-                : "grid flex-col grid-rows-[minmax(0,1fr)_minmax(0,1fr)] sm:flex"
-                }`}
+            <div className="min-h-0 flex-1 flex flex-col sm:grid sm:grid-cols-[minmax(15rem,0.85fr)_minmax(22rem,1.25fr)] sm:grid-rows-1"
             >
-              {isExpanded ? <MascotStage uniform={uniform} /> : null}
-              {!isExpanded ? (
-                <div className="relative flex min-h-0 items-start justify-center overflow-hidden bg-[#f8f7f4] sm:hidden">
+              <MascotStage uniform={uniform} />
+              <div className="relative flex min-h-0 items-start justify-center overflow-hidden bg-[#f8f7f4] sm:hidden">
                   <LazyMascotVideo
                     src={uniform.src}
                     alt={`Pando memakai ${uniform.uniformLabel.toLocaleLowerCase("id-ID")}`}
@@ -433,7 +403,6 @@ export function PandaChatbot() {
                     fit="contain"
                   />
                 </div>
-              ) : null}
 
               <div className="panda-chat-surface min-h-0 flex flex-1 flex-col bg-[#fdfcfb]">
                 <div
