@@ -139,6 +139,11 @@ export const rooms: MapRoom[] = [
   room('r08-e-besar', 'Gedung R. 08 Timur Vertikal', 'kelas', 1705, 41, 104, 294, 'Ujung Timur Laut', 'Gedung sayap timur laut bertingkat'),
   room('r08-e-bawah-1', 'R. 08 (Timur Bawah 1)', 'kelas', 1675, 407, 151, 46, 'Timur', 'Ruang kelas teori'),
   room('r08-e-bawah-2', 'R. 08 (Timur Bawah 2)', 'kelas', 1675, 458, 151, 46, 'Timur', 'Ruang kelas teori'),
+  room('taman-strip-selatan', 'Taman Jalur Hijau Kelas Bawah', 'taman', 213, 922, 331, 18, 'Selatan Barat Daya', 'Taman peneduh memanjang di bawah ruang kelas R.05-R.01'),
+  room('parkir-kelas-11', 'Parkir Kelas 11', 'parkir', 156, 981, 385, 54, 'Selatan Barat Daya', 'Area parkir kendaraan roda dua siswa kelas 11'),
+  room('pos-satpam-selatan', 'Pos Satpam Gerbang Depan', 'administrasi', 562, 981, 37, 54, 'Selatan Barat Daya', 'Pos keamanan dan kontrol akses gerbang depan'),
+  room('p-guru', 'Pos Pengawas & Piket Guru', 'administrasi', 542, 711, 85, 80, 'Pusat Barat', 'Ruang kerja piket dan pengawas guru'),
+  room('rbk-timur', 'Ruang BK Samping Guru', 'administrasi', 540, 797, 64, 44, 'Pusat Barat', 'Layanan bimbingan konseling siswa'),
 ];
 
 export const hallRoof = [
@@ -148,25 +153,32 @@ export const hallRoof = [
 ] as const;
 
 export const paths = [
-  // Jalan utama keliling luar
+  // Jalan utama keliling perimeter luar
   [10, 10, 1900, 28],
   [10, 1040, 1900, 32],
   [10, 10, 20, 1050],
   [1890, 10, 20, 1050],
-  // Koridor jalan internal barat
-  [70, 10, 28, 1050],
-  [150, 10, 28, 1050],
-  [215, 10, 28, 1050],
-  // Koridor horizontal
+  // Koridor jalan paving internal barat (antara 2 parkir barat)
+  [66, 10, 38, 1050],
+  [150, 10, 8, 1050],
+  // Koridor paving horizontal kelas utara
   [215, 105, 1450, 25],
   [215, 205, 1450, 25],
   [215, 410, 1450, 25],
   [215, 488, 1450, 25],
-  [215, 610, 1450, 25],
-  [215, 678, 1450, 25],
-  [215, 842, 1450, 25],
-  [215, 930, 1450, 25],
-  // Koridor vertikal internal
+  // Jalan paving lebar sirkulasi Bagian 2 (Canva):
+  // 1. Jalan paving keliling Taman Tengah
+  [215, 677, 330, 14],
+  [215, 842, 330, 16],
+  [215, 691, 11, 151],
+  [525, 691, 17, 151],
+  // 2. Jalan paving lebar antara kelas bawah dan Parkir Kelas 11 (lebar 41px sesuai Canva)
+  [150, 940, 450, 41],
+  // 3. Akses paving penghubung antara Parkir Kelas 11 dan Pos Satpam
+  [541, 981, 21, 54],
+  // 4. Plaza pedestrian paving bertitik di depan gerbang selatan (lebar 49px sesuai Canva)
+  [150, 1035, 450, 49],
+  // Koridor vertikal internal lainnya
   [742, 10, 28, 1050],
   [943, 10, 28, 1050],
   [1148, 10, 28, 1050],
